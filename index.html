@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kristal Menguc — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e0e0e; --surface: #161616; --border: #2a2a2a;
+      --text: #e8e8e8; --muted: #888; --accent: #c8f04e; --accent-dim: #2a3a10;
+      --font-sans: 'Syne', sans-serif; --font-mono: 'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 16px; line-height: 1.7; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(14,14,14,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 14px; color: var(--accent); letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--font-mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    section { max-width: 920px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 5rem; }
+    .hero-tag { font-family: var(--font-mono); font-size: 13px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    .hero-name { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-name span { color: var(--accent); }
+    .hero-sub { font-family: var(--font-mono); font-size: 14px; color: var(--muted); max-width: 560px; line-height: 1.9; margin-bottom: 3rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.05em; padding: 0.75rem 1.75rem; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .btn-primary { background: var(--accent); color: #0e0e0e; border: 1px solid var(--accent); font-weight: 500; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--muted); }
+
+    .section-label { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+    .section-title { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); font-size: 15px; line-height: 1.9; margin-bottom: 1rem; }
+    .about-text p:last-of-type { margin-bottom: 1.75rem; }
+    .skills-group { margin-bottom: 1.75rem; }
+    .skills-label { font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.65rem; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .skill-tag { font-family: var(--font-mono); font-size: 11px; padding: 0.35rem 0.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: 2px; color: var(--text); }
+
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; display: block; text-decoration: none; }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .project-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; }
+    .project-badge { font-family: var(--font-mono); font-size: 10px; padding: 0.2rem 0.6rem; background: var(--accent-dim); color: var(--accent); border-radius: 2px; }
+    .project-name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.65rem; letter-spacing: -0.01em; }
+    .project-desc { font-size: 13.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .project-tag { font-family: var(--font-mono); font-size: 11px; padding: 0.25rem 0.6rem; background: var(--accent-dim); color: var(--accent); border-radius: 2px; }
+
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-date { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 0.2rem; line-height: 1.6; }
+    .exp-role { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .exp-company { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.75rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .exp-bullets li { font-size: 13.5px; color: var(--muted); line-height: 1.75; padding-left: 1rem; position: relative; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
+
+    .edu-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .edu-item:first-child { border-top: 1px solid var(--border); }
+    .edu-date { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 0.2rem; }
+    .edu-degree { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .edu-school { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.5rem; }
+    .edu-detail { font-size: 13.5px; color: var(--muted); line-height: 1.8; }
+
+    .awards-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .award-item { display: flex; justify-content: space-between; align-items: baseline; padding: 0.65rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 2px; gap: 1rem; }
+    .award-name { font-size: 13px; color: var(--text); }
+    .award-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; max-width: 920px; margin: 4rem auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-text { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 6rem 1.5rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .award-item { flex-direction: column; gap: 0.25rem; }
+      footer { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">kristal.menguc</span>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#education">education</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <p class="hero-tag">// ML researcher &amp; software engineer</p>
+    <h1 class="hero-name">Kristal<br><span>Menguc.</span></h1>
+    <p class="hero-sub">I build machine learning systems at the intersection of neuroscience and AI — from self-supervised foundation models to clinical brain-computer interfaces.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View my work</a>
+      <a href="mailto:kristaldoga@gmail.com" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <p class="section-label">// 01 — about</p>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a thesis-based Master's graduate in Computer Science from York University, where I researched self-supervised learning for biosignal analysis — specifically applying foundation models to sleep-stage classification from EEG and DBS recordings.</p>
+        <p>My background spans neuroscience, cognitive science, and machine learning, giving me a rare ability to bridge clinical problems with modern deep learning techniques.</p>
+        <p>I'm currently open to full-time ML engineering and research roles.</p>
+        <a href="mailto:kristaldoga@gmail.com" class="btn btn-ghost" style="font-size:12px;">kristaldoga@gmail.com →</a>
+      </div>
+      <div>
+        <div class="skills-group">
+          <p class="skills-label">// languages</p>
+          <div class="skills-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">MATLAB</span>
+            <span class="skill-tag">SQL</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-label">// ML &amp; frameworks</p>
+          <div class="skills-list">
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">HuggingFace</span>
+            <span class="skill-tag">Scikit-Learn</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-label">// ML areas</p>
+          <div class="skills-list">
+            <span class="skill-tag">Self-supervised learning</span>
+            <span class="skill-tag">Transformers</span>
+            <span class="skill-tag">Time-series</span>
+            <span class="skill-tag">LLMs</span>
+            <span class="skill-tag">CNNs</span>
+            <span class="skill-tag">ViTs</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-label">// tools</p>
+          <div class="skills-list">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">W&amp;B</span>
+            <span class="skill-tag">Compute Canada</span>
+            <span class="skill-tag">OpenAI API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <p class="section-label">// 02 — projects</p>
+    <h2 class="section-title">Things I've built</h2>
+    <div class="projects-grid">
+
+      <a href="#" class="project-card">
+        <div class="project-header">
+          <span class="project-num">001</span>
+          <span class="project-badge">winning project</span>
+        </div>
+        <p class="project-name">TMS Stimulation Visualizer</p>
+        <p class="project-desc">Patient-specific simulation framework modelling the effects of Transcranial Magnetic Stimulation on functional brain connectivity. 47.8% of simulated patients showed improved connectivity, aligning with clinical literature (40% response rate).</p>
+        <div class="project-tags">
+          <span class="project-tag">Connectomics</span>
+          <span class="project-tag">3D Visualization</span>
+          <span class="project-tag">LLM Analysis</span>
+          <span class="project-tag">Evolved Tech Hackathon</span>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-header">
+          <span class="project-num">002</span>
+          <span class="project-badge">finalist</span>
+        </div>
+        <p class="project-name">Mental Health AI Chatbot Guardrails</p>
+        <p class="project-desc">Stress-tested a mental health chatbot for safety vulnerabilities. Generated synthetic dialogue datasets via LLM multi-agent self-play. Fine-tuned mBERT classifiers for input guardrails with a secondary LLM judge for uncertain predictions.</p>
+        <div class="project-tags">
+          <span class="project-tag">LLMs</span>
+          <span class="project-tag">mBERT</span>
+          <span class="project-tag">Synthetic Data</span>
+          <span class="project-tag">Mila Hackathon</span>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-header">
+          <span class="project-num">003</span>
+        </div>
+        <p class="project-name">ML Reproducibility Challenge: SimMTM</p>
+        <p class="project-desc">Reproduced SimMTM — a channel-independent transformer encoder with masked reconstruction pretraining and downstream forecasting fine-tuning. Implemented geometric masking, similarity matrix computation, and manifold + reconstruction loss.</p>
+        <div class="project-tags">
+          <span class="project-tag">Transformers</span>
+          <span class="project-tag">Time-series</span>
+          <span class="project-tag">PyTorch</span>
+          <span class="project-tag">Self-supervised</span>
+        </div>
+      </a>
+
+      <a href="#" class="project-card">
+        <div class="project-header">
+          <span class="project-num">004</span>
+        </div>
+        <p class="project-name">Vision Transformer with CNN Feature Extractor</p>
+        <p class="project-desc">Hybrid CNN–ViT architecture for ground-based cloud image classification. Achieved 86.2% test accuracy, outperforming both standalone CNN and ViT baselines.</p>
+        <div class="project-tags">
+          <span class="project-tag">ViT</span>
+          <span class="project-tag">CNN</span>
+          <span class="project-tag">PyTorch</span>
+          <span class="project-tag">Image Classification</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="experience">
+    <p class="section-label">// 03 — experience</p>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <span class="exp-date">Sep 2023 –<br>Dec 2025</span>
+        <div>
+          <p class="exp-role">ML Research Assistant</p>
+          <p class="exp-company">JZ Lab — York University</p>
+          <ul class="exp-bullets">
+            <li>Designed a self-supervised foundation model for time-series data applied to sleep-stage classification from EEG and DBS recordings</li>
+            <li>Developed a masked autoencoder by modifying HuggingFace transformer models to capture global temporal dependencies</li>
+            <li>Built an end-to-end ML pipeline for biosignal denoising, feature extraction, and robust evaluation</li>
+            <li>Implemented transfer learning from large-scale EEG to DBS recordings, enabling fine-tuning on limited DBS data</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <span class="exp-date">May 2024 –<br>Apr 2025</span>
+        <div>
+          <p class="exp-role">Teaching Assistant</p>
+          <p class="exp-company">York University</p>
+          <ul class="exp-bullets">
+            <li>Supported students in Python and Java programming, focusing on debugging, code quality, and runtime reasoning</li>
+            <li>Reinforced object-oriented design principles through labs and one-on-one support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <span class="exp-date">May 2022 –<br>Apr 2023</span>
+        <div>
+          <p class="exp-role">Research Student</p>
+          <p class="exp-company">Neuron to Brain Lab — Toronto Western Hospital</p>
+          <ul class="exp-bullets">
+            <li>Built an end-to-end MATLAB pipeline for noise reduction, automated feature detection, and unsupervised spike sorting of clinical electrophysiological data</li>
+            <li>Collaborated on a CT–MRI image registration pipeline integrated into Brainstorm for 3D brain anatomy visualization</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="education">
+    <p class="section-label">// 04 — education</p>
+    <h2 class="section-title">Background</h2>
+
+    <div class="edu-item">
+      <span class="edu-date">Jan 2024 –<br>Nov 2025</span>
+      <div>
+        <p class="edu-degree">Thesis-Based Master's in Computer Science</p>
+        <p class="edu-school">York University</p>
+        <p class="edu-detail">Thesis: <em>Towards Closed-Loop Sleep Monitoring in Parkinson's Disease: Self-Supervised Learning Strategies for Sleep Stage Classification</em><br>Advisor: Dr. Joel Zylberberg · Courses: Probabilistic Models &amp; ML, Neural Networks &amp; Deep Learning, ML Theory, Computer Architecture, Implantable Biomedical Microsystems</p>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <span class="edu-date">Sep 2019 –<br>Apr 2023</span>
+      <div>
+        <p class="edu-degree">Hon. Bachelor of Science (High Distinction)</p>
+        <p class="edu-school">University of Toronto</p>
+        <p class="edu-detail">Neuroscience Specialist · Cognitive Science Major · Economics Minor<br>Advisor: Dr. Taufik Valiante</p>
+        <div class="awards-list">
+          <div class="award-item">
+            <span class="award-name">Dean's List Scholar, Faculty of Arts &amp; Science</span>
+            <span class="award-meta">2020 · 2021 · 2022 · 2023</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">Michael Faraday Dixon Scholarship</span>
+            <span class="award-meta">2023</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">New College Council In-Course Scholarship</span>
+            <span class="award-meta">2020 · 2021</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">University of Toronto Scholar's Award</span>
+            <span class="award-meta">2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <span class="footer-text">© 2026 Kristal Menguc</span>
+    <div class="footer-links">
+      <a href="https://github.com/kris-meng">GitHub</a>
+      <a href="https://linkedin.com/in/kristalmenguc">LinkedIn</a>
+      <a href="mailto:kristaldoga@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</body>
+</html>
