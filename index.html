@@ -17,7 +17,7 @@
       --accent: #c084fc;
       --accent-dim: #2e1a47;
       --accent-hover: #d8b4fe;
-      --sidebar-w: 340px;
+      --sidebar-w: 320px;
       --font-sans: 'Syne', sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
     }
@@ -28,7 +28,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-sans);
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.7;
       display: flex;
       min-height: 100vh;
@@ -44,7 +44,7 @@
       display: flex;
       flex-direction: column;
       padding: 2.5rem 2.25rem;
-      overflow-y: hidden;
+      overflow-y: auto;
       background: var(--bg);
       z-index: 50;
     }
@@ -73,7 +73,7 @@
     }
 
     .sidebar-name {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 0.3rem;
@@ -84,7 +84,7 @@
 
     .sidebar-title {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.07em;
       margin-bottom: 1.5rem;
@@ -92,7 +92,7 @@
     }
 
     .sidebar-bio {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.8;
       margin-bottom: 1.75rem;
@@ -109,7 +109,7 @@
 
     .sidebar-link {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
       text-decoration: none;
       display: flex;
@@ -119,7 +119,7 @@
     }
 
     .sidebar-link:hover { color: var(--accent); }
-    .sidebar-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .sidebar-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     .sidebar-cta {
       display: flex;
@@ -129,7 +129,7 @@
 
     .btn {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       letter-spacing: 0.04em;
       padding: 0.6rem 1rem;
       border-radius: 2px;
@@ -160,7 +160,7 @@
 
     .sidebar-nav a {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
       text-decoration: none;
       letter-spacing: 0.05em;
@@ -201,9 +201,10 @@
       align-items: center;
     }
 
+    /* Constrain content width so it doesn't stretch too wide on large screens */
     .content-section {
       width: 100%;
-      max-width: 900px;
+      max-width: 760px;
       padding: 5rem 3rem;
       border-bottom: 1px solid var(--border);
     }
@@ -212,7 +213,7 @@
 
     .section-label {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--accent);
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -220,7 +221,7 @@
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 2.5rem;
@@ -236,7 +237,7 @@
 
     .about-bio {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 15px;
       line-height: 1.9;
     }
 
@@ -244,7 +245,7 @@
     .skills-group { }
     .skills-label {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       color: var(--muted);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -254,7 +255,7 @@
 
     .skill-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       padding: 0.25rem 0.65rem;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -274,7 +275,7 @@
 
     .toggle-tab {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       padding: 0.6rem 1.5rem;
       cursor: pointer;
       background: transparent;
@@ -303,14 +304,14 @@
 
     .timeline-item:first-child { border-top: 1px solid var(--border); }
 
-    .timeline-date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); padding-top: 0.2rem; line-height: 1.6; }
-    .timeline-role { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
-    .timeline-org { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.75rem; }
+    .timeline-date { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 0.2rem; line-height: 1.6; }
+    .timeline-role { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+    .timeline-org { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin-bottom: 0.75rem; }
 
     .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
 
     .timeline-bullets li {
-      font-size: 13.5px;
+      font-size: 14.5px;
       color: var(--muted);
       line-height: 1.75;
       padding-left: 1rem;
@@ -319,7 +320,7 @@
 
     .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.2rem; }
 
-    .timeline-detail { font-size: 13.5px; color: var(--muted); line-height: 1.85; }
+    .timeline-detail { font-size: 14.5px; color: var(--muted); line-height: 1.85; }
     .timeline-detail em { font-style: italic; color: #aaa; }
 
     .thesis-link {
@@ -327,7 +328,7 @@
       align-items: center;
       gap: 0.4rem;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--accent);
       text-decoration: none;
       margin-top: 0.65rem;
@@ -349,8 +350,8 @@
     }
 
     .award-item:first-child { border-top: 1px solid var(--border); }
-    .award-name { font-size: 13px; color: var(--text); }
-    .award-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .award-name { font-size: 14px; color: var(--text); }
+    .award-meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
 
     /* ── PROJECTS ── */
     .project-filters {
@@ -362,7 +363,7 @@
 
     .filter-btn {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       padding: 0.35rem 0.85rem;
       background: transparent;
       border: 1px solid var(--border);
@@ -375,7 +376,6 @@
     .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
     .filter-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 
-    /* Fix: padding-top on carousel so top border of hovered card is visible */
     .carousel-wrap { padding-top: 4px; }
 
     .carousel {
@@ -398,12 +398,11 @@
       border-radius: 4px;
       padding: 1.5rem;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
     }
 
-    /* Use box-shadow instead of transform so top edge is never clipped */
     .project-card:hover {
       border-color: var(--accent);
       box-shadow: 0 0 0 1px var(--accent);
@@ -411,12 +410,12 @@
 
     .project-card.hidden { display: none; }
 
-    .project-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 0.5rem; }
+    .project-num { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.5rem; }
 
     .project-badge {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       padding: 0.15rem 0.55rem;
       background: var(--accent-dim);
       color: var(--accent);
@@ -424,13 +423,13 @@
       margin-bottom: 0.65rem;
     }
 
-    .project-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
-    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
+    .project-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
 
     .project-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       padding: 0.2rem 0.55rem;
       background: var(--bg);
       color: var(--muted);
@@ -442,7 +441,7 @@
       padding-top: 0.75rem;
       border-top: 1px solid var(--border);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
     }
 
@@ -480,20 +479,18 @@
     }
 
     .carousel-dot.active { background: var(--accent); }
-    .no-results { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding: 2rem 0; display: none; }
+    .no-results { font-family: var(--font-mono); font-size: 14px; color: var(--muted); padding: 2rem 0; display: none; }
 
     /* ── FOOTER ── */
     .site-footer {
       width: 100%;
-      max-width: 900px;  /* match .content-section */
+      max-width: 760px;
       padding: 3rem 3rem 4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      margin-top: auto; /* pushes footer to bottom of flex column */
     }
 
     .footer-heading {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 0.5rem;
@@ -501,42 +498,12 @@
 
     .footer-sub {
       font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.7;
-      max-width: 700px;
+      max-width: 600px;
     }
 
-    .footer-links-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .footer-link {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      padding: 0.55rem 1.1rem;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--muted);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-    }
-
-    .footer-link:hover { border-color: var(--accent); color: var(--accent); }
-    .footer-link svg { width: 13px; height: 13px; }
-
-    .footer-copy {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: #444;
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-    }
     .footer-cta {
       display: inline-block;
       margin-top: 1.5rem;
@@ -545,12 +512,23 @@
       color: var(--accent);
       border-radius: 6px;
       text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 14px;
       transition: 0.2s;
     }
 
     .footer-cta:hover {
       background: var(--accent);
       color: black;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #444;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
     }
 
     /* ── MODAL ── */
@@ -594,7 +572,7 @@
     .modal-badge {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       padding: 0.2rem 0.6rem;
       background: var(--accent-dim);
       color: var(--accent);
@@ -603,12 +581,12 @@
     }
 
     .modal-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
-    .modal-meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
+    .modal-meta { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
     .modal-divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
 
     .modal-section-title {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--accent);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -618,7 +596,7 @@
     .modal-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
 
     .modal-bullets li {
-      font-size: 13.5px;
+      font-size: 14.5px;
       color: var(--muted);
       line-height: 1.75;
       padding-left: 1rem;
@@ -631,7 +609,7 @@
 
     .modal-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       padding: 0.3rem 0.7rem;
       background: var(--bg);
       color: var(--muted);
@@ -643,7 +621,7 @@
 
     .modal-link {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       padding: 0.6rem 1.25rem;
       text-decoration: none;
       border-radius: 2px;
@@ -660,39 +638,61 @@
 
     .modal-video-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--bg); margin-top: 0.5rem; }
     .modal-video-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 2rem; text-align: center; }
-    .modal-video-placeholder span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .modal-video-placeholder span { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
 
     .modal-readme { padding: 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; margin-top: 0.5rem; }
-    .modal-readme pre { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: pre-wrap; word-break: break-word; line-height: 1.7; }
-    .readme-loading { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; padding: 1rem; }
+    .modal-readme pre { font-family: var(--font-mono); font-size: 13px; color: var(--muted); white-space: pre-wrap; word-break: break-word; line-height: 1.7; }
+    .readme-loading { font-family: var(--font-mono); font-size: 13px; color: var(--muted); text-align: center; padding: 1rem; }
+
+    /* ── RESPONSIVE: large screens ── */
+    @media (min-width: 1400px) {
+      :root { --sidebar-w: 340px; }
+      .content-section { max-width: 820px; }
+      .site-footer { max-width: 820px; }
+    }
 
     /* ── MOBILE ── */
     @media (max-width: 820px) {
-      body { flex-direction: column; }
+      body { flex-direction: column; padding-top: 70px; /* space for fixed mobile header */ }
 
       .sidebar {
-        position: relative;
-        width: 100%; min-width: unset;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        width: 100%;
+        min-width: unset;
+        height: auto;
         border-right: none;
         border-bottom: 1px solid var(--border);
-        padding: 1.25rem 1.5rem;
+        padding: 0.75rem 1.25rem;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
-        gap: 1rem;
+        gap: 0.6rem;
         overflow-y: visible;
+        /* keep it above everything */
+        z-index: 100;
+        bottom: auto;
       }
 
-      .sidebar-photo, .sidebar-photo-placeholder { width: 52px; height: 52px; margin-bottom: 0; }
+      .sidebar-photo { width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0; }
       .sidebar-bio { display: none; }
-      .sidebar-name { font-size: 1rem; }
+      .sidebar-name { font-size: 1rem; margin-bottom: 0; }
       .sidebar-title { display: none; }
       .sidebar-contact { flex-direction: row; margin-bottom: 0; gap: 0.75rem; }
-      .sidebar-nav { margin-top: 0; border-top: none; padding-top: 0; flex-direction: row; flex-wrap: wrap; width: 100%; }
-      .sidebar-nav a { padding: 0.3rem 0.6rem; }
+      .sidebar-contact .sidebar-link span { display: none; }
+      .sidebar-nav {
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 0.15rem;
+      }
+      .sidebar-nav a { padding: 0.3rem 0.6rem; font-size: 12px; }
       .sidebar-cta { flex-direction: row; margin-bottom: 0; }
-      .btn { flex: unset; }
+      .btn { flex: unset; padding: 0.45rem 0.75rem; font-size: 12px; }
 
       .main { margin-left: 0; }
       .content-section { padding: 3rem 1.5rem; }
@@ -709,13 +709,7 @@
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
-    <div class="sidebar-photo">
-      <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
-    <!--<div class="sidebar-photo-placeholder">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5">
-        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-      </svg>-->
-    </div>
+    <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
 
     <div class="sidebar-name">Kristal<br><span>Menguc</span></div>
     <div class="sidebar-title"><span style="color: var(--accent);">ML Researcher &amp;<br>Computational Neuroscientist</span></div>
@@ -726,15 +720,15 @@
     <div class="sidebar-contact">
       <a href="https://www.linkedin.com/in/kristal-doga-m-6828b91aa/" target="_blank" class="sidebar-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
+        <span>LinkedIn</span>
       </a>
       <a href="mailto:kristaldoga@gmail.com" class="sidebar-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        kristaldoga@gmail.com
+        <span>kristaldoga@gmail.com</span>
       </a>
       <a href="https://github.com/kris-meng" target="_blank" class="sidebar-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        kris-meng
+        <span>kris-meng</span>
       </a>
     </div>
 
@@ -744,10 +738,10 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a href="#about"    onclick="setActive('about')">   <span class="nav-dot"></span>about</a>
-      <a href="#work"     onclick="setActive('exp'); switchTab('exp')">  <span class="nav-dot"></span>experience</a>
-      <a href="#work"     onclick="setActive('edu'); switchTab('edu')">  <span class="nav-dot"></span>education</a>
-      <a href="#projects" onclick="setActive('projects')"><span class="nav-dot"></span>projects</a>
+      <a href="#about"    id="nav-about"    onclick="setActive('about')">   <span class="nav-dot"></span>about</a>
+      <a href="#work"     id="nav-exp"      onclick="setActive('exp'); switchTab('exp')">  <span class="nav-dot"></span>experience</a>
+      <a href="#work"     id="nav-edu"      onclick="setActive('edu'); switchTab('edu')">  <span class="nav-dot"></span>education</a>
+      <a href="#projects" id="nav-projects" onclick="setActive('projects')"><span class="nav-dot"></span>projects</a>
     </nav>
   </aside>
 
@@ -760,7 +754,7 @@
       <h2 class="section-title">Who I am</h2>
       <div class="about-grid">
         <div class="about-bio">
-          I’m an ML researcher and engineer with experience across neuroscience, healthcare, and applied AI. My work includes self-supervised models for clinical biosignals, time-series forecasting, computer vision (ViTs), and LLM-based projects. My master’s thesis focused on improving sleep stage classification for Parkinson’s patients, and I’ve also contributed to mental health chatbots and replicated ML models from papers end-to-end.<br>
+          I'm an ML researcher and engineer with experience across neuroscience, healthcare, and applied AI. My work includes self-supervised models for clinical biosignals, time-series forecasting, computer vision (ViTs), and LLM-based projects. My master's thesis focused on improving sleep stage classification for Parkinson's patients, and I've also contributed to mental health chatbots and replicated ML models from papers end-to-end.<br><br>
 
           I thrive in interdisciplinary teams and enjoy translating research into practical, real-world solutions — whether in biomedical AI, computational biology, or broader ML applications like forecasting, vision, or natural language.
         </div>
@@ -989,7 +983,7 @@ Calculus, Linear Algebra
         <button class="carousel-btn" onclick="scrollCarousel(-1)">←</button>
         <button class="carousel-btn" onclick="scrollCarousel(1)">→</button>
         <div class="carousel-dots" id="carousel-dots"></div>
-        <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-left:0.25rem;">scroll or use arrows</span>
+        <span style="font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-left:0.25rem;">scroll or use arrows</span>
       </div>
     </section>
 
@@ -999,16 +993,15 @@ Calculus, Linear Algebra
         <p class="section-label">// let's connect</p>
         <h2 class="footer-heading">Get in touch</h2>
         <p class="footer-sub">
-          I’m exploring ML engineering and research opportunities — happy to connect and chat!
+          I'm exploring ML engineering and research opportunities — happy to connect and chat!
         </p>
-
         <a href="mailto:kristaldoga@gmail.com" class="footer-cta">
           Send me an email
         </a>
       </div>
-    <p class="footer-copy">© 2026 Kristal Menguc · Built with HTML &amp; CSS</p>
-</footer>
-    
+      <p class="footer-copy">© 2026 Kristal Menguc · Built with HTML &amp; CSS</p>
+    </footer>
+
   </main>
 
   <!-- MODAL -->
@@ -1028,44 +1021,42 @@ Calculus, Linear Algebra
       document.getElementById('panel-edu').classList.toggle('active', tab === 'edu');
     }
 
-    // ── SIDEBAR NAV — click-only active, NO scroll spy ──
-    // function setActive(key) {
-    //  const map = { about: 0, exp: 1, edu: 2, projects: 3 };
-    //  const links = document.querySelectorAll('.sidebar-nav a');
-    //  links.forEach((a, i) => a.classList.toggle('active', i === map[key]));
-    //} 
-    let activeSection = null;
+    // ── SIDEBAR NAV ACTIVE STATE ──
+    // Tracks which nav key is active ('about', 'exp', 'edu', 'projects')
+    let activeKey = null;
+
+    const navIds = {
+      about:    'nav-about',
+      exp:      'nav-exp',
+      edu:      'nav-edu',
+      projects: 'nav-projects'
+    };
 
     function setActive(key) {
-      setTimeout(() => {
-      activeSection = key;
-
-      const map = { about: 0, exp: 1, edu: 2, projects: 3 };
+      activeKey = key;
       const links = document.querySelectorAll('.sidebar-nav a');
-      links.forEach((a, i) => a.classList.toggle('active', i === map[key]));}
-      , 50);}
-    window.addEventListener("scroll", () => {
-      if (!activeSection) return;
+      links.forEach(a => a.classList.remove('active'));
+      const el = document.getElementById(navIds[key]);
+      if (el) el.classList.add('active');
+    }
 
-      const sectionMap = {
-        about: document.getElementById("about"),
-        exp: document.getElementById("work"),
-        edu: document.getElementById("work"),
-        projects: document.getElementById("projects"),
-      };
+    // Scroll spy: clear active highlight when user scrolls away from the section
+    window.addEventListener('scroll', () => {
+      if (!activeKey) return;
 
-      const section = sectionMap[activeSection];
-      const rect = section.getBoundingClientRect();
+      // Map each key to its section element
+      const sectionEl = activeKey === 'edu' || activeKey === 'exp'
+        ? document.getElementById('work')
+        : document.getElementById(activeKey === 'about' ? 'about' : 'projects');
 
-      const inView =
-        rect.top < window.innerHeight * 0.6 &&
-        rect.bottom > window.innerHeight * 0.4;
+      if (!sectionEl) return;
+
+      const rect = sectionEl.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
 
       if (!inView) {
-        document.querySelectorAll(".sidebar-nav a").forEach((link) =>
-          link.classList.remove("active")
-        );
-        activeSection = null;
+        activeKey = null;
+        document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
       }
     });
 
@@ -1124,10 +1115,11 @@ Calculus, Linear Algebra
           'Developed a patient-specific simulation framework modeling TMS effects on functional brain connectivity using neuroimaging-derived connectomes',
           'Modeled longitudinal changes in brain networks by updating connectome edge weights using biologically-informed rules to predict circuit-level responses after 20 treatment sessions',
           'Contributed to a team-built clinical planning tool integrating 3D brain visualization and LLM-based analysis',
-          'Benchmarked results against clinical literature — 47.8% of simulated patients showed improved connectivity, aligning with reported treatment response rates (~40%)'
-          'Implemented the connectome/white-box simulation components, with code available on GitHub' 
+          'Benchmarked results against clinical literature — 47.8% of simulated patients showed improved connectivity, aligning with reported treatment response rates (~40%)',
+          'Implemented the connectome/white-box simulation components, with code available on GitHub'
         ],
-        github: 'https://github.com/bertovmill/biohack26/tree/main', video: null
+        github: 'https://github.com/bertovmill/biohack26/tree/main',
+        video: null
       },
       chatbot: {
         badge: 'finalist — mila hackathon',
@@ -1140,7 +1132,8 @@ Calculus, Linear Algebra
           'Fine-tuned and evaluated mBERT-based classifiers for input guardrails',
           'Added a secondary LLM judge for uncertain predictions to improve safety coverage'
         ],
-        github: null, video: null
+        github: null,
+        video: null
       },
       simmtm: {
         badge: null,
@@ -1152,7 +1145,8 @@ Calculus, Linear Algebra
           'Developed geometric masking, similarity matrix computation, and manifold + reconstruction loss based on the mathematical theories provided in the original paper',
           'Reproduced and validated SimMTM for time-series forecasting, achieving improved in-domain performance (MSE 0.217 vs 0.288, MAE 0.362 vs 0.348) and strong cross-domain transfer from weather → ETTm1 (MSE 0.086 vs 0.304, MAE 0.225 vs 0.354) compared to the original paper.'
         ],
-        github: 'https://github.com/claudiafarkas/simmtm_rep', video: null
+        github: 'https://github.com/claudiafarkas/simmtm_rep',
+        video: null
       },
       vit: {
         badge: null,
@@ -1164,13 +1158,15 @@ Calculus, Linear Algebra
           'Achieved 86.2% test accuracy, outperforming standalone CNN and ViT baselines',
           'Designed the CNN as a feature extractor feeding into the transformer encoder for improved spatial representation'
         ],
-        github: null, video: null
+        github: null,
+        video: null
       }
     };
 
     // ── MODAL ──
     async function openModal(key) {
       const p = projects[key];
+      if (!p) return;
       const overlay = document.getElementById('modal-overlay');
       const body = document.getElementById('modal-body');
       const hasGithub = p.github && p.github !== 'YOUR_GITHUB_LINK_HERE';
@@ -1185,7 +1181,7 @@ Calculus, Linear Algebra
       html += `<div class="modal-links">`;
       html += hasGithub
         ? `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>View on GitHub</a>`
-        : `<span class="modal-link modal-link-ghost" style="opacity:0.4;cursor:default;">GitHub — add your link to enable</span>`;
+        : `<span class="modal-link modal-link-ghost" style="opacity:0.4;cursor:default;">No GitHub link yet</span>`;
       html += `</div>`;
       html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p><div class="modal-video-wrap">`;
       html += p.video
