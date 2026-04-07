@@ -17,7 +17,7 @@
       --accent: #c084fc;
       --accent-dim: #2e1a47;
       --accent-hover: #d8b4fe;
-      --sidebar: 300px;
+      --sidebar-w: 340px;
       --font-sans: 'Syne', sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
     }
@@ -36,22 +36,22 @@
 
     /* ── SIDEBAR ── */
     .sidebar {
-      width: var(--sidebar);
-      min-width: var(--sidebar);
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
       position: fixed;
       top: 0; left: 0; bottom: 0;
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      padding: 2.5rem 2rem;
+      padding: 2.5rem 2.25rem;
       overflow-y: auto;
       background: var(--bg);
       z-index: 50;
     }
 
     .sidebar-photo {
-      width: 96px;
-      height: 96px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--border);
@@ -60,8 +60,8 @@
     }
 
     .sidebar-photo-placeholder {
-      width: 96px;
-      height: 96px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       border: 2px dashed var(--border);
       background: var(--surface);
@@ -73,10 +73,10 @@
     }
 
     .sidebar-name {
-      font-size: 1.25rem;
+      font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem;
       line-height: 1.2;
     }
 
@@ -86,15 +86,15 @@
       font-family: var(--font-mono);
       font-size: 11px;
       color: var(--muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       margin-bottom: 1.5rem;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .sidebar-bio {
       font-size: 13px;
       color: var(--muted);
-      line-height: 1.75;
+      line-height: 1.8;
       margin-bottom: 1.75rem;
       border-top: 1px solid var(--border);
       padding-top: 1.25rem;
@@ -103,7 +103,7 @@
     .sidebar-contact {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.55rem;
       margin-bottom: 1.75rem;
     }
 
@@ -121,50 +121,16 @@
     .sidebar-link:hover { color: var(--accent); }
     .sidebar-link svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-    .sidebar-nav {
-      margin-top: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1.25rem;
-    }
-
-    .sidebar-nav a {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      padding: 0.4rem 0;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .sidebar-nav a:hover, .sidebar-nav a.active { color: var(--accent); }
-
-    .sidebar-nav a.active::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: block;
-    }
-
     .sidebar-cta {
-      margin-top: 1.25rem;
       display: flex;
-      flex-direction: column;
       gap: 0.5rem;
+      margin-bottom: 1.75rem;
     }
 
     .btn {
       font-family: var(--font-mono);
       font-size: 12px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       padding: 0.6rem 1rem;
       border-radius: 2px;
       cursor: pointer;
@@ -174,7 +140,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      width: 100%;
+      flex: 1;
       border: none;
     }
 
@@ -183,17 +149,63 @@
     .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border) !important; }
     .btn-ghost:hover { border-color: var(--muted) !important; }
 
-    /* ── MAIN CONTENT ── */
+    .sidebar-nav {
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      margin-top: auto;
+    }
+
+    .sidebar-nav a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      padding: 0.45rem 0.5rem;
+      border-radius: 2px;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sidebar-nav a:hover { color: var(--text); background: var(--surface); }
+
+    .sidebar-nav a.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .sidebar-nav a .nav-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .sidebar-nav a.active .nav-dot { opacity: 1; }
+
+    /* ── MAIN ── */
     .main {
-      margin-left: var(--sidebar);
+      margin-left: var(--sidebar-w);
       flex: 1;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .content-section {
-      padding: 5rem 4rem;
+      width: 100%;
+      max-width: 700px;
+      padding: 5rem 3rem;
       border-bottom: 1px solid var(--border);
-      max-width: 860px;
     }
 
     .content-section:last-child { border-bottom: none; }
@@ -215,8 +227,7 @@
     }
 
     /* ── SKILLS ── */
-    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .skills-group { }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
     .skills-label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
     .skills-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
@@ -230,15 +241,14 @@
       color: var(--text);
     }
 
-    /* ── EXPERIENCE / EDUCATION TOGGLE ── */
+    /* ── TOGGLE ── */
     .toggle-tabs {
       display: flex;
-      gap: 0;
-      margin-bottom: 2.5rem;
       border: 1px solid var(--border);
       border-radius: 2px;
       width: fit-content;
       overflow: hidden;
+      margin-bottom: 2.5rem;
     }
 
     .toggle-tab {
@@ -259,27 +269,20 @@
     .toggle-panel { display: none; }
     .toggle-panel.active { display: block; }
 
-    /* ── TIMELINE ITEMS ── */
+    /* ── TIMELINE ── */
     .timeline { display: flex; flex-direction: column; }
 
     .timeline-item {
       display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 2rem;
+      grid-template-columns: 130px 1fr;
+      gap: 1.75rem;
       padding: 1.75rem 0;
       border-bottom: 1px solid var(--border);
     }
 
     .timeline-item:first-child { border-top: 1px solid var(--border); }
 
-    .timeline-date {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
-      padding-top: 0.15rem;
-      line-height: 1.6;
-    }
-
+    .timeline-date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); padding-top: 0.2rem; line-height: 1.6; }
     .timeline-role { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
     .timeline-org { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.75rem; }
 
@@ -293,16 +296,9 @@
       position: relative;
     }
 
-    .timeline-bullets li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-size: 11px;
-      top: 0.2rem;
-    }
+    .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.2rem; }
 
-    .timeline-detail { font-size: 13.5px; color: var(--muted); line-height: 1.8; }
+    .timeline-detail { font-size: 13.5px; color: var(--muted); line-height: 1.85; }
     .timeline-detail em { font-style: italic; color: #aaa; }
 
     .thesis-link {
@@ -313,7 +309,7 @@
       font-size: 12px;
       color: var(--accent);
       text-decoration: none;
-      margin-top: 0.6rem;
+      margin-top: 0.65rem;
       transition: color 0.2s;
     }
 
@@ -358,9 +354,6 @@
     .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
     .filter-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 
-    /* Carousel */
-    .carousel-wrap { position: relative; }
-
     .carousel {
       display: flex;
       gap: 1.25rem;
@@ -368,13 +361,13 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      padding-bottom: 1rem;
+      padding-bottom: 0.5rem;
     }
 
     .carousel::-webkit-scrollbar { display: none; }
 
     .project-card {
-      flex: 0 0 320px;
+      flex: 0 0 300px;
       scroll-snap-align: start;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -389,7 +382,7 @@
     .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
     .project-card.hidden { display: none; }
 
-    .project-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .project-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 0.5rem; }
 
     .project-badge {
       display: inline-block;
@@ -402,7 +395,7 @@
       margin-bottom: 0.65rem;
     }
 
-    .project-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+    .project-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
     .project-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
 
@@ -432,8 +425,7 @@
     }
 
     .carousel-btn {
-      width: 32px;
-      height: 32px;
+      width: 30px; height: 30px;
       border: 1px solid var(--border);
       border-radius: 2px;
       background: transparent;
@@ -443,37 +435,31 @@
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .carousel-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-    .carousel-dots { display: flex; gap: 0.4rem; }
+    .carousel-dots { display: flex; gap: 0.4rem; align-items: center; }
 
     .carousel-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--border);
       transition: background 0.2s;
+      cursor: pointer;
     }
 
     .carousel-dot.active { background: var(--accent); }
 
-    .no-results {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--muted);
-      padding: 2rem 0;
-      display: none;
-    }
+    .no-results { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding: 2rem 0; display: none; }
 
     /* ── MODAL ── */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(10,10,10,0.88);
+      background: rgba(10,10,10,0.9);
       z-index: 200;
       overflow-y: auto;
       padding: 3rem 1.5rem;
@@ -485,7 +471,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 6px;
-      max-width: 700px;
+      max-width: 660px;
       width: 100%;
       padding: 2.5rem;
       position: relative;
@@ -495,8 +481,7 @@
     .modal-close {
       position: absolute;
       top: 1.25rem; right: 1.25rem;
-      background: none;
-      border: none;
+      background: none; border: none;
       color: var(--muted);
       font-family: var(--font-mono);
       font-size: 13px;
@@ -574,77 +559,48 @@
     .modal-link-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .modal-link-ghost:hover { border-color: var(--muted); }
 
-    .modal-video-wrap {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      background: var(--bg);
-      margin-top: 0.5rem;
-    }
-
-    .modal-video-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      padding: 2rem;
-      text-align: center;
-    }
-
+    .modal-video-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--bg); margin-top: 0.5rem; }
+    .modal-video-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 2rem; text-align: center; }
     .modal-video-placeholder span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
 
-    .modal-readme {
-      padding: 1.25rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      margin-top: 0.5rem;
-    }
-
-    .modal-readme pre {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
-      white-space: pre-wrap;
-      word-break: break-word;
-      line-height: 1.7;
-    }
-
+    .modal-readme { padding: 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; margin-top: 0.5rem; }
+    .modal-readme pre { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: pre-wrap; word-break: break-word; line-height: 1.7; }
     .readme-loading { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; padding: 1rem; }
 
     /* ── MOBILE ── */
-    @media (max-width: 768px) {
+    @media (max-width: 820px) {
       body { flex-direction: column; }
 
       .sidebar {
         position: relative;
-        width: 100%;
-        min-width: unset;
+        width: 100%; min-width: unset;
         border-right: none;
         border-bottom: 1px solid var(--border);
+        padding: 1.25rem 1.5rem;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         gap: 1rem;
-        padding: 1.25rem 1.5rem;
       }
 
-      .sidebar-photo, .sidebar-photo-placeholder { width: 56px; height: 56px; margin-bottom: 0; }
+      .sidebar-photo, .sidebar-photo-placeholder { width: 52px; height: 52px; margin-bottom: 0; }
       .sidebar-bio { display: none; }
+      .sidebar-name { font-size: 1rem; }
+      .sidebar-title { display: none; }
+      .sidebar-contact { flex-direction: row; margin-bottom: 0; gap: 0.75rem; }
       .sidebar-nav { margin-top: 0; border-top: none; padding-top: 0; flex-direction: row; flex-wrap: wrap; width: 100%; }
-      .sidebar-nav a { padding: 0.3rem 0.5rem; }
-      .sidebar-cta { flex-direction: row; margin-top: 0; width: auto; }
-      .btn { width: auto; }
+      .sidebar-nav a { padding: 0.3rem 0.6rem; }
+      .sidebar-cta { flex-direction: row; margin-bottom: 0; }
+      .btn { flex: unset; }
 
       .main { margin-left: 0; }
       .content-section { padding: 3rem 1.5rem; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
       .skills-grid { grid-template-columns: 1fr; }
-      .project-card { flex: 0 0 280px; }
+      .project-card { flex: 0 0 260px; }
       .modal { padding: 1.5rem; }
-      .award-item { flex-direction: column; gap: 0.2rem; }
+      .award-item { flex-direction: column; gap: 0.15rem; }
     }
   </style>
 </head>
@@ -652,7 +608,7 @@
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
-    <!-- Replace the placeholder div with: <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" /> -->
+    <!-- Swap this div for: <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" /> -->
     <div class="sidebar-photo-placeholder">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5">
         <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
@@ -660,10 +616,10 @@
     </div>
 
     <div class="sidebar-name">Kristal<br><span>Menguc.</span></div>
-    <div class="sidebar-title">ML Researcher &<br>Computational Neuroscientist</div>
+    <div class="sidebar-title">ML Researcher &amp;<br>Computational Neuroscientist<br><span style="color:var(--accent)">// open to new roles</span></div>
 
     <div class="sidebar-bio">
-      Building ML systems at the intersection of neuroscience and AI. MSc CS from York University. Based in Toronto, open to new roles.
+      Building ML systems at the intersection of neuroscience and AI. MSc CS from York University. Based in Toronto.
     </div>
 
     <div class="sidebar-contact">
@@ -687,26 +643,25 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a href="#about" class="active">about</a>
-      <a href="#work">experience</a>
-      <a href="#projects">projects</a>
-      <a href="#education">education</a>
+      <a href="#about" onclick="setActive(this)"><span class="nav-dot"></span>about</a>
+      <a href="#work" onclick="setActive(this); switchTab('exp')"><span class="nav-dot"></span>experience</a>
+      <a href="#work" onclick="setActive(this); switchTab('edu')"><span class="nav-dot"></span>education</a>
+      <a href="#projects" onclick="setActive(this)"><span class="nav-dot"></span>projects</a>
     </nav>
   </aside>
 
-  <!-- ── MAIN CONTENT ── -->
+  <!-- ── MAIN ── -->
   <main class="main">
 
     <!-- ABOUT -->
     <section class="content-section" id="about">
       <p class="section-label">// 01 — about</p>
       <h2 class="section-title">Who I am</h2>
-      <p style="color:var(--muted); font-size:15px; line-height:1.9; max-width:600px; margin-bottom:2.5rem;">
-        I'm an ML researcher and engineer with a rare combination of deep neuroscience expertise and modern AI tooling. I've spent the last few years working on self-supervised foundation models for clinical biosignals — building the kind of systems that could one day improve care for Parkinson's patients. I care about research that connects directly to real-world impact.
+      <p style="color:var(--muted);font-size:15px;line-height:1.9;margin-bottom:2.5rem;">
+        I'm an ML researcher and engineer with a rare combination of deep neuroscience expertise and modern AI tooling. I've spent the last few years building self-supervised foundation models for clinical biosignals — work that could one day improve care for Parkinson's patients. I care about research that connects directly to real-world impact.
       </p>
-
       <div class="skills-grid">
-        <div class="skills-group">
+        <div>
           <p class="skills-label">// languages</p>
           <div class="skills-list">
             <span class="skill-tag">Python</span>
@@ -715,7 +670,7 @@
             <span class="skill-tag">SQL</span>
           </div>
         </div>
-        <div class="skills-group">
+        <div>
           <p class="skills-label">// ML & frameworks</p>
           <div class="skills-list">
             <span class="skill-tag">PyTorch</span>
@@ -727,7 +682,7 @@
             <span class="skill-tag">W&B</span>
           </div>
         </div>
-        <div class="skills-group">
+        <div>
           <p class="skills-label">// ML areas</p>
           <div class="skills-list">
             <span class="skill-tag">Self-supervised learning</span>
@@ -738,7 +693,7 @@
             <span class="skill-tag">ViTs</span>
           </div>
         </div>
-        <div class="skills-group">
+        <div>
           <p class="skills-label">// tools</p>
           <div class="skills-list">
             <span class="skill-tag">Git</span>
@@ -750,17 +705,17 @@
       </div>
     </section>
 
-    <!-- EXPERIENCE / EDUCATION TOGGLE -->
+    <!-- EXPERIENCE / EDUCATION -->
     <section class="content-section" id="work">
       <p class="section-label">// 02 — background</p>
       <h2 class="section-title">Experience & Education</h2>
 
       <div class="toggle-tabs">
-        <button class="toggle-tab active" onclick="switchTab('exp')">Work Experience</button>
-        <button class="toggle-tab" onclick="switchTab('edu')">Education</button>
+        <button class="toggle-tab active" id="tab-exp" onclick="switchTab('exp')">Work experience</button>
+        <button class="toggle-tab" id="tab-edu" onclick="switchTab('edu')">Education</button>
       </div>
 
-      <!-- EXPERIENCE PANEL -->
+      <!-- EXPERIENCE -->
       <div class="toggle-panel active" id="panel-exp">
         <div class="timeline">
 
@@ -805,9 +760,9 @@
         </div>
       </div>
 
-      <!-- EDUCATION PANEL -->
+      <!-- EDUCATION -->
       <div class="toggle-panel" id="panel-edu">
-        <div class="timeline" id="education">
+        <div class="timeline">
 
           <div class="timeline-item">
             <span class="timeline-date">Jan 2024 –<br>Nov 2025</span>
@@ -875,73 +830,69 @@
         <button class="filter-btn" data-filter="Time-series">time-series</button>
       </div>
 
-      <div class="carousel-wrap">
-        <div class="carousel" id="carousel">
-
-          <div class="project-card" data-tags="Neuroimaging,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
-            <p class="project-num">001</p>
-            <span class="project-badge">hackathon winner</span>
-            <p class="project-name">TMS Stimulation Visualizer</p>
-            <p class="project-desc">Patient-specific simulation of TMS effects on functional brain connectivity. 47.8% of simulated patients showed improved connectivity, matching clinical response rates.</p>
-            <div class="project-tags">
-              <span class="project-tag">Neuroimaging</span>
-              <span class="project-tag">Connectomes</span>
-              <span class="project-tag">LLMs</span>
-              <span class="project-tag">3D Visualization</span>
-            </div>
-            <p class="project-footer">click to learn more →</p>
+      <div class="carousel" id="carousel">
+        <div class="project-card" data-tags="Neuroimaging,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
+          <p class="project-num">001</p>
+          <span class="project-badge">hackathon winner</span>
+          <p class="project-name">TMS Stimulation Visualizer</p>
+          <p class="project-desc">Patient-specific simulation of TMS effects on functional brain connectivity. 47.8% of simulated patients showed improved connectivity, matching clinical response rates.</p>
+          <div class="project-tags">
+            <span class="project-tag">Neuroimaging</span>
+            <span class="project-tag">Connectomes</span>
+            <span class="project-tag">LLMs</span>
+            <span class="project-tag">3D Visualization</span>
           </div>
-
-          <div class="project-card" data-tags="mBERT,LLMs,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
-            <p class="project-num">002</p>
-            <span class="project-badge">mila finalist</span>
-            <p class="project-name">Mental Health AI Chatbot Guardrails</p>
-            <p class="project-desc">Safety stress-testing for a mental health chatbot via LLM multi-agent self-play, fine-tuned mBERT classifiers, and a secondary LLM judge for uncertain predictions.</p>
-            <div class="project-tags">
-              <span class="project-tag">mBERT</span>
-              <span class="project-tag">LLMs</span>
-              <span class="project-tag">Synthetic Data</span>
-              <span class="project-tag">AI Safety</span>
-            </div>
-            <p class="project-footer">click to learn more →</p>
-          </div>
-
-          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
-            <p class="project-num">003</p>
-            <p class="project-name">ML Reproducibility: SimMTM</p>
-            <p class="project-desc">Reproduced SimMTM — a channel-independent transformer encoder with masked reconstruction pretraining for time-series forecasting. Geometric masking, similarity matrices, manifold loss.</p>
-            <div class="project-tags">
-              <span class="project-tag">Transformers</span>
-              <span class="project-tag">Time-series</span>
-              <span class="project-tag">PyTorch</span>
-              <span class="project-tag">Self-supervised</span>
-            </div>
-            <p class="project-footer">click to learn more →</p>
-          </div>
-
-          <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
-            <p class="project-num">004</p>
-            <p class="project-name">Vision Transformer + CNN Hybrid</p>
-            <p class="project-desc">Hybrid CNN–ViT for ground-based cloud image classification. Achieved 86.2% test accuracy, outperforming both standalone CNN and ViT baselines.</p>
-            <div class="project-tags">
-              <span class="project-tag">ViT</span>
-              <span class="project-tag">CNN</span>
-              <span class="project-tag">PyTorch</span>
-              <span class="project-tag">Transformers</span>
-            </div>
-            <p class="project-footer">click to learn more →</p>
-          </div>
-
+          <p class="project-footer">click to learn more →</p>
         </div>
 
-        <p class="no-results" id="no-results">No projects match this filter.</p>
-
-        <div class="carousel-nav">
-          <button class="carousel-btn" onclick="scrollCarousel(-1)">←</button>
-          <button class="carousel-btn" onclick="scrollCarousel(1)">→</button>
-          <div class="carousel-dots" id="carousel-dots"></div>
-          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-left:0.5rem;">scroll or use arrows</span>
+        <div class="project-card" data-tags="mBERT,LLMs,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
+          <p class="project-num">002</p>
+          <span class="project-badge">mila finalist</span>
+          <p class="project-name">Mental Health AI Chatbot Guardrails</p>
+          <p class="project-desc">Safety stress-testing for a mental health chatbot via LLM multi-agent self-play, fine-tuned mBERT classifiers, and a secondary LLM judge for uncertain predictions.</p>
+          <div class="project-tags">
+            <span class="project-tag">mBERT</span>
+            <span class="project-tag">LLMs</span>
+            <span class="project-tag">Synthetic Data</span>
+            <span class="project-tag">AI Safety</span>
+          </div>
+          <p class="project-footer">click to learn more →</p>
         </div>
+
+        <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
+          <p class="project-num">003</p>
+          <p class="project-name">ML Reproducibility: SimMTM</p>
+          <p class="project-desc">Reproduced SimMTM — a channel-independent transformer encoder with masked reconstruction pretraining for time-series forecasting. Geometric masking, similarity matrices, manifold loss.</p>
+          <div class="project-tags">
+            <span class="project-tag">Transformers</span>
+            <span class="project-tag">Time-series</span>
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag">Self-supervised</span>
+          </div>
+          <p class="project-footer">click to learn more →</p>
+        </div>
+
+        <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
+          <p class="project-num">004</p>
+          <p class="project-name">Vision Transformer + CNN Hybrid</p>
+          <p class="project-desc">Hybrid CNN–ViT for ground-based cloud image classification. Achieved 86.2% test accuracy, outperforming both standalone CNN and ViT baselines.</p>
+          <div class="project-tags">
+            <span class="project-tag">ViT</span>
+            <span class="project-tag">CNN</span>
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag">Transformers</span>
+          </div>
+          <p class="project-footer">click to learn more →</p>
+        </div>
+      </div>
+
+      <p class="no-results" id="no-results">No projects match this filter.</p>
+
+      <div class="carousel-nav">
+        <button class="carousel-btn" onclick="scrollCarousel(-1)">←</button>
+        <button class="carousel-btn" onclick="scrollCarousel(1)">→</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-left:0.25rem;">scroll or use arrows</span>
       </div>
     </section>
 
@@ -958,14 +909,35 @@
   <script>
     // ── TAB TOGGLE ──
     function switchTab(tab) {
-      document.querySelectorAll('.toggle-tab').forEach((t, i) => {
-        t.classList.toggle('active', (i === 0 && tab === 'exp') || (i === 1 && tab === 'edu'));
-      });
+      document.getElementById('tab-exp').classList.toggle('active', tab === 'exp');
+      document.getElementById('tab-edu').classList.toggle('active', tab === 'edu');
       document.getElementById('panel-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('panel-edu').classList.toggle('active', tab === 'edu');
     }
 
-    // ── PROJECT FILTERS ──
+    // ── SIDEBAR NAV ACTIVE ──
+    function setActive(el) {
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Scroll spy
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('.sidebar-nav a').forEach(a => {
+            const href = a.getAttribute('href').replace('#', '');
+            // match 'work' section to both experience and education links
+            a.classList.toggle('active', href === id);
+          });
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.content-section').forEach(s => observer.observe(s));
+
+    // ── FILTERS ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -973,8 +945,8 @@
         const filter = btn.dataset.filter;
         let visible = 0;
         document.querySelectorAll('.project-card').forEach(card => {
-          const tags = card.dataset.tags || '';
-          const show = filter === 'all' || tags.split(',').map(t => t.trim()).includes(filter);
+          const tags = (card.dataset.tags || '').split(',').map(t => t.trim());
+          const show = filter === 'all' || tags.includes(filter);
           card.classList.toggle('hidden', !show);
           if (show) visible++;
         });
@@ -986,43 +958,29 @@
     // ── CAROUSEL ──
     function scrollCarousel(dir) {
       const c = document.getElementById('carousel');
-      const cardW = 320 + 20;
-      c.scrollBy({ left: dir * cardW, behavior: 'smooth' });
+      c.scrollBy({ left: dir * 325, behavior: 'smooth' });
     }
 
     function updateDots() {
-      const c = document.getElementById('carousel');
-      const cards = [...c.querySelectorAll('.project-card:not(.hidden)')];
+      const cards = [...document.querySelectorAll('.project-card:not(.hidden)')];
       const dotsEl = document.getElementById('carousel-dots');
-      dotsEl.innerHTML = cards.map((_, i) => `<div class="carousel-dot${i === 0 ? ' active' : ''}"></div>`).join('');
+      dotsEl.innerHTML = cards.map((_, i) =>
+        `<div class="carousel-dot${i === 0 ? ' active' : ''}" onclick="scrollToCard(${i})"></div>`
+      ).join('');
+    }
+
+    function scrollToCard(i) {
+      const c = document.getElementById('carousel');
+      c.scrollTo({ left: i * 325, behavior: 'smooth' });
     }
 
     document.getElementById('carousel').addEventListener('scroll', () => {
       const c = document.getElementById('carousel');
-      const cards = [...c.querySelectorAll('.project-card:not(.hidden)')];
-      const scrollLeft = c.scrollLeft;
-      const cardW = 320 + 20;
-      const idx = Math.round(scrollLeft / cardW);
+      const idx = Math.round(c.scrollLeft / 325);
       document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
     });
 
     updateDots();
-
-    // ── SIDEBAR NAV ACTIVE STATE ──
-    const sections = document.querySelectorAll('.content-section');
-    const navLinks = document.querySelectorAll('.sidebar-nav a');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-
-    sections.forEach(s => observer.observe(s));
 
     // ── PROJECT DATA ──
     const projects = {
@@ -1037,8 +995,7 @@
           'Contributed to a team-built clinical planning tool integrating 3D brain visualization and LLM-based analysis',
           'Benchmarked results against clinical literature — 47.8% of simulated patients showed improved connectivity, aligning with reported treatment response rates (~40%)'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE',
-        video: null
+        github: 'YOUR_GITHUB_LINK_HERE', video: null
       },
       chatbot: {
         badge: 'finalist — mila hackathon',
@@ -1051,8 +1008,7 @@
           'Fine-tuned and evaluated mBERT-based classifiers for input guardrails',
           'Added a secondary LLM judge for uncertain predictions to improve safety coverage'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE',
-        video: null
+        github: 'YOUR_GITHUB_LINK_HERE', video: null
       },
       simmtm: {
         badge: null,
@@ -1064,8 +1020,7 @@
           'Developed geometric masking, similarity matrix computation, and manifold + reconstruction loss',
           'Reproduced and validated core results from the original SimMTM paper'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE',
-        video: null
+        github: 'YOUR_GITHUB_LINK_HERE', video: null
       },
       vit: {
         badge: null,
@@ -1077,8 +1032,7 @@
           'Achieved 86.2% test accuracy, outperforming standalone CNN and ViT baselines',
           'Designed the CNN as a feature extractor feeding into the transformer encoder for improved spatial representation'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE',
-        video: null
+        github: 'YOUR_GITHUB_LINK_HERE', video: null
       }
     };
 
@@ -1097,21 +1051,14 @@
       html += `<div class="modal-divider"></div><p class="modal-section-title">// tech stack</p>`;
       html += `<div class="modal-tags">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
       html += `<div class="modal-links">`;
-      if (hasGithub) {
-        html += `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          View on GitHub</a>`;
-      } else {
-        html += `<span class="modal-link modal-link-ghost" style="opacity:0.4;cursor:default;">GitHub — add your link to enable</span>`;
-      }
+      html += hasGithub
+        ? `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>View on GitHub</a>`
+        : `<span class="modal-link modal-link-ghost" style="opacity:0.4;cursor:default;">GitHub — add your link to enable</span>`;
       html += `</div>`;
-      html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p>`;
-      html += `<div class="modal-video-wrap">`;
-      if (p.video) {
-        html += `<iframe class="modal-video" src="${p.video}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-      } else {
-        html += `<div class="modal-video-placeholder"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg><span>No demo video yet</span></div>`;
-      }
+      html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p><div class="modal-video-wrap">`;
+      html += p.video
+        ? `<iframe class="modal-video" src="${p.video}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+        : `<div class="modal-video-placeholder"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg><span>No demo video yet</span></div>`;
       html += `</div>`;
       if (hasGithub) {
         html += `<div class="modal-divider"></div><p class="modal-section-title">// readme</p>`;
@@ -1124,12 +1071,11 @@
       if (hasGithub) fetchReadme(p.github);
     }
 
-    async function fetchReadme(githubUrl) {
+    async function fetchReadme(url) {
       try {
-        const match = githubUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
-        if (!match) throw new Error();
-        const [, owner, repo] = match;
-        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`, { headers: { Accept: 'application/vnd.github.v3.raw' } });
+        const m = url.match(/github\.com\/([^/]+)\/([^/]+)/);
+        if (!m) throw new Error();
+        const res = await fetch(`https://api.github.com/repos/${m[1]}/${m[2]}/readme`, { headers: { Accept: 'application/vnd.github.v3.raw' } });
         if (!res.ok) throw new Error();
         const text = await res.text();
         document.getElementById('readme-loading').style.display = 'none';
@@ -1151,21 +1097,19 @@
       if (e.target === document.getElementById('modal-overlay')) closeModal();
     }
 
-    // ── RESUME MODAL ──
     function openResume() {
-      const overlay = document.getElementById('modal-overlay');
       const body = document.getElementById('modal-body');
       body.innerHTML = `
         <h2 class="modal-title">Resume</h2>
         <p class="modal-meta">Kristal Menguc</p>
         <div class="modal-divider"></div>
-        <iframe src="git_resume.pdf" style="width:100%;height:520px;border:none;border-radius:4px;background:var(--bg);"></iframe>
+        <iframe src="git_resume.pdf" style="width:100%;height:500px;border:none;border-radius:4px;background:var(--bg);"></iframe>
         <div class="modal-divider"></div>
         <div class="modal-links">
           <a href="git_resume.pdf" download class="modal-link modal-link-primary">Download PDF</a>
           <a href="git_resume.pdf" target="_blank" class="modal-link modal-link-ghost">Open fullscreen</a>
         </div>`;
-      overlay.classList.add('open');
+      document.getElementById('modal-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
