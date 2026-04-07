@@ -203,7 +203,7 @@
 
     .content-section {
       width: 100%;
-      max-width: 900px;
+      max-width: 700px;
       padding: 5rem 3rem;
       border-bottom: 1px solid var(--border);
     }
@@ -226,15 +226,36 @@
       margin-bottom: 2.5rem;
     }
 
-    /* ── SKILLS ── */
-    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
-    .skills-label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
-    .skills-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    /* ── ABOUT: bio left, skills right ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-bio {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .skills-col { display: flex; flex-direction: column; gap: 1.25rem; }
+    .skills-group { }
+    .skills-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 
     .skill-tag {
       font-family: var(--font-mono);
-      font-size: 12px;
-      padding: 0.3rem 0.75rem;
+      font-size: 11px;
+      padding: 0.25rem 0.65rem;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 2px;
@@ -354,6 +375,9 @@
     .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
     .filter-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 
+    /* Fix: padding-top on carousel so top border of hovered card is visible */
+    .carousel-wrap { padding-top: 4px; }
+
     .carousel {
       display: flex;
       gap: 1.25rem;
@@ -374,12 +398,17 @@
       border-radius: 4px;
       padding: 1.5rem;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
     }
 
-    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    /* Use box-shadow instead of transform so top edge is never clipped */
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
     .project-card.hidden { display: none; }
 
     .project-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 0.5rem; }
@@ -451,8 +480,63 @@
     }
 
     .carousel-dot.active { background: var(--accent); }
-
     .no-results { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding: 2rem 0; display: none; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      width: 100%;
+      max-width: 700px;
+      padding: 3rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-sub {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 400px;
+    }
+
+    .footer-links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 0.55rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .footer-link:hover { border-color: var(--accent); color: var(--accent); }
+    .footer-link svg { width: 13px; height: 13px; }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #444;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
 
     /* ── MODAL ── */
     .modal-overlay {
@@ -582,6 +666,7 @@
         flex-wrap: wrap;
         align-items: center;
         gap: 1rem;
+        overflow-y: visible;
       }
 
       .sidebar-photo, .sidebar-photo-placeholder { width: 52px; height: 52px; margin-bottom: 0; }
@@ -596,11 +681,12 @@
 
       .main { margin-left: 0; }
       .content-section { padding: 3rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
-      .skills-grid { grid-template-columns: 1fr; }
       .project-card { flex: 0 0 260px; }
       .modal { padding: 1.5rem; }
       .award-item { flex-direction: column; gap: 0.15rem; }
+      .site-footer { padding: 2rem 1.5rem 3rem; }
     }
   </style>
 </head>
@@ -608,16 +694,16 @@
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
-    <!-- Swap this div for: <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" /> -->
-    <div class="sidebar-photo-placeholder">
+    <div class="sidebar-photo">
+      <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
+    <!--<div class="sidebar-photo-placeholder">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5">
         <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-      </svg>
+      </svg>-->
     </div>
 
     <div class="sidebar-name">Kristal<br><span>Menguc.</span></div>
-    <div class="sidebar-title">ML Researcher &amp;<br>Computational Neuroscientist<br><span style="color:var(--accent)">// open to new roles</span></div>
-
+    <div class="sidebar-title"><span style="color: var(--accent);">ML Researcher &amp;<br>Computational Neuroscientist</span></div>
     <div class="sidebar-bio">
       Building ML systems at the intersection of neuroscience and AI. MSc CS from York University. Based in Toronto.
     </div>
@@ -638,15 +724,15 @@
     </div>
 
     <div class="sidebar-cta">
-      <a href="#projects" class="btn btn-primary">View work</a>
+      <a href="#projects" class="btn btn-primary" onclick="setActive('projects')">View work</a>
       <button onclick="openResume()" class="btn btn-ghost">Resume</button>
     </div>
 
     <nav class="sidebar-nav">
-      <a href="#about" onclick="setActive(this)"><span class="nav-dot"></span>about</a>
-      <a href="#work" onclick="setActive(this); switchTab('exp')"><span class="nav-dot"></span>experience</a>
-      <a href="#work" onclick="setActive(this); switchTab('edu')"><span class="nav-dot"></span>education</a>
-      <a href="#projects" onclick="setActive(this)"><span class="nav-dot"></span>projects</a>
+      <a href="#about"    onclick="setActive('about')">   <span class="nav-dot"></span>about</a>
+      <a href="#work"     onclick="setActive('exp'); switchTab('exp')">  <span class="nav-dot"></span>experience</a>
+      <a href="#work"     onclick="setActive('edu'); switchTab('edu')">  <span class="nav-dot"></span>education</a>
+      <a href="#projects" onclick="setActive('projects')"><span class="nav-dot"></span>projects</a>
     </nav>
   </aside>
 
@@ -657,49 +743,51 @@
     <section class="content-section" id="about">
       <p class="section-label">// 01 — about</p>
       <h2 class="section-title">Who I am</h2>
-      <p style="color:var(--muted);font-size:15px;line-height:1.9;margin-bottom:2.5rem;">
-        I'm an ML researcher and engineer with a rare combination of deep neuroscience expertise and modern AI tooling. I've spent the last few years building self-supervised foundation models for clinical biosignals — work that could one day improve care for Parkinson's patients. I care about research that connects directly to real-world impact.
-      </p>
-      <div class="skills-grid">
-        <div>
-          <p class="skills-label">// languages</p>
-          <div class="skills-list">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Java</span>
-            <span class="skill-tag">MATLAB</span>
-            <span class="skill-tag">SQL</span>
-          </div>
+      <div class="about-grid">
+        <div class="about-bio">
+          I'm an ML researcher and engineer with a rare combination of deep neuroscience expertise and modern AI tooling. I've spent the last few years building self-supervised foundation models for clinical biosignals — work that could one day improve care for Parkinson's patients. I care about research that connects directly to real-world impact.
         </div>
-        <div>
-          <p class="skills-label">// ML & frameworks</p>
-          <div class="skills-list">
-            <span class="skill-tag">PyTorch</span>
-            <span class="skill-tag">TensorFlow</span>
-            <span class="skill-tag">HuggingFace</span>
-            <span class="skill-tag">Scikit-Learn</span>
-            <span class="skill-tag">Pandas</span>
-            <span class="skill-tag">NumPy</span>
-            <span class="skill-tag">W&B</span>
+        <div class="skills-col">
+          <div class="skills-group">
+            <p class="skills-label">languages</p>
+            <div class="skills-list">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">MATLAB</span>
+              <span class="skill-tag">SQL</span>
+            </div>
           </div>
-        </div>
-        <div>
-          <p class="skills-label">// ML areas</p>
-          <div class="skills-list">
-            <span class="skill-tag">Self-supervised learning</span>
-            <span class="skill-tag">Transformers</span>
-            <span class="skill-tag">Time-series</span>
-            <span class="skill-tag">LLMs</span>
-            <span class="skill-tag">CNNs</span>
-            <span class="skill-tag">ViTs</span>
+          <div class="skills-group">
+            <p class="skills-label">ML & frameworks</p>
+            <div class="skills-list">
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">TensorFlow</span>
+              <span class="skill-tag">HuggingFace</span>
+              <span class="skill-tag">Scikit-Learn</span>
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">NumPy</span>
+              <span class="skill-tag">W&B</span>
+            </div>
           </div>
-        </div>
-        <div>
-          <p class="skills-label">// tools</p>
-          <div class="skills-list">
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">Linux</span>
-            <span class="skill-tag">Compute Canada</span>
-            <span class="skill-tag">OpenAI API</span>
+          <div class="skills-group">
+            <p class="skills-label">ML areas</p>
+            <div class="skills-list">
+              <span class="skill-tag">Self-supervised learning</span>
+              <span class="skill-tag">Transformers</span>
+              <span class="skill-tag">Time-series</span>
+              <span class="skill-tag">LLMs</span>
+              <span class="skill-tag">CNNs</span>
+              <span class="skill-tag">ViTs</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <p class="skills-label">tools</p>
+            <div class="skills-list">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Linux</span>
+              <span class="skill-tag">Compute Canada</span>
+              <span class="skill-tag">OpenAI API</span>
+            </div>
           </div>
         </div>
       </div>
@@ -715,10 +803,8 @@
         <button class="toggle-tab" id="tab-edu" onclick="switchTab('edu')">Education</button>
       </div>
 
-      <!-- EXPERIENCE -->
       <div class="toggle-panel active" id="panel-exp">
         <div class="timeline">
-
           <div class="timeline-item">
             <span class="timeline-date">Sep 2023 –<br>Dec 2025</span>
             <div>
@@ -732,7 +818,6 @@
               </ul>
             </div>
           </div>
-
           <div class="timeline-item">
             <span class="timeline-date">May 2024 –<br>Apr 2025</span>
             <div>
@@ -744,7 +829,6 @@
               </ul>
             </div>
           </div>
-
           <div class="timeline-item">
             <span class="timeline-date">May 2022 –<br>Apr 2023</span>
             <div>
@@ -756,14 +840,11 @@
               </ul>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- EDUCATION -->
       <div class="toggle-panel" id="panel-edu">
         <div class="timeline">
-
           <div class="timeline-item">
             <span class="timeline-date">Jan 2024 –<br>Nov 2025</span>
             <div>
@@ -780,7 +861,6 @@
               </a>
             </div>
           </div>
-
           <div class="timeline-item">
             <span class="timeline-date">Sep 2019 –<br>Apr 2023</span>
             <div>
@@ -810,7 +890,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -830,59 +909,58 @@
         <button class="filter-btn" data-filter="Time-series">time-series</button>
       </div>
 
-      <div class="carousel" id="carousel">
-        <div class="project-card" data-tags="Neuroimaging,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
-          <p class="project-num">001</p>
-          <span class="project-badge">hackathon winner</span>
-          <p class="project-name">TMS Stimulation Visualizer</p>
-          <p class="project-desc">Patient-specific simulation of TMS effects on functional brain connectivity. 47.8% of simulated patients showed improved connectivity, matching clinical response rates.</p>
-          <div class="project-tags">
-            <span class="project-tag">Neuroimaging</span>
-            <span class="project-tag">Connectomes</span>
-            <span class="project-tag">LLMs</span>
-            <span class="project-tag">3D Visualization</span>
+      <div class="carousel-wrap">
+        <div class="carousel" id="carousel">
+          <div class="project-card" data-tags="Neuroimaging,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
+            <p class="project-num">001</p>
+            <span class="project-badge">hackathon winner</span>
+            <p class="project-name">TMS Stimulation Visualizer</p>
+            <p class="project-desc">Patient-specific simulation of TMS effects on functional brain connectivity. 47.8% of simulated patients showed improved connectivity, matching clinical response rates.</p>
+            <div class="project-tags">
+              <span class="project-tag">Neuroimaging</span>
+              <span class="project-tag">Connectomes</span>
+              <span class="project-tag">LLMs</span>
+              <span class="project-tag">3D Visualization</span>
+            </div>
+            <p class="project-footer">click to learn more →</p>
           </div>
-          <p class="project-footer">click to learn more →</p>
-        </div>
-
-        <div class="project-card" data-tags="mBERT,LLMs,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
-          <p class="project-num">002</p>
-          <span class="project-badge">mila finalist</span>
-          <p class="project-name">Mental Health AI Chatbot Guardrails</p>
-          <p class="project-desc">Safety stress-testing for a mental health chatbot via LLM multi-agent self-play, fine-tuned mBERT classifiers, and a secondary LLM judge for uncertain predictions.</p>
-          <div class="project-tags">
-            <span class="project-tag">mBERT</span>
-            <span class="project-tag">LLMs</span>
-            <span class="project-tag">Synthetic Data</span>
-            <span class="project-tag">AI Safety</span>
+          <div class="project-card" data-tags="mBERT,LLMs,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
+            <p class="project-num">002</p>
+            <span class="project-badge">mila finalist</span>
+            <p class="project-name">Mental Health AI Chatbot Guardrails</p>
+            <p class="project-desc">Safety stress-testing for a mental health chatbot via LLM multi-agent self-play, fine-tuned mBERT classifiers, and a secondary LLM judge for uncertain predictions.</p>
+            <div class="project-tags">
+              <span class="project-tag">mBERT</span>
+              <span class="project-tag">LLMs</span>
+              <span class="project-tag">Synthetic Data</span>
+              <span class="project-tag">AI Safety</span>
+            </div>
+            <p class="project-footer">click to learn more →</p>
           </div>
-          <p class="project-footer">click to learn more →</p>
-        </div>
-
-        <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
-          <p class="project-num">003</p>
-          <p class="project-name">ML Reproducibility: SimMTM</p>
-          <p class="project-desc">Reproduced SimMTM — a channel-independent transformer encoder with masked reconstruction pretraining for time-series forecasting. Geometric masking, similarity matrices, manifold loss.</p>
-          <div class="project-tags">
-            <span class="project-tag">Transformers</span>
-            <span class="project-tag">Time-series</span>
-            <span class="project-tag">PyTorch</span>
-            <span class="project-tag">Self-supervised</span>
+          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
+            <p class="project-num">003</p>
+            <p class="project-name">ML Reproducibility: SimMTM</p>
+            <p class="project-desc">Reproduced SimMTM — a channel-independent transformer encoder with masked reconstruction pretraining for time-series forecasting. Geometric masking, similarity matrices, manifold loss.</p>
+            <div class="project-tags">
+              <span class="project-tag">Transformers</span>
+              <span class="project-tag">Time-series</span>
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">Self-supervised</span>
+            </div>
+            <p class="project-footer">click to learn more →</p>
           </div>
-          <p class="project-footer">click to learn more →</p>
-        </div>
-
-        <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
-          <p class="project-num">004</p>
-          <p class="project-name">Vision Transformer + CNN Hybrid</p>
-          <p class="project-desc">Hybrid CNN–ViT for ground-based cloud image classification. Achieved 86.2% test accuracy, outperforming both standalone CNN and ViT baselines.</p>
-          <div class="project-tags">
-            <span class="project-tag">ViT</span>
-            <span class="project-tag">CNN</span>
-            <span class="project-tag">PyTorch</span>
-            <span class="project-tag">Transformers</span>
+          <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
+            <p class="project-num">004</p>
+            <p class="project-name">Vision Transformer + CNN Hybrid</p>
+            <p class="project-desc">Hybrid CNN–ViT for ground-based cloud image classification. Achieved 86.2% test accuracy, outperforming both standalone CNN and ViT baselines.</p>
+            <div class="project-tags">
+              <span class="project-tag">ViT</span>
+              <span class="project-tag">CNN</span>
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">Transformers</span>
+            </div>
+            <p class="project-footer">click to learn more →</p>
           </div>
-          <p class="project-footer">click to learn more →</p>
         </div>
       </div>
 
@@ -896,9 +974,33 @@
       </div>
     </section>
 
+    <!-- FOOTER / CONTACT -->
+    <footer class="site-footer">
+      <div>
+        <p class="section-label">// let's connect</p>
+        <h2 class="footer-heading">Get in touch</h2>
+        <p class="footer-sub">Open to ML engineering and research roles. Feel free to reach out directly — I reply to everything.</p>
+      </div>
+      <div class="footer-links-row">
+        <a href="mailto:kristaldoga@gmail.com" class="footer-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          kristaldoga@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/kristal-doga-m-6828b91aa/" target="_blank" class="footer-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/kris-meng" target="_blank" class="footer-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <p class="footer-copy">© 2026 Kristal Menguc · Built with HTML &amp; CSS</p>
+    </footer>
+
   </main>
 
-  <!-- ── MODAL ── -->
+  <!-- MODAL -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕ close</button>
@@ -915,27 +1017,12 @@
       document.getElementById('panel-edu').classList.toggle('active', tab === 'edu');
     }
 
-    // ── SIDEBAR NAV ACTIVE ──
-    function setActive(el) {
-      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
-      el.classList.add('active');
+    // ── SIDEBAR NAV — click-only active, NO scroll spy ──
+    function setActive(key) {
+      const map = { about: 0, exp: 1, edu: 2, projects: 3 };
+      const links = document.querySelectorAll('.sidebar-nav a');
+      links.forEach((a, i) => a.classList.toggle('active', i === map[key]));
     }
-
-    // Scroll spy
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          document.querySelectorAll('.sidebar-nav a').forEach(a => {
-            const href = a.getAttribute('href').replace('#', '');
-            // match 'work' section to both experience and education links
-            a.classList.toggle('active', href === id);
-          });
-        }
-      });
-    }, { threshold: 0.25 });
-
-    document.querySelectorAll('.content-section').forEach(s => observer.observe(s));
 
     // ── FILTERS ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -970,8 +1057,7 @@
     }
 
     function scrollToCard(i) {
-      const c = document.getElementById('carousel');
-      c.scrollTo({ left: i * 325, behavior: 'smooth' });
+      document.getElementById('carousel').scrollTo({ left: i * 325, behavior: 'smooth' });
     }
 
     document.getElementById('carousel').addEventListener('scroll', () => {
