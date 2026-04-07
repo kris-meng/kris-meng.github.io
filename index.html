@@ -485,7 +485,7 @@
     /* ── FOOTER ── */
     .site-footer {
       width: 100%;
-      max-width: 700px;
+      max-width: 900px;  /* match .content-section */
       padding: 3rem 3rem 4rem;
       display: flex;
       flex-direction: column;
@@ -1048,11 +1048,50 @@
     }
 
     // ── SIDEBAR NAV — click-only active, NO scroll spy ──
+    // function setActive(key) {
+    //  const map = { about: 0, exp: 1, edu: 2, projects: 3 };
+    //  const links = document.querySelectorAll('.sidebar-nav a');
+    //  links.forEach((a, i) => a.classList.toggle('active', i === map[key]));
+    //} 
+    let activeSection = null;
+
     function setActive(key) {
-      const map = { about: 0, exp: 1, edu: 2, projects: 3 };
-      const links = document.querySelectorAll('.sidebar-nav a');
-      links.forEach((a, i) => a.classList.toggle('active', i === map[key]));
+      activeSection = key;
+
+      document.querySelectorAll(".sidebar-nav a").forEach((link) =>
+        link.classList.remove("active")
+      );
+
+      if (key === "about") document.querySelectorAll(".sidebar-nav a")[0].classList.add("active");
+      if (key === "experience") document.querySelectorAll(".sidebar-nav a")[1].classList.add("active");
+      if (key === "education") document.querySelectorAll(".sidebar-nav a")[2].classList.add("active");
+      if (key === "projects") document.querySelectorAll(".sidebar-nav a")[3].classList.add("active");
     }
+
+    window.addEventListener("scroll", () => {
+      if (!activeSection) return;
+
+      const sectionMap = {
+        about: document.getElementById("about"),
+        experience: document.getElementById("work"),
+        education: document.getElementById("work"),
+        projects: document.getElementById("projects"),
+      };
+
+      const section = sectionMap[activeSection];
+      const rect = section.getBoundingClientRect();
+
+      const inView =
+        rect.top < window.innerHeight * 0.6 &&
+        rect.bottom > window.innerHeight * 0.4;
+
+      if (!inView) {
+        document.querySelectorAll(".sidebar-nav a").forEach((link) =>
+          link.classList.remove("active")
+        );
+        activeSection = null;
+      }
+    });
 
     // ── FILTERS ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
