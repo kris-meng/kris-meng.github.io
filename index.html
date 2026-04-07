@@ -487,6 +487,8 @@
       width: 100%;
       max-width: 900px;  /* match .content-section */
       padding: 3rem 3rem 4rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -1058,23 +1060,17 @@
     function setActive(key) {
       activeSection = key;
 
-      document.querySelectorAll(".sidebar-nav a").forEach((link) =>
-        link.classList.remove("active")
-      );
-
-      if (key === "about") document.querySelectorAll(".sidebar-nav a")[0].classList.add("active");
-      if (key === "experience") document.querySelectorAll(".sidebar-nav a")[1].classList.add("active");
-      if (key === "education") document.querySelectorAll(".sidebar-nav a")[2].classList.add("active");
-      if (key === "projects") document.querySelectorAll(".sidebar-nav a")[3].classList.add("active");
-    }
-
+      const map = { about: 0, exp: 1, edu: 2, projects: 3 };
+      const links = document.querySelectorAll('.sidebar-nav a');
+      links.forEach((a, i) => a.classList.toggle('active', i === map[key]));}
+      
     window.addEventListener("scroll", () => {
       if (!activeSection) return;
 
       const sectionMap = {
         about: document.getElementById("about"),
-        experience: document.getElementById("work"),
-        education: document.getElementById("work"),
+        exp: document.getElementById("work"),
+        edu: document.getElementById("work"),
         projects: document.getElementById("projects"),
       };
 
