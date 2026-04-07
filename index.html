@@ -717,10 +717,10 @@
       </svg>-->
     </div>
 
-    <div class="sidebar-name">Kristal<br><span>Menguc.</span></div>
+    <div class="sidebar-name">Kristal<br><span>Menguc</span></div>
     <div class="sidebar-title"><span style="color: var(--accent);">ML Researcher &amp;<br>Computational Neuroscientist</span></div>
     <div class="sidebar-bio">
-      Building ML systems at the intersection of neuroscience and AI. MSc CS from York University. Based in Toronto.
+      ML researcher & engineer building impactful AI systems. MSc CS from York University. Toronto-based.
     </div>
 
     <div class="sidebar-contact">
@@ -760,7 +760,9 @@
       <h2 class="section-title">Who I am</h2>
       <div class="about-grid">
         <div class="about-bio">
-          I'm an ML researcher and engineer with a rare combination of deep neuroscience expertise and modern AI tooling. I've spent the last few years building self-supervised foundation models for clinical biosignals — work that could one day improve care for Parkinson's patients. I care about research that connects directly to real-world impact.
+          I’m an ML researcher and engineer with experience across neuroscience, healthcare, and applied AI. My work includes self-supervised models for clinical biosignals, time-series forecasting, computer vision (ViTs), and LLM-based projects. My master’s thesis focused on improving sleep stage classification for Parkinson’s patients, and I’ve also contributed to mental health chatbots and replicated ML models from papers end-to-end.<br>
+
+          I thrive in interdisciplinary teams and enjoy translating research into practical, real-world solutions — whether in biomedical AI, computational biology, or broader ML applications like forecasting, vision, or natural language.
         </div>
         <div class="skills-col">
           <div class="skills-group">
@@ -872,7 +874,7 @@
               </p>
               <a href="https://yorkspace.library.yorku.ca/items/214a6258-0fac-466b-aa37-ca77286f4e80" target="_blank" class="thesis-link">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-                Read thesis PDF
+                Read Thesis
               </a>
             </div>
           </div>
@@ -883,7 +885,11 @@
               <p class="timeline-org">University of Toronto</p>
               <p class="timeline-detail">
                 Neuroscience Specialist · Cognitive Science Major · Economics Minor<br>
-                Advisor: Dr. Taufik Valiante
+                Thesis: <em>Acute Aerobic Exercise Changes in Amygdala and Hippocampal Spike Field Activity, and Synchronization
+of Hippocampal and Prefrontal Cortex Cell Assembly Firing in Surgical Epilepsy Patients</em><br><br>
+                Advisor: Dr. Taufik Valiante<br>
+                Courses: Clinical Neuroimaging, Neurodevelopmental Diversity and Diseases, Market Design, Multivariable
+Calculus, Linear Algebra
               </p>
               <div class="awards-list">
                 <div class="award-item">
@@ -920,7 +926,6 @@
         <button class="filter-btn" data-filter="LLMs">LLMs</button>
         <button class="filter-btn" data-filter="Neuroimaging">neuroimaging</button>
         <button class="filter-btn" data-filter="PyTorch">pytorch</button>
-        <button class="filter-btn" data-filter="AI Safety">AI safety</button>
         <button class="filter-btn" data-filter="Time-series">time-series</button>
       </div>
 
@@ -930,11 +935,11 @@
             <p class="project-num">001</p>
             <span class="project-badge">hackathon winner</span>
             <p class="project-name">TMS Stimulation Visualizer</p>
-            <p class="project-desc">Patient-specific simulation of TMS effects on functional brain connectivity. 47.8% of simulated patients showed improved connectivity, matching clinical response rates.</p>
+            <p class="project-desc">Simulated TMS treatment effects on functional brain connectivity across depression subtypes, enabling exploration of personalized stimulation outcomes.</p>
             <div class="project-tags">
               <span class="project-tag">Neuroimaging</span>
               <span class="project-tag">Connectomes</span>
-              <span class="project-tag">LLMs</span>
+              <span class="project-tag">Neuromodulation</span>
               <span class="project-tag">3D Visualization</span>
             </div>
             <p class="project-footer">click to learn more →</p>
@@ -943,19 +948,18 @@
             <p class="project-num">002</p>
             <span class="project-badge">mila finalist</span>
             <p class="project-name">Mental Health AI Chatbot Guardrails</p>
-            <p class="project-desc">Safety stress-testing for a mental health chatbot via LLM multi-agent self-play, fine-tuned mBERT classifiers, and a secondary LLM judge for uncertain predictions.</p>
+            <p class="project-desc">Generated synthetic dialogues via LLM-based multi-agent self-play to create training data for mental health chatbot guardrails.</p>
             <div class="project-tags">
               <span class="project-tag">mBERT</span>
               <span class="project-tag">LLMs</span>
-              <span class="project-tag">Synthetic Data</span>
-              <span class="project-tag">AI Safety</span>
+              <span class="project-tag">Synthetic Data Generation</span>
             </div>
             <p class="project-footer">click to learn more →</p>
           </div>
           <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
             <p class="project-num">003</p>
             <p class="project-name">ML Reproducibility: SimMTM</p>
-            <p class="project-desc">Reproduced SimMTM — a channel-independent transformer encoder with masked reconstruction pretraining for time-series forecasting. Geometric masking, similarity matrices, manifold loss.</p>
+            <p class="project-desc">Reproduced SimMTM, a transformer-based model for channel-independent time-series forecasting, implementing masked reconstruction pretraining solely from the original paper.</p>
             <div class="project-tags">
               <span class="project-tag">Transformers</span>
               <span class="project-tag">Time-series</span>
@@ -966,8 +970,8 @@
           </div>
           <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
             <p class="project-num">004</p>
-            <p class="project-name">Vision Transformer + CNN Hybrid</p>
-            <p class="project-desc">Hybrid CNN–ViT for ground-based cloud image classification. Achieved 86.2% test accuracy, outperforming both standalone CNN and ViT baselines.</p>
+            <p class="project-name">Cloud Image Classification</p>
+            <p class="project-desc">Hybrid CNN–ViT model for ground-based cloud image classification.</p>
             <div class="project-tags">
               <span class="project-tag">ViT</span>
               <span class="project-tag">CNN</span>
@@ -995,7 +999,7 @@
         <p class="section-label">// let's connect</p>
         <h2 class="footer-heading">Get in touch</h2>
         <p class="footer-sub">
-          Interested in ML engineering or research roles? I’d love to connect.
+          I’m exploring ML engineering and research opportunities — happy to connect and chat!
         </p>
 
         <a href="mailto:kristaldoga@gmail.com" class="footer-cta">
@@ -1121,8 +1125,9 @@
           'Modeled longitudinal changes in brain networks by updating connectome edge weights using biologically-informed rules to predict circuit-level responses after 20 treatment sessions',
           'Contributed to a team-built clinical planning tool integrating 3D brain visualization and LLM-based analysis',
           'Benchmarked results against clinical literature — 47.8% of simulated patients showed improved connectivity, aligning with reported treatment response rates (~40%)'
+          'Implemented the connectome/white-box simulation components, with code available on GitHub' 
         ],
-        github: 'YOUR_GITHUB_LINK_HERE', video: null
+        github: 'https://github.com/bertovmill/biohack26/tree/main', video: null
       },
       chatbot: {
         badge: 'finalist — mila hackathon',
@@ -1135,7 +1140,7 @@
           'Fine-tuned and evaluated mBERT-based classifiers for input guardrails',
           'Added a secondary LLM judge for uncertain predictions to improve safety coverage'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE', video: null
+        github: null, video: null
       },
       simmtm: {
         badge: null,
@@ -1144,10 +1149,10 @@
         tags: ['Transformers', 'Time-series', 'PyTorch', 'Self-supervised', 'Python'],
         bullets: [
           'Implemented a channel-independent transformer encoder with masked reconstruction pretraining and downstream forecasting fine-tuning',
-          'Developed geometric masking, similarity matrix computation, and manifold + reconstruction loss',
-          'Reproduced and validated core results from the original SimMTM paper'
+          'Developed geometric masking, similarity matrix computation, and manifold + reconstruction loss based on the mathematical theories provided in the original paper',
+          'Reproduced and validated SimMTM for time-series forecasting, achieving improved in-domain performance (MSE 0.217 vs 0.288, MAE 0.362 vs 0.348) and strong cross-domain transfer from weather → ETTm1 (MSE 0.086 vs 0.304, MAE 0.225 vs 0.354) compared to the original paper.'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE', video: null
+        github: 'https://github.com/claudiafarkas/simmtm_rep', video: null
       },
       vit: {
         badge: null,
@@ -1159,7 +1164,7 @@
           'Achieved 86.2% test accuracy, outperforming standalone CNN and ViT baselines',
           'Designed the CNN as a feature extractor feeding into the transformer encoder for improved spatial representation'
         ],
-        github: 'YOUR_GITHUB_LINK_HERE', video: null
+        github: null, video: null
       }
     };
 
