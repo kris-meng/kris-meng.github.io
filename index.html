@@ -606,7 +606,7 @@
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">View my work</a>
           <a href="#experience" class="btn btn-ghost">Experience</a>
-          <a href="git_resume.pdf" download class="btn btn-ghost">Resume</a>
+          <button onclick="openResume()" class="btn btn-ghost">Resume</button>
         </div>
         <div class="contact-links">
           <!-- LinkedIn icon only -->
@@ -1019,7 +1019,42 @@
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-  </script>
 
+  
+  function openResume() {
+  const overlay = document.getElementById('modal-overlay');
+  const body = document.getElementById('modal-body');
+
+  body.innerHTML = `
+    <h2 class="modal-title">Resume</h2>
+    <p class="modal-meta">Kristal Menguc</p>
+
+    <div class="modal-divider"></div>
+
+    <iframe src="git_resume.pdf" style="
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 4px;
+      background: var(--bg);
+    "></iframe>
+
+    <div class="modal-divider"></div>
+
+    <div class="modal-links">
+      <a href="git_resume.pdf" download class="modal-link modal-link-primary">
+        Download PDF
+      </a>
+
+      <a href="git_resume.pdf" target="_blank" class="modal-link modal-link-ghost">
+        Open Fullscreen
+      </a>
+    </div>
+  `;
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+  </script>
 </body>
 </html>
