@@ -27,7 +27,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-sans);
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1.7;
     }
 
@@ -61,7 +61,7 @@
     .nav-links a:hover { color: var(--text); }
 
     /* SECTIONS */
-    section { max-width: 900px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+    section { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 3rem); }
 
     .section-label {
       font-family: var(--font-mono);
@@ -128,7 +128,7 @@
 
     .hero-tag {
       font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--accent);
       letter-spacing: 0.1em;
       margin-bottom: 1.25rem;
@@ -157,7 +157,7 @@
 
     .btn {
       font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 0.05em;
       padding: 0.7rem 1.5rem;
       border-radius: 2px;
@@ -178,7 +178,7 @@
 
     .contact-pill {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       padding: 0.45rem 1rem;
       border: 1px solid var(--border);
       border-radius: 2px;
@@ -213,14 +213,14 @@
     /* ABOUT */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 
-    .about-text p { color: var(--muted); font-size: 15px; line-height: 1.9; margin-bottom: 1rem; }
+    .about-text p { color: var(--muted); font-size: 17px; line-height: 1.9; margin-bottom: 1rem; }
     .about-text p:last-child { margin-bottom: 0; }
 
     .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
     .skill-tag {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 14px;
       padding: 0.4rem 0.85rem;
       background: var(--bg);
       border: 1px solid var(--border);
@@ -229,7 +229,7 @@
       letter-spacing: 0.03em;
     }
 
-    .skills-label { font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+    .skills-label { font-family: var(--font-mono); font-size: 14px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
     .skills-group { margin-bottom: 1.5rem; }
 
     /* EXPERIENCE */
@@ -245,22 +245,22 @@
 
     .exp-item:first-child { border-top: 1px solid var(--border); }
 
-    .exp-date { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 0.2rem; letter-spacing: 0.03em; line-height: 1.6; }
+    .exp-date { font-family: var(--font-mono); font-size: 14px; color: var(--muted); padding-top: 0.2rem; letter-spacing: 0.03em; line-height: 1.6; }
 
     .exp-role { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
-    .exp-company { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.85rem; }
+    .exp-company { font-family: var(--font-mono); font-size: 14px; color: var(--accent); margin-bottom: 0.85rem; }
 
     .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
 
     .exp-bullets li {
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.75;
       padding-left: 1rem;
       position: relative;
     }
 
-    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.15rem; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 14px; top: 0.15rem; }
 
     /* EDUCATION */
     .edu-list { display: flex; flex-direction: column; }
@@ -275,13 +275,13 @@
 
     .edu-item:first-child { border-top: 1px solid var(--border); }
 
-    .edu-date { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 0.2rem; letter-spacing: 0.03em; line-height: 1.6; }
+    .edu-date { font-family: var(--font-mono); font-size: 14px; color: var(--muted); padding-top: 0.2rem; letter-spacing: 0.03em; line-height: 1.6; }
 
     .edu-degree { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
-    .edu-school { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 0.75rem; }
+    .edu-school { font-family: var(--font-mono); font-size: 14px; color: var(--accent); margin-bottom: 0.75rem; }
 
     .edu-detail {
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.8;
       margin-bottom: 0.5rem;
@@ -294,7 +294,7 @@
       align-items: center;
       gap: 0.4rem;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--accent);
       text-decoration: none;
       margin-top: 0.5rem;
@@ -316,8 +316,8 @@
     }
 
     .award-item:first-child { border-top: 1px solid var(--border); }
-    .award-name { font-size: 13.5px; color: var(--text); }
-    .award-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .award-name { font-size: 14px; color: var(--text); }
+    .award-meta { font-family: var(--font-mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
 
     /* PROJECTS */
     .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -333,12 +333,12 @@
 
     .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
 
-    .project-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+    .project-num { font-family: var(--font-mono); font-size: 13px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
 
     .project-badge {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 13px;
       padding: 0.2rem 0.6rem;
       background: var(--accent-dim);
       color: var(--accent);
@@ -348,12 +348,12 @@
     }
 
     .project-name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-    .project-desc { font-size: 13.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
     .project-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 13px;
       padding: 0.25rem 0.6rem;
       background: var(--bg);
       color: var(--muted);
@@ -366,7 +366,7 @@
       padding-top: 0.75rem;
       border-top: 1px solid var(--border);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 13px;
       color: var(--muted);
     }
 
@@ -387,7 +387,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 6px;
-      max-width: 700px;
+      max-width: 900px;
       width: 100%;
       padding: 2.5rem;
       position: relative;
@@ -401,7 +401,7 @@
       border: none;
       color: var(--muted);
       font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
       padding: 0.25rem 0.5rem;
       transition: color 0.2s;
@@ -412,7 +412,7 @@
     .modal-badge {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 13px;
       padding: 0.2rem 0.6rem;
       background: var(--accent-dim);
       color: var(--accent);
@@ -421,12 +421,12 @@
     }
 
     .modal-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-    .modal-meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
+    .modal-meta { font-family: var(--font-mono); font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; }
     .modal-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
 
     .modal-section-title {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 13px;
       color: var(--accent);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -443,13 +443,13 @@
       position: relative;
     }
 
-    .modal-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.15rem; }
+    .modal-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 13px; top: 0.15rem; }
 
     .modal-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
 
     .modal-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 13px;
       padding: 0.3rem 0.7rem;
       background: var(--bg);
       color: var(--muted);
@@ -461,7 +461,7 @@
 
     .modal-link {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       padding: 0.6rem 1.25rem;
       text-decoration: none;
       border-radius: 2px;
@@ -497,7 +497,7 @@
 
     .modal-video-placeholder span {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.6;
     }
@@ -516,20 +516,20 @@
 
     .modal-readme pre {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
       white-space: pre-wrap;
       word-break: break-word;
       line-height: 1.7;
     }
 
-    .readme-loading { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; padding: 1rem; }
+    .readme-loading { font-family: var(--font-mono); font-size: 14px; color: var(--muted); text-align: center; padding: 1rem; }
 
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
       padding: 3rem 2rem;
-      max-width: 900px;
+      max-width: 1280px;
       margin: 4rem auto 0;
       display: flex;
       justify-content: space-between;
@@ -538,12 +538,12 @@
       gap: 1rem;
     }
 
-    .footer-text { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .footer-text { font-family: var(--font-mono); font-size: 14px; color: var(--muted); }
     .footer-links { display: flex; gap: 1.5rem; }
 
     .footer-links a {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
