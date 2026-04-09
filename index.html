@@ -705,8 +705,16 @@
  
       .btn { flex: unset; padding: 0.4rem 0.65rem; font-size: 12px; }
  
-      .main { margin-left: 0; margin-top: 0; }
-      .content-section { padding: 3rem 1.5rem; }
+      .main { margin-left: 0;   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ensures children stay centered */ }
+      .content-section {
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;         /* centers it */
+      padding: 2.5rem 0;      /* remove side padding */
+      } 
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
       .project-card { flex: 0 0 260px; }
@@ -1091,26 +1099,16 @@ Calculus, Linear Algebra
 
     // Scroll spy: clear active highlight when user scrolls away from the section
     window.addEventListener('scroll', () => {
-      if (manualOverride) return;
-
-      const sections = [
-        { key: 'about', el: document.getElementById('about') },
-        { key: 'exp', el: document.getElementById('work') },
-        { key: 'projects', el: document.getElementById('projects') }
-      ];
-
-      let found = null;
-
-      sections.forEach(s => {
-        const rect = s.el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight * 0.4) {
-          found = s.key;
-        }
-      });
-
-      if (found !== activeKey) {
-        activeKey = found;
-        updateNav();
+      if (!activeKey) return;
+      const sectionEl = (activeKey === 'edu' || activeKey === 'exp')
+        ? document.getElementById('work')
+        : document.getElementById(activeKey === 'about' ? 'about' : 'projects');
+      if (!sectionEl) return;
+      const rect = sectionEl.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
+      if (!inView) {
+        activeKey = null;
+        document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
       }
     });
 
