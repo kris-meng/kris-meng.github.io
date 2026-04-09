@@ -1100,18 +1100,23 @@ Calculus, Linear Algebra
     // Scroll spy: clear active highlight when user scrolls away from the section
     window.addEventListener('scroll', () => {
       if (!activeKey) return;
-      const sectionEl = (activeKey === 'edu' || activeKey === 'exp')
-        ? document.getElementById('work')
-        : document.getElementById(activeKey === 'about' ? 'about' : 'projects');
-      if (!sectionEl) return;
-      const rect = sectionEl.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
-      if (!inView) {
+
+      const section =
+        activeKey === 'about' ? document.getElementById('about') :
+        activeKey === 'projects' ? document.getElementById('projects') :
+        document.getElementById('work');
+
+      const rect = section.getBoundingClientRect();
+
+      const stillVisible =
+        rect.top < window.innerHeight * 0.6 &&
+        rect.bottom > window.innerHeight * 0.4;
+
+      if (!stillVisible) {
         activeKey = null;
         document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
       }
     });
-
     // ── FILTERS ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
