@@ -1047,12 +1047,15 @@ Calculus, Linear Algebra
 
   <script>
     // ── TAB TOGGLE ──
-    function switchTab(tab) {
+    function switchTab(tab, isFromSidebar = false) {
       document.getElementById('tab-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('tab-edu').classList.toggle('active', tab === 'edu');
       document.getElementById('panel-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('panel-edu').classList.toggle('active', tab === 'edu');
-      setActive(null); 
+
+      if (!isFromSidebar) {
+        setActive(null);
+  }
     }
 
     // ── SIDEBAR NAV ACTIVE STATE ──
@@ -1082,7 +1085,7 @@ Calculus, Linear Algebra
       setActive(key);
 
       if (key === 'exp' || key === 'edu') {
-        switchTab(key);
+        switchTab(key, true);
         document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
       } else {
         document.getElementById(key).scrollIntoView({ behavior: 'smooth' });
