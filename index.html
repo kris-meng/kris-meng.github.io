@@ -1058,6 +1058,7 @@ Calculus, Linear Algebra
     // Tracks which nav key is active ('about', 'exp', 'edu', 'projects')
     let activeKey = null;
     let manualOverride = false;
+    let scrollTimeout;
 
     const navIds = {
       about: 'nav-about',
@@ -1074,6 +1075,9 @@ Calculus, Linear Algebra
     function handleNavClick(e, key) {
       e.preventDefault();
 
+      manualOverride = true;
+      clearTimeout(scrollTimeout);
+
       setActive(key);
 
       if (key === 'exp' || key === 'edu') {
@@ -1082,6 +1086,10 @@ Calculus, Linear Algebra
       } else {
         document.getElementById(key).scrollIntoView({ behavior: 'smooth' });
       }
+
+      scrollTimeout = setTimeout(() => {
+        manualOverride = false;
+      }, 800); 
     }
 
     function updateNav() {
@@ -1092,7 +1100,7 @@ Calculus, Linear Algebra
 
     // Scroll spy: clear active highlight when user scrolls away from the section
     window.addEventListener('scroll', () => {
-      if (!activeKey) return;
+     if (manualOverride || !activeKey) return;
 
       const section =
         activeKey === 'about'
