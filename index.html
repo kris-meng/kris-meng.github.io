@@ -194,6 +194,7 @@
     /* ── MAIN ── */
     .main {
       margin-left: var(--sidebar-w);
+      width: calc(100% - var(--sidebar-w));
       flex: 1;
       min-width: 0;
       display: flex;
@@ -204,10 +205,11 @@
     /* Constrain content width so it doesn't stretch too wide on large screens */
     .content-section {
       width: 100%;
-      max-width: 760px;
+      max-width: 900px;
       padding: 5rem 3rem;
       border-bottom: 1px solid var(--border);
     }
+
 
     .content-section:last-child { border-bottom: none; }
 
@@ -640,23 +642,24 @@
     .modal-video-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 2rem; text-align: center; }
     .modal-video-placeholder span { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-
-    .modal-readme { padding: 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; margin-top: 0.5rem; }
-    .modal-readme pre { font-family: var(--font-mono); font-size: 13px; color: var(--muted); white-space: pre-wrap; word-break: break-word; line-height: 1.7; }
-    .readme-loading { font-family: var(--font-mono); font-size: 13px; color: var(--muted); text-align: center; padding: 1rem; }
-
+    
     /* ── RESPONSIVE: large screens ── */
-    @media (min-width: 1400px) {
+    @media (min-width: 1600px) {
       :root { --sidebar-w: 340px; }
-      .content-section { max-width: 820px; }
-      .site-footer { max-width: 820px; }
+      .content-section { max-width: 1000px; }
+      .site-footer { max-width: 1000px; }
     }
 
     /* ── MOBILE ── */
     @media (max-width: 820px) {
-      body { flex-direction: column; padding-top: 70px; /* space for fixed mobile header */ }
+      body { flex-direction: column; padding-top: 90px; 
+            /* space for fixed mobile header */ }
 
       .sidebar {
+        display: grid;
+        grid-template-columns: 1fr auto; /* LEFT = info, RIGHT = nav */
+        align-items: start;
+        gap: 0.75rem 1rem;
         position: fixed;
         top: 0; left: 0; right: 0;
         width: 100%;
@@ -667,13 +670,38 @@
         padding: 0.75rem 1.25rem;
         flex-direction: row;
         flex-wrap: wrap;
-        align-items: center;
-        gap: 0.6rem;
         overflow-y: visible;
         /* keep it above everything */
         z-index: 100;
         bottom: auto;
       }
+      /* LEFT COLUMN (everything except nav) */
+      .sidebar-photo,
+      .sidebar-name,
+      .sidebar-title,
+      .sidebar-contact,
+      .sidebar-cta {
+      grid-column: 1;
+      }
+
+      /* RIGHT COLUMN (nav) */
+     .sidebar-nav {
+      grid-column: 2;
+      justify-self: end;
+      flex-direction: column;   /* vertical stack */
+      align-items: flex-end;    /* align right */
+      gap: 0.2rem;
+      width: auto;
+      }
+
+    .sidebar-nav a {
+      padding: 0.25rem 0.4rem;
+      font-size: 12px;
+      opacity: 0.8;
+    } 
+    .sidebar-nav a.active {
+      opacity: 1;
+    }
 
       .sidebar-photo { width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0; }
       .sidebar-bio { display: none; }
@@ -681,25 +709,17 @@
       .sidebar-title { display: none; }
       .sidebar-contact { flex-direction: row; margin-bottom: 0; gap: 0.75rem; }
       .sidebar-contact .sidebar-link span { display: none; }
-      .sidebar-nav {
-        margin-top: 0;
-        border-top: none;
-        padding-top: 0;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-        gap: 0.15rem;
-      }
-      .sidebar-nav a { padding: 0.3rem 0.6rem; font-size: 12px; }
       .sidebar-cta { flex-direction: row; margin-bottom: 0; }
       .btn { flex: unset; padding: 0.45rem 0.75rem; font-size: 12px; }
 
-      .main { margin-left: 0; }
+      .main { margin-left: 0; margin-top: 0;}
       .content-section { padding: 3rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
       .project-card { flex: 0 0 260px; }
-      .modal { padding: 1.5rem; }
+      .modal-title {padding-right: 2rem; }
+      .modal-close {position: static; align-self: flex-end; margin-bottom: 0.5rem; }
+      .modal {display: flex; flex-direction: column; padding: 1.5rem; }
       .award-item { flex-direction: column; gap: 0.15rem; }
       .site-footer { padding: 2rem 1.5rem 3rem; }
     }
@@ -1033,11 +1053,13 @@ Calculus, Linear Algebra
     };
 
     function setActive(key) {
+      setTimeout(() => {
       activeKey = key;
       const links = document.querySelectorAll('.sidebar-nav a');
       links.forEach(a => a.classList.remove('active'));
       const el = document.getElementById(navIds[key]);
       if (el) el.classList.add('active');
+      }, 100);
     }
 
     // Scroll spy: clear active highlight when user scrolls away from the section
@@ -1052,7 +1074,7 @@ Calculus, Linear Algebra
       if (!sectionEl) return;
 
       const rect = sectionEl.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
+      const inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
 
       if (!inView) {
         activeKey = null;
@@ -1179,42 +1201,22 @@ Calculus, Linear Algebra
       html += `<div class="modal-divider"></div><p class="modal-section-title">// tech stack</p>`;
       html += `<div class="modal-tags">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
       html += `<div class="modal-links">`;
-      html += hasGithub
-        ? `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>View on GitHub</a>`
-        : `<span class="modal-link modal-link-ghost" style="opacity:0.4;cursor:default;">No GitHub link yet</span>`;
-      html += `</div>`;
-      html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p><div class="modal-video-wrap">`;
-      html += p.video
-        ? `<iframe class="modal-video" src="${p.video}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-        : `<div class="modal-video-placeholder"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg><span>No demo video yet</span></div>`;
-      html += `</div>`;
       if (hasGithub) {
-        html += `<div class="modal-divider"></div><p class="modal-section-title">// readme</p>`;
-        html += `<div class="modal-readme"><p class="readme-loading" id="readme-loading">Fetching README...</p><pre id="readme-content" style="display:none;"></pre></div>`;
+        html += `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary">
+        View on GitHub
+        </a>`;
+      }
+      html += `</div>`;
+      if (p.video) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p>`;
+        html += `<div class="modal-video-wrap">
+          <iframe class="modal-video" src="${p.video}" allowfullscreen></iframe>
+      </div>`;
       }
 
       body.innerHTML = html;
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      if (hasGithub) fetchReadme(p.github);
-    }
-
-    async function fetchReadme(url) {
-      try {
-        const m = url.match(/github\.com\/([^/]+)\/([^/]+)/);
-        if (!m) throw new Error();
-        const res = await fetch(`https://api.github.com/repos/${m[1]}/${m[2]}/readme`, { headers: { Accept: 'application/vnd.github.v3.raw' } });
-        if (!res.ok) throw new Error();
-        const text = await res.text();
-        document.getElementById('readme-loading').style.display = 'none';
-        const pre = document.getElementById('readme-content');
-        pre.textContent = text.length > 2000 ? text.slice(0, 2000) + '\n\n[...truncated]' : text;
-        pre.style.display = 'block';
-      } catch {
-        const el = document.getElementById('readme-loading');
-        if (el) el.textContent = 'README not available.';
-      }
-    }
 
     function closeModal() {
       document.getElementById('modal-overlay').classList.remove('open');
