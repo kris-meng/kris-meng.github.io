@@ -1067,19 +1067,14 @@ Calculus, Linear Algebra
     };
 
     function setActive(key) {
-      manualOverride = true;
       activeKey = key;
-
       updateNav();
-
-    // allow scroll spy again after scroll settles
-      setTimeout(() => {
-        manualOverride = false;
-      }, 600);
     }
 
     function handleNavClick(e, key) {
       e.preventDefault();
+
+      setActive(key);
 
       if (key === 'exp' || key === 'edu') {
         switchTab(key);
@@ -1087,8 +1082,6 @@ Calculus, Linear Algebra
       } else {
         document.getElementById(key).scrollIntoView({ behavior: 'smooth' });
       }
-
-      setActive(key);
     }
 
     function updateNav() {
@@ -1102,17 +1095,20 @@ Calculus, Linear Algebra
       if (!activeKey) return;
 
       const section =
-        activeKey === 'about' ? document.getElementById('about') :
-        activeKey === 'projects' ? document.getElementById('projects') :
-        document.getElementById('work');
+        activeKey === 'about'
+          ? document.getElementById('about')
+          : activeKey === 'projects'
+          ? document.getElementById('projects')
+          : document.getElementById('work');
+
+      if (!section) return;
 
       const rect = section.getBoundingClientRect();
 
-      const stillVisible =
-        rect.top < window.innerHeight * 0.6 &&
-        rect.bottom > window.innerHeight * 0.4;
+      const completelyOutOfView =
+        rect.bottom < 0 || rect.top > window.innerHeight;
 
-      if (!stillVisible) {
+      if (completelyOutOfView) {
         activeKey = null;
         document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
       }
