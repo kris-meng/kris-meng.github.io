@@ -455,14 +455,6 @@
     .modal-link-ghost:hover { border-color: var(--muted); }
 
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-    
-    /* CSS specifically for user-formatted modal text */
-    .modal-custom-content h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; color: var(--text); }
-    .modal-custom-content p { font-size: 14.5px; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
-    .modal-custom-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
-    .modal-custom-content li { font-size: 14.5px; color: var(--muted); line-height: 1.75; padding-left: 1rem; position: relative; }
-    .modal-custom-content li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.2rem; }
-    .modal-custom-content strong { color: var(--text); font-weight: 600; }
 
     @media (min-width: 1600px) {
       :root { --sidebar-w: 340px; }
@@ -931,265 +923,141 @@
     // ── PROJECT DATA ──
     const projects = {
       tms: {
+        badge: 'hackathon winner — evolved technology',
         title: 'TMS Stimulation Visualizer',
-        date: 'Hackathon Winner',
-        tags: ['Neuroimaging', 'Connectomes', 'Neuromodulation', '3D Visualization'],
-        content: `
-          <h2>TMS Stimulation Visualizer</h2>
-          <p class="modal-meta">Hackathon Winner</p>
-          <div class="modal-divider"></div>
-          <p><strong>Problem:</strong> Identifying personalized targets for transcranial magnetic stimulation (TMS) is difficult due to variable brain connectomes among depression patients.</p>
-          <p><strong>Approach:</strong></p>
-          <ul>
-            <li>Simulated patient-specific TMS effects on brain connectivity.</li>
-            <li>Created a 3D visualization tool to explore personalized treatment strategies.</li>
-          </ul>
-        `
+        date: 'March 2026',
+        tags: ['Neuroimaging', 'Connectomes', 'Computational Neuroscience', 'LLMs', '3D Visualization', 'Python'],
+        problem: 'TMS treatment for depression has ~40% response rates, with no reliable way to predict outcomes for individual patients. Clinicians must choose stimulation parameters (location, frequency, intensity) based on population-level trends rather than patient-specific brain structure and connectivity.',
+        approach: [
+          'Used SimNIBS to estimate patient-specific electric field distributions across brain regions',
+          'Modeled functional connectivity using connectome-based representations, adjusted for depression subtypes',
+          'Simulated neural dynamics using the Wilson–Cowan model across 20 treatment sessions',
+          'Applied Hebbian plasticity rules to update connectivity between sessions',
+          'Focused analysis on clinically relevant regions: sACC and DLPFC',
+          'Built an interactive 3D brain visualization tool with an LLM agent for interpreting results and generating summaries'
+        ],
+        results: [
+          'Simulated 23 synthetic patients based on clinical literature',
+          '47.8% showed improved connectivity in target regions (sACC, DLPFC)',
+          'Closely aligned with real-world TMS response rates (~40%)'
+        ],
+        contribution: 'Implemented connectome-based simulation pipeline and neuroplasticity modeling (connectome/white-box in GitHub).',
+        github: 'https://github.com/bertovmill/biohack26/tree/main'
       },
       chatbot: {
+        badge: 'finalist — mila hackathon',
         title: 'Mental Health AI Chatbot Guardrails',
         date: 'March 2026',
         tags: ['mBERT', 'LLMs', 'Synthetic Data', 'AI Safety', 'Python', 'HuggingFace', 'NLP'],
-        content: `
-          <h2>Mental Health AI Chatbot Guardrails</h2>
-          <p class="modal-meta">March 2026</p>
-          <div class="modal-divider"></div>
-          <p><strong>Problem:</strong> Mental health chatbots for youth need to reliably distinguish between low-risk and high-risk conversations so that urgent cases are escalated to human support. Over-escalation clogs limited human review capacity, while under-escalation risks missing critical safety cases. The goal was to build a robust input guardrail that balances both precision and recall under real-world conversational ambiguity.</p>
-
-          <p><strong>Approach:</strong></p>
-          <p>I designed and implemented an end-to-end training pipeline for a conversational risk classifier, focusing on data quality and realism over model complexity.</p>
-
-          <p><strong>1. Failure analysis of baseline system</strong><br/>
-          We first stress-tested an existing chatbot classifier to identify systematic failure modes (e.g., subtle self-harm language, indirect distress, sarcasm, coded speech).</p>
-
-          <p><strong>2. Synthetic conversation generation (core contribution)</strong><br/>
-          Since real labeled youth mental health data is unavailable for ethical and legal reasons, I built a multi-agent LLM simulation pipeline to generate realistic training conversations at scale.</p>
-
-          <p>The system uses three coordinated components:</p>
-          <ul>
-          <li>User Actor LLM: simulates diverse youth personas with structured psychological profiles</li>
-          <li>Chatbot LLM: follows a defined empathy + escalation policy</li>
-          <li>Persona Generator LLM: produces diverse demographic and linguistic profiles</li>
-          </ul>
-
-          <p><strong>Key design features:</strong></p>
-          <ul>
-          <li>Turn-based pacing constraints to prevent unnatural "instant distress injection"</li>
-          <li>Refusal behavior modeling (e.g., fear of parents, phone anxiety, distrust of help systems)</li>
-          <li>Dynamic escalation state tracking</li>
-          <li>LLM-based quality filtering before data is accepted</li>
-          </ul>
-
-          <p>This produced a diverse dataset spanning multiple demographic groups (including Indigenous youth, immigrant communities, LGBTQ+ youth, and neurodivergent users).</p>
-
-          <p><strong>3. Model training and architecture</strong></p>
-          <p>Fine-tuned an mBERT classifier on the synthetic dataset for primary risk detection.</p>
-
-          <p>Built a stacked hybrid system:</p>
-          <ul>
-          <li>Fast-path: mBERT handles most predictions efficiently</li>
-          <li>Secondary LLM layer: resolves borderline or nuanced cases</li>
-          </ul>
-
-          <p><strong>Results:</strong></p>
-          <ul>
-          <li>F1 Score: 0.831</li>
-          <li>Recall: 0.908</li>
-          <li>Precision: 0.766</li>
-          </ul>
-
-          <p>The system was intentionally tuned for high recall, prioritizing detection of high-risk cases even at the cost of increased false positives.</p>
-
-          <p><strong>My Contribution:</strong></p>
-          <ul>
-          <li>Multi-agent LLM simulation framework</li>
-          <li>Persona generation system</li>
-          <li>Dataset creation and labeling logic</li>
-          <li>Data validation and filtering pipeline</li>
-          </ul>
-
-          <p><strong>Future Work:</strong></p>
-          <ul>
-          <li>Replace LLM fallback with specialized mBERT classifiers</li>
-          <li>Expand persona realism using RAG over youth media</li>
-          </ul>
-        `
+        problem: 'Mental health chatbots for youth need to reliably distinguish between low-risk and high-risk conversations so that urgent cases are escalated to human support. Over-escalation clogs limited human review capacity, while under-escalation risks missing critical safety cases.',
+        approachIntro: 'I designed and implemented an end-to-end training pipeline for a conversational risk classifier, focusing on data quality and realism over model complexity.',
+        approach: [
+          '<strong>1. Failure analysis of baseline system:</strong> We first stress-tested an existing chatbot classifier to identify systematic failure modes (e.g., subtle self-harm language, indirect distress, sarcasm, coded speech).',
+          '<strong>2. Synthetic conversation generation (core contribution):</strong> Since real labeled youth mental health data is unavailable for ethical and legal reasons, I built a multi-agent LLM simulation pipeline to generate realistic training conversations at scale.<br><br><span style="color:var(--text);font-weight:500;">The system uses three coordinated components:</span><br>&nbsp;&nbsp;• <strong>User Actor LLM:</strong> simulates diverse youth personas with structured psychological profiles<br>&nbsp;&nbsp;• <strong>Chatbot LLM:</strong> follows a defined empathy + escalation policy<br>&nbsp;&nbsp;• <strong>Persona Generator LLM:</strong> produces diverse demographic and linguistic profiles to increase realism and reduce repetition',
+          '<strong>Key design features:</strong><br>&nbsp;&nbsp;• Turn-based pacing constraints to prevent unnatural "instant distress injection"<br>&nbsp;&nbsp;• Refusal behavior modeling (e.g., fear of parents, phone anxiety, distrust of help systems)<br>&nbsp;&nbsp;• Dynamic escalation state tracking to prevent repetitive crisis responses<br>&nbsp;&nbsp;• LLM-based quality filtering before data is accepted',
+          'This produced a diverse dataset spanning multiple demographic groups (including Indigenous youth, immigrant communities, LGBTQ+ youth, and neurodivergent users).',
+          '<strong>3. Model training and architecture:</strong> Fine-tuned an mBERT classifier on the synthetic dataset for primary risk detection.<br><br><span style="color:var(--text);font-weight:500;">Built a stacked hybrid system:</span><br>&nbsp;&nbsp;• <strong>Fast-path:</strong> mBERT handles most predictions efficiently<br>&nbsp;&nbsp;• <strong>Secondary LLM layer:</strong> resolves borderline or nuanced cases (e.g., implicit self-harm, coded language)<br><br>This design optimized latency while preserving safety sensitivity.'
+        ],
+        results: [
+          'F1 Score: 0.831 · Recall: 0.908 · Precision: 0.766',
+          'System intentionally tuned for high recall — prioritizing detection of high-risk cases even at the cost of increased false positives, appropriate for safety-critical deployment'
+        ],
+        github: null
       },
       sleep: {
+        badge: "master's thesis project",
         title: 'Self-Supervised Sleep Stage Classification',
-        date: 'December 2026 — York University',
-        tags: ['Python', 'PyTorch', 'Time-Series', 'Signal Processing', 'EEG/DBS', 'Self-Supervised Learning', 'Transfer Learning'],
-        content: `
-          <h2>Self-Supervised Sleep Stage Classification</h2>
-          <p class="modal-meta">Master’s Thesis Project · December 2026</p>
-          <div class="modal-divider"></div>
-
-          <p><strong>Problem:</strong> Parkinson’s patients often exhibit disrupted sleep architecture, with reduced or missing sleep stages compared to healthy individuals. This degradation in sleep quality is associated with disease progression and increased risk of neurodegenerative comorbidities.</p>
-
-          <p>Challenges:</p>
-          <ul>
-          <li>High inter-patient variability</li>
-          <li>Scarcity of full sleep-stage distributions in clinical data</li>
-          </ul>
-
-          <p><strong>Approach:</strong></p>
-          <p>I designed a transfer learning framework to enable sleep stage classification directly from DBS signals.</p>
-
-          <p><strong>1. Cross-modal transfer learning</strong></p>
-          <ul>
-          <li>Pretrained on EEG data</li>
-          <li>Fine-tuned on DBS recordings</li>
-          </ul>
-
-          <p><strong>2. Self-supervised pretraining</strong></p>
-          <ul>
-          <li>Contrastive objective → improved global representations</li>
-          <li>Reconstruction objective → improved rare class performance</li>
-          </ul>
-
-          <p><strong>3. Feature extraction</strong></p>
-          <ul>
-          <li>CNN-based temporal features</li>
-          <li>STFT-based spectral features</li>
-          </ul>
-
-          <p><strong>4. Cost-sensitive classification</strong></p>
-          <p>Implemented penalty matrix + class weighting to reduce critical misclassifications.</p>
-
-          <p><strong>5. Sleep stage forecasting</strong></p>
-          <ul>
-          <li>Predict upcoming sleep stages</li>
-          <li>Enable closed-loop DBS control</li>
-          </ul>
-
-          <p><strong>Results:</strong></p>
-          <ul>
-          <li>+12% improvement over prior methods</li>
-          <li>F1 Score: ~0.70 (unseen patients)</li>
-          </ul>
-
-          <p><strong>Future Work:</strong></p>
-          <ul>
-          <li>Combine contrastive + reconstruction objectives</li>
-          <li>Explore bandpass features</li>
-          <li>Integrate real-time DBS system</li>
-          </ul>
-        `
+        date: 'December 2025 — York University',
+        tags: ['Python', 'PyTorch', 'Time-series', 'Signal Processing', 'EEG/DBS Analysis', 'Self-supervised Learning', 'Transfer Learning', 'Healthcare AI'],
+        problem: "Parkinson's patients often exhibit disrupted sleep architecture with reduced or missing sleep stages compared to healthy individuals. Building reliable classifiers is challenging due to high inter-patient variability and scarcity of full sleep-stage distributions in clinical DBS data.",
+        approach: [
+          '<strong>1. Cross-modal transfer learning:</strong> Designed a framework pretrained on EEG data to learn full sleep-stage representations (W, N1, N2, N3, REM), then fine-tuned on DBS recordings from Parkinson\'s patients',
+          '<strong>2. Self-supervised pretraining:</strong> Used a masked autoencoder with two learning strategies — contrastive objective (improved global representation quality) and reconstruction objective (improved performance on rare sleep stages)',
+          '<strong>3. Feature extraction:</strong> Evaluated CNN-based temporal features vs. STFT-based spectral features; STFT consistently improved overall performance while temporal features captured fine-grained transitions',
+          '<strong>4. Cost-sensitive classification:</strong> Implemented a penalty matrix + class weighting scheme to reduce clinically significant misclassifications (e.g., confusing deep sleep N3 with lighter stages)',
+          '<strong>5. Sleep stage forecasting:</strong> Extended the model to predict upcoming sleep stages, enabling potential closed-loop DBS control and smarter stimulation timing'
+        ],
+        results: [
+          '+12% performance improvement over prior Parkinson\'s sleep staging methods',
+          'F1 Score: ~0.70 on unseen patients (cross-validation)',
+          'Strong generalization despite high inter-patient variability and limited data'
+        ],
+        thesis: 'https://yorkspace.library.yorku.ca/items/214a6258-0fac-466b-aa37-ca77286f4e80',
+        github: null
       },
       simmtm: {
+        badge: null,
         title: 'ML Reproducibility Challenge: SimMTM',
         date: 'April 2025 — York University',
         tags: ['Transformers', 'Time-series', 'PyTorch', 'Self-supervised', 'Python'],
-        content: `
-          <h2>ML Reproducibility Challenge: SimMTM</h2>
-          <p class="modal-meta">April 2025 — York University</p>
-          <div class="modal-divider"></div>
-
-          <p><strong>Overview:</strong> Modern ML research often lacks sufficient implementation detail. This project evaluates reproducibility using only the original paper.</p>
-
-          <p><strong>Approach:</strong></p>
-          <p>I reimplemented SimMTM from scratch.</p>
-
-          <p><strong>1. Paper-to-code translation</strong></p>
-          <ul>
-          <li>Geometric masking</li>
-          <li>Similarity matrix computation</li>
-          <li>Point-wise aggregation</li>
-          <li>Manifold objective</li>
-          <li>Reconstruction loss</li>
-          </ul>
-
-          <p><strong>2. Model architecture</strong></p>
-          <p>Designed channel-independent transformer.</p>
-
-          <p><strong>3. Forecasting</strong></p>
-          <p>Led training, validation, benchmarking.</p>
-
-          <p><strong>Results:</strong></p>
-          <ul>
-          <li>MSE: 0.217 vs 0.288</li>
-          <li>MAE: 0.362 vs 0.348</li>
-          <li>Cross-domain MSE: 0.086 vs 0.304</li>
-          </ul>
-        `
+        problem: 'Modern ML research often lacks sufficient implementation detail, making it difficult to verify results or build upon prior work. This project aimed to test the reproducibility of SimMTM, a transformer-based framework for masked time-series modeling, using only the original paper.',
+        approach: [
+          '<strong>1. Paper-to-code translation:</strong> Reimplemented SimMTM from scratch — translating mathematical formulations directly into code without access to any reference implementation',
+          'Converted key components from equations: geometric masking strategy, similarity matrix computation, point-wise aggregation mechanism, manifold-based self-supervised objective, and reconstruction loss for masked signal recovery',
+          '<strong>2. Model architecture:</strong> Designed a channel-independent transformer following the paper\'s specification — each channel processed independently before aggregation, improving generalization across domains',
+          '<strong>3. Forecasting:</strong> Led the forecasting implementation and evaluation, including training, validation, and benchmarking'
+        ],
+        results: [
+          'In-domain forecasting: MSE 0.217 vs 0.288 reported · MAE 0.362 vs 0.348 reported',
+          'Cross-domain transfer (Weather → ETTm1): MSE 0.086 vs 0.304 reported · MAE 0.225 vs 0.354 reported',
+          'Results validate both the correctness of the implementation and the robustness of the method under domain shift'
+        ],
+        github: 'https://github.com/claudiafarkas/simmtm_rep'
       },
       vit: {
-        title: 'Cloud Image Classification (CNN–ViT)',
+        badge: null,
+        title: 'Cloud Image Classification with CNN–ViT',
         date: 'December 2024 — York University',
-        tags: ['Python', 'PyTorch', 'HuggingFace', 'Computer Vision', 'ViT', 'CNN'],
-        content: `
-          <h2>Cloud Image Classification with CNN–ViT</h2>
-          <p class="modal-meta">December 2024 — York University</p>
-          <div class="modal-divider"></div>
-
-          <p><strong>Problem:</strong> Improve weather prediction using ground-level cloud imagery.</p>
-
-          <p><strong>Approach:</strong></p>
-
-          <p><strong>1. Hybrid architecture</strong></p>
-          <ul>
-          <li>Replaced ViT patch embeddings with CNN features</li>
-          <li>Designed CNN feature extractor</li>
-          </ul>
-
-          <p><strong>2. Transformer integration</strong></p>
-          <ul>
-          <li>Converted CNN outputs into tokens</li>
-          <li>Used attention for global structure</li>
-          </ul>
-
-          <p><strong>Results:</strong></p>
-          <ul>
-          <li>Accuracy: 86.2%</li>
-          <li>Outperformed CNN and ViT baselines</li>
-          </ul>
-
-          <p><strong>Future Work:</strong></p>
-          <ul>
-          <li>RAG over meteorology literature</li>
-          <li>Agentic forecasting system</li>
-          <li>Real-time cloud pipeline</li>
-          </ul>
-        `
+        tags: ['ViT', 'CNN', 'PyTorch', 'Computer Vision', 'Python', 'Transformers', 'HuggingFace'],
+        problem: 'Accurate short-term weather prediction in remote or low-connectivity environments is challenging due to limited access to real-time meteorological data. This project explores whether ground-level cloud imagery can serve as a proxy signal for weather understanding, starting with cloud type classification as a foundational task.',
+        approach: [
+          '<strong>1. Hybrid architecture:</strong> Modified a Vision Transformer implementation to replace standard patch embeddings with CNN-derived feature maps',
+          'Built a custom CNN feature extractor to capture spatial patterns (textures, edges, cloud structures) before transformer encoding; tuned kernel sizes, stride, and depth to optimize feature representation',
+          '<strong>2. Transformer integration:</strong> Adapted the embedding pipeline to convert CNN outputs into transformer-compatible token sequences',
+          'Leveraged self-attention to model global cloud structure and spatial dependencies across the image'
+        ],
+        results: [
+          'Test Accuracy: 86.2%',
+          'Outperformed both standalone CNN baseline and standard ViT (patch-based) baseline',
+          'Demonstrates the effectiveness of combining local feature extraction (CNN) with global context modeling (transformers)'
+        ],
+        github: null
       }
     };
-
+ 
     function buildModalHTML(p) {
       let html = '';
-      
-      // Load custom formatted content if available
-      if (p.content) {
-        html += `<div class="modal-custom-content">${p.content}</div>`;
-      } else {
-        // Fallback for previous structured format
-        if (p.badge) html += `<span class="modal-badge">${p.badge}</span><br><br>`;
-        html += `<h2 class="modal-title">${p.title}</h2><p class="modal-meta">${p.date}</p>`;
-
-        if (p.problem) {
-          html += `<div class="modal-divider"></div><p class="modal-section-title">// problem</p>`;
-          html += `<p class="modal-prose">${p.problem}</p>`;
+      if (p.badge) html += `<span class="modal-badge">${p.badge}</span><br><br>`;
+      html += `<h2 class="modal-title">${p.title}</h2><p class="modal-meta">${p.date}</p>`;
+ 
+      if (p.problem) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// problem</p>`;
+        html += `<p class="modal-prose">${p.problem}</p>`;
+      }
+ 
+      if (p.approachIntro || (p.approach && p.approach.length)) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
+        if (p.approachIntro) {
+          html += `<p class="modal-prose">${p.approachIntro}</p>`;
         }
         if (p.approach && p.approach.length) {
-          html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
           html += `<ul class="modal-bullets">` + p.approach.map(b => `<li>${b}</li>`).join('') + `</ul>`;
         }
-        if (p.results && p.results.length) {
-          html += `<div class="modal-divider"></div><p class="modal-section-title">// results</p>`;
-          html += `<ul class="modal-bullets">` + p.results.map(b => `<li>${b}</li>`).join('') + `</ul>`;
-        }
-        if (p.contribution) {
-          html += `<div class="modal-divider"></div><p class="modal-section-title">// my contribution</p>`;
-          html += `<p class="modal-prose">${p.contribution}</p>`;
-        }
       }
-
-      // Safely load tag pills back to bottom
-      if (p.tags && p.tags.length > 0) {
-        html += `<div class="modal-divider"></div><p class="modal-section-title">// tech stack</p>`;
-        html += `<div class="modal-tags">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
+ 
+      if (p.results && p.results.length) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// results</p>`;
+        html += `<ul class="modal-bullets">` + p.results.map(b => `<li>${b}</li>`).join('') + `</ul>`;
       }
-
-      // Safely load links
+ 
+      if (p.contribution) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// my contribution</p>`;
+        html += `<p class="modal-prose">${p.contribution}</p>`;
+      }
+ 
+      html += `<div class="modal-divider"></div><p class="modal-section-title">// tech stack</p>`;
+      html += `<div class="modal-tags">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
+ 
       const hasGithub = p.github && p.github !== 'YOUR_GITHUB_LINK_HERE';
       if (hasGithub || p.thesis) {
         html += `<div class="modal-links">`;
@@ -1197,10 +1065,10 @@
         if (p.thesis) html += `<a href="${p.thesis}" target="_blank" class="modal-link modal-link-primary">Read Thesis</a>`;
         html += `</div>`;
       }
-
+ 
       return html;
     }
-
+ 
     function openModal(key) {
       const p = projects[key];
       if (!p) return;
@@ -1208,12 +1076,12 @@
       document.getElementById('modal-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
+ 
     function closeModal() {
       document.getElementById('modal-overlay').classList.remove('open');
       document.body.style.overflow = '';
     }
-
+ 
     function closeModalOnBg(e) {
       if (e.target === document.getElementById('modal-overlay')) closeModal();
     }
