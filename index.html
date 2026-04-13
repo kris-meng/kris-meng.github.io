@@ -35,7 +35,6 @@
       min-height: 100vh;
     }
 
-    /* ── SIDEBAR ── */
     .sidebar {
       width: var(--sidebar-w);
       min-width: var(--sidebar-w);
@@ -51,8 +50,7 @@
     }
 
     .sidebar-photo {
-      width: 100px;
-      height: 100px;
+      width: 100px; height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--border);
@@ -60,22 +58,8 @@
       display: block;
     }
 
-    .sidebar-photo-placeholder {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 2px dashed var(--border);
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-      flex-shrink: 0;
-    }
-
     .sidebar-name {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.5rem; font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 0.3rem;
       line-height: 1.2;
@@ -85,64 +69,46 @@
 
     .sidebar-title {
       font-family: var(--font-sans-2);
-      font-size: 12px;
-      color: var(--muted);
+      font-size: 12px; color: var(--muted);
       letter-spacing: 0.07em;
       margin-bottom: 1.5rem;
       line-height: 1.65;
     }
 
     .sidebar-bio {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 1.75rem;
+      font-size: 14px; color: var(--muted);
+      line-height: 1.8; margin-bottom: 1.75rem;
       border-top: 1px solid var(--border);
       padding-top: 1.25rem;
     }
 
     .sidebar-contact {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      margin-bottom: 1.75rem;
+      display: flex; flex-direction: column;
+      gap: 0.55rem; margin-bottom: 1.75rem;
     }
 
     .sidebar-link {
       font-family: var(--font-sans-2);
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 13px; color: var(--muted);
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
       transition: color 0.2s;
     }
 
     .sidebar-link:hover { color: var(--accent); }
     .sidebar-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-    .sidebar-cta {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.75rem;
-    }
+    .sidebar-cta { display: flex; gap: 0.5rem; margin-bottom: 1.75rem; }
 
     .btn {
       font-family: var(--font-sans-2);
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      padding: 0.6rem 1rem;
-      border-radius: 2px;
-      cursor: pointer;
-      text-decoration: none;
+      font-size: 13px; letter-spacing: 0.04em;
+      padding: 0.6rem 1rem; border-radius: 2px;
+      cursor: pointer; text-decoration: none;
       transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      flex: 1;
-      border: none;
+      display: inline-flex; align-items: center;
+      justify-content: center; gap: 0.4rem;
+      flex: 1; border: none;
     }
 
     .btn-primary { background: var(--accent); color: #0e0e0e; font-weight: 500; }
@@ -153,227 +119,169 @@
     .sidebar-nav {
       border-top: 1px solid var(--border);
       padding-top: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      margin-top: auto;
+      display: flex; flex-direction: column;
+      gap: 0.15rem; margin-top: auto;
     }
 
     .sidebar-nav a {
       font-family: var(--font-sans-2);
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      padding: 0.45rem 0.5rem;
-      border-radius: 2px;
+      font-size: 13px; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.05em;
+      padding: 0.45rem 0.5rem; border-radius: 2px;
       transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+      display: flex; align-items: center; gap: 0.6rem;
     }
 
     .sidebar-nav a:hover { color: var(--text); background: var(--surface); }
-
-    .sidebar-nav a.active {
-      color: var(--accent);
-      background: var(--accent-dim);
-    }
+    .sidebar-nav a.active { color: var(--accent); background: var(--accent-dim); }
 
     .sidebar-nav a .nav-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: currentColor;
-      flex-shrink: 0;
-      opacity: 0;
-      transition: opacity 0.15s;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: currentColor; flex-shrink: 0;
+      opacity: 0; transition: opacity 0.15s;
     }
 
     .sidebar-nav a.active .nav-dot { opacity: 1; }
 
-    /* ── MAIN ── */
     .main {
       margin-left: var(--sidebar-w);
       width: calc(100% - var(--sidebar-w));
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column;
       align-items: center;
     }
 
-    /* Constrain content width so it doesn't stretch too wide on large screens */
     .content-section {
-      width: 100%;
-      max-width: 900px;
+      width: 100%; max-width: 900px;
       padding: 5rem 3rem;
       border-bottom: 1px solid var(--border);
     }
-
 
     .content-section:last-child { border-bottom: none; }
 
     .section-label {
       font-family: var(--font-sans-2);
-      font-size: 12px;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      font-size: 12px; color: var(--accent);
+      letter-spacing: 0.15em; text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
 
     .section-title {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 2.5rem;
+      font-size: 2.1rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 2.5rem;
     }
 
-    /* ── ABOUT: bio left, skills right ── */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
+      gap: 3rem; align-items: start;
     }
 
-    .about-bio {
-      color: var(--muted);
-      font-size: 16.5px;
-      line-height: 1.9;
-    }
+    .about-bio { color: var(--muted); font-size: 16.5px; line-height: 1.9; }
 
     .skills-col { display: flex; flex-direction: column; gap: 1.25rem; }
-    .skills-group { }
+
     .skills-label {
       font-family: var(--font-sans-2);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 11px; color: var(--muted);
+      letter-spacing: 0.12em; text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
+
     .skills-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 
     .skill-tag {
       font-family: var(--font-sans-2);
-      font-size: 12px;
-      padding: 0.25rem 0.65rem;
+      font-size: 12px; padding: 0.25rem 0.65rem;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--text);
+      border-radius: 2px; color: var(--text);
     }
 
-    /* ── TOGGLE ── */
     .toggle-tabs {
-      display: flex;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      width: fit-content;
-      overflow: hidden;
-      margin-bottom: 2.5rem;
+      display: flex; border: 1px solid var(--border);
+      border-radius: 2px; width: fit-content;
+      overflow: hidden; margin-bottom: 2.5rem;
     }
 
     .toggle-tab {
-      font-family: var(--font-sans-2);
-      font-size: 14px;
-      padding: 0.6rem 1.5rem;
-      cursor: pointer;
-      background: transparent;
-      color: var(--muted);
-      border: none;
-      letter-spacing: 0.05em;
+      font-family: var(--font-sans-2); font-size: 14px;
+      padding: 0.6rem 1.5rem; cursor: pointer;
+      background: transparent; color: var(--muted);
+      border: none; letter-spacing: 0.05em;
       transition: all 0.2s;
     }
 
     .toggle-tab.active { background: var(--accent); color: #0e0e0e; font-weight: 500; }
     .toggle-tab:not(.active):hover { color: var(--text); }
-
     .toggle-panel { display: none; }
     .toggle-panel.active { display: block; }
 
-    /* ── TIMELINE ── */
     .timeline { display: flex; flex-direction: column; }
 
     .timeline-item {
       display: grid;
       grid-template-columns: 130px 1fr;
-      gap: 1.75rem;
-      padding: 1.75rem 0;
+      gap: 1.75rem; padding: 1.75rem 0;
       border-bottom: 1px solid var(--border);
     }
 
     .timeline-item:first-child { border-top: 1px solid var(--border); }
 
-    .timeline-date { font-family: var(--font-sans-2); font-size: 12px; color: var(--muted); padding-top: 0.2rem; line-height: 1.6; }
+    .timeline-date {
+      font-family: var(--font-sans-2);
+      font-size: 12px; color: var(--muted);
+      padding-top: 0.2rem; line-height: 1.6;
+    }
+
     .timeline-role { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
     .timeline-org { font-family: var(--font-sans-2); font-size: 13px; color: var(--accent); margin-bottom: 0.75rem; }
 
     .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
 
     .timeline-bullets li {
-      font-size: 14.5px;
-      color: var(--muted);
-      line-height: 1.75;
-      padding-left: 1rem;
+      font-size: 14.5px; color: var(--muted);
+      line-height: 1.75; padding-left: 1rem;
       position: relative;
     }
 
-    .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.2rem; }
+    .timeline-bullets li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--accent); font-size: 11px; top: 0.2rem;
+    }
 
     .timeline-detail { font-size: 14.5px; color: var(--muted); line-height: 1.85; }
     .timeline-detail em { font-style: italic; color: #aaa; }
 
-    .thesis-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-sans-2);
-      font-size: 13px;
-      color: var(--accent);
-      text-decoration: none;
-      margin-top: 0.65rem;
-      transition: color 0.2s;
+    .thesis-link, .project-ref-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-sans-2); font-size: 13px;
+      color: var(--accent); text-decoration: none;
+      margin-top: 0.65rem; transition: color 0.2s;
+      background: none; border: none; padding: 0; cursor: pointer;
     }
 
-    .thesis-link:hover { color: var(--accent-hover); }
+    .thesis-link:hover, .project-ref-link:hover { color: var(--accent-hover); }
 
-    /* ── AWARDS ── */
     .awards-list { display: flex; flex-direction: column; margin-top: 1rem; }
 
     .award-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.65rem 0;
-      border-bottom: 1px solid var(--border);
-      gap: 1rem;
+      display: flex; justify-content: space-between;
+      align-items: baseline; padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border); gap: 1rem;
     }
 
     .award-item:first-child { border-top: 1px solid var(--border); }
     .award-name { font-size: 14px; color: var(--text); }
     .award-meta { font-family: var(--font-sans-2); font-size: 12px; color: var(--muted); white-space: nowrap; }
 
-    /* ── PROJECTS ── */
-    .project-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.5rem;
-    }
+    .project-filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
 
     .filter-btn {
-      font-family: var(--font-sans-2);
-      font-size: 13px;
-      padding: 0.35rem 0.85rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
+      font-family: var(--font-sans-2); font-size: 13px;
+      padding: 0.35rem 0.85rem; background: transparent;
+      border: 1px solid var(--border); border-radius: 2px;
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
     }
 
     .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -382,48 +290,33 @@
     .carousel-wrap { padding-top: 4px; }
 
     .carousel {
-      display: flex;
-      gap: 1.25rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      display: flex; gap: 1.25rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-bottom: 0.5rem;
+      scrollbar-width: none; padding-bottom: 0.5rem;
     }
 
     .carousel::-webkit-scrollbar { display: none; }
 
     .project-card {
-      flex: 0 0 300px;
-      scroll-snap-align: start;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.5rem;
-      cursor: pointer;
+      flex: 0 0 300px; scroll-snap-align: start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 4px; padding: 1.5rem; cursor: pointer;
       transition: border-color 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
     }
 
-    .project-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent);
-    }
-
+    .project-card:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
     .project-card.hidden { display: none; }
 
     .project-num { font-family: var(--font-sans-2); font-size: 12px; color: var(--accent); margin-bottom: 0.5rem; }
 
     .project-badge {
       display: inline-block;
-      font-family: var(--font-sans-2);
-      font-size: 11px;
+      font-family: var(--font-sans-2); font-size: 11px;
       padding: 0.15rem 0.55rem;
-      background: var(--accent-dim);
-      color: var(--accent);
-      border-radius: 2px;
-      margin-bottom: 0.65rem;
+      background: var(--accent-dim); color: var(--accent);
+      border-radius: 2px; margin-bottom: 0.65rem;
     }
 
     .project-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
@@ -431,42 +324,26 @@
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
 
     .project-tag {
-      font-family: var(--font-sans-2);
-      font-size: 12px;
-      padding: 0.2rem 0.55rem;
-      background: var(--bg);
-      color: var(--muted);
-      border: 1px solid var(--border);
+      font-family: var(--font-sans-2); font-size: 12px;
+      padding: 0.2rem 0.55rem; background: var(--bg);
+      color: var(--muted); border: 1px solid var(--border);
       border-radius: 2px;
     }
 
     .project-footer {
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border);
-      font-family: var(--font-sans-2);
-      font-size: 12px;
-      color: var(--muted);
+      padding-top: 0.75rem; border-top: 1px solid var(--border);
+      font-family: var(--font-sans-2); font-size: 12px; color: var(--muted);
     }
 
-    .carousel-nav {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
+    .carousel-nav { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; }
 
     .carousel-btn {
       width: 30px; height: 30px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      font-size: 13px;
+      border: 1px solid var(--border); border-radius: 2px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.2s; font-size: 13px;
     }
 
     .carousel-btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -474,113 +351,64 @@
     .carousel-dots { display: flex; gap: 0.4rem; align-items: center; }
 
     .carousel-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--border);
-      transition: background 0.2s;
-      cursor: pointer;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--border); transition: background 0.2s; cursor: pointer;
     }
 
     .carousel-dot.active { background: var(--accent); }
     .no-results { font-family: var(--font-sans-2); font-size: 14px; color: var(--muted); padding: 2rem 0; display: none; }
 
-    /* ── FOOTER ── */
-    .site-footer {
-      width: 100%;
-      max-width: 900px;
-      padding: 3rem 3rem 4rem;
-      margin-top: auto; /* pushes footer to bottom of flex column */
-    }
+    .site-footer { width: 100%; max-width: 900px; padding: 3rem 3rem 4rem; margin-top: auto; }
 
-    .footer-heading {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
+    .footer-heading { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
 
-    .footer-sub {
-      font-family: var(--font-sans-2);
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 600px;
-    }
+    .footer-sub { font-family: var(--font-sans-2); font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 600px; }
 
     .footer-cta {
-      display: inline-block;
-      margin-top: 1.5rem;
+      display: inline-block; margin-top: 1.5rem;
       padding: 0.75rem 1.5rem;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      border-radius: 6px;
-      text-decoration: none;
-      font-family: var(--font-sans-2);
-      font-size: 14px;
+      border: 1px solid var(--accent); color: var(--accent);
+      border-radius: 6px; text-decoration: none;
+      font-family: var(--font-sans-2); font-size: 14px;
       transition: 0.2s;
     }
 
-    .footer-cta:hover {
-      background: var(--accent);
-      color: black;
-    }
+    .footer-cta:hover { background: var(--accent); color: black; }
 
     .footer-copy {
-      font-family: var(--font-sans-2);
-      font-size: 12px;
-      color: #444;
+      font-family: var(--font-sans-2); font-size: 12px; color: #444;
       border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-      margin-top: 2rem;
+      padding-top: 1.5rem; margin-top: 2rem;
     }
 
-    /* ── MODAL ── */
     .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10,10,10,0.9);
-      z-index: 200;
-      overflow-y: auto;
-      padding: 3rem 1.5rem;
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,10,10,0.9); z-index: 200;
+      overflow-y: auto; padding: 3rem 1.5rem;
     }
 
     .modal-overlay.open { display: flex; justify-content: center; align-items: flex-start; }
 
     .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      max-width: 660px;
-      width: 100%;
-      padding: 2.5rem;
-      position: relative;
-      margin: auto;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; max-width: 660px; width: 100%;
+      padding: 2.5rem; position: relative; margin: auto;
     }
 
     .modal-close {
-      position: absolute;
-      top: 1.25rem; right: 1.25rem;
-      background: none; border: none;
-      color: var(--muted);
-      font-family: var(--font-sans-2);
-      font-size: 13px;
-      cursor: pointer;
-      padding: 0.25rem 0.5rem;
-      transition: color 0.2s;
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: none; border: none; color: var(--muted);
+      font-family: var(--font-sans-2); font-size: 13px;
+      cursor: pointer; padding: 0.25rem 0.5rem; transition: color 0.2s;
     }
 
     .modal-close:hover { color: var(--text); }
 
     .modal-badge {
-      display: inline-block;
-      font-family: var(--font-sans-2);
-      font-size: 11px;
-      padding: 0.2rem 0.6rem;
-      background: var(--accent-dim);
-      color: var(--accent);
-      border-radius: 2px;
-      margin-bottom: 1rem;
+      display: inline-block; font-family: var(--font-sans-2);
+      font-size: 11px; padding: 0.2rem 0.6rem;
+      background: var(--accent-dim); color: var(--accent);
+      border-radius: 2px; margin-bottom: 1rem;
     }
 
     .modal-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
@@ -588,22 +416,17 @@
     .modal-divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
 
     .modal-section-title {
-      font-family: var(--font-sans-2);
-      font-size: 12px;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      font-family: var(--font-sans-2); font-size: 12px; color: var(--accent);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem;
     }
+
+    .modal-prose { font-size: 14.5px; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
 
     .modal-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
 
     .modal-bullets li {
-      font-size: 14.5px;
-      color: var(--muted);
-      line-height: 1.75;
-      padding-left: 1rem;
-      position: relative;
+      font-size: 14.5px; color: var(--muted);
+      line-height: 1.75; padding-left: 1rem; position: relative;
     }
 
     .modal-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 0.2rem; }
@@ -611,27 +434,19 @@
     .modal-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
 
     .modal-tag {
-      font-family: var(--font-sans-2);
-      font-size: 12px;
-      padding: 0.3rem 0.7rem;
-      background: var(--bg);
-      color: var(--muted);
-      border: 1px solid var(--border);
+      font-family: var(--font-sans-2); font-size: 12px;
+      padding: 0.3rem 0.7rem; background: var(--bg);
+      color: var(--muted); border: 1px solid var(--border);
       border-radius: 2px;
     }
 
     .modal-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
     .modal-link {
-      font-family: var(--font-sans-2);
-      font-size: 13px;
-      padding: 0.6rem 1.25rem;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+      font-family: var(--font-sans-2); font-size: 13px;
+      padding: 0.6rem 1.25rem; text-decoration: none;
+      border-radius: 2px; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.4rem;
     }
 
     .modal-link-primary { background: var(--accent); color: #0e0e0e; border: 1px solid var(--accent); font-weight: 500; }
@@ -639,101 +454,65 @@
     .modal-link-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .modal-link-ghost:hover { border-color: var(--muted); }
 
-    .modal-video-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--bg); margin-top: 0.5rem; }
-    .modal-video-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 2rem; text-align: center; }
-    .modal-video-placeholder span { font-family: var(--font-sans-2); font-size: 13px; color: var(--muted); }
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-    
-    /* ── RESPONSIVE: large screens ── */
+
     @media (min-width: 1600px) {
       :root { --sidebar-w: 340px; }
       .content-section { max-width: 1000px; }
       .site-footer { max-width: 1000px; }
     }
 
-    /* ── MOBILE ── */
     @media (max-width: 820px) {
-      body {
-        flex-direction: column;
-        padding-top: 115px; /* matches the fixed header height */
-      }
- 
+      body { flex-direction: column; padding-top: 115px; }
+
       .sidebar {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        width: 100%;
-        min-width: unset;
-        bottom: auto;
-        height: auto;
-        border-right: none;
+        position: fixed; top: 0; left: 0; right: 0;
+        width: 100%; min-width: unset; bottom: auto;
+        height: auto; border-right: none;
         border-bottom: 1px solid var(--border);
-        /* two-column grid: info left, nav right */
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        gap: 0.4rem 1rem;
-        padding: 0.65rem 1.25rem;
-        z-index: 100;
-        overflow-y: visible;
+        display: grid; grid-template-columns: 1fr auto;
+        align-items: center; gap: 0.4rem 1rem;
+        padding: 0.65rem 1.25rem; z-index: 100; overflow-y: visible;
       }
- 
-      /* Left column */
+
       .sidebar-photo   { grid-column: 1; grid-row: 1; width: 36px; height: 36px; margin-bottom: 0; }
       .sidebar-name    { grid-column: 1; grid-row: 2; font-size: 0.9rem; margin-bottom: 0; }
       .sidebar-contact { grid-column: 1; grid-row: 3; flex-direction: row; margin-bottom: 0; gap: 0.5rem; }
       .sidebar-cta     { grid-column: 1; grid-row: 4; margin-bottom: 0; }
- 
-      /* Right column: nav stacked vertically, right-aligned */
+
       .sidebar-nav {
-        grid-column: 2;
-        grid-row: 1 / span 4;
-        align-self: center;
-        margin-top: 0;
-        border-top: none;
-        padding-top: 0;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.1rem;
-        width: auto;
+        grid-column: 2; grid-row: 1 / span 4;
+        align-self: center; margin-top: 0;
+        border-top: none; padding-top: 0;
+        flex-direction: column; align-items: flex-end;
+        gap: 0.1rem; width: auto;
       }
- 
+
       .sidebar-nav a { padding: 0.25rem 0.5rem; font-size: 12px; }
- 
-      /* Hide verbose items in compact header */
       .sidebar-bio   { display: none; }
       .sidebar-title { display: none; }
       .sidebar-contact .sidebar-link span { display: none; }
- 
       .btn { flex: unset; padding: 0.4rem 0.65rem; font-size: 12px; }
- 
-      .main { margin-left: 0;   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* ensures children stay centered */ }
-      .content-section {
-      width: 90%;
-      max-width: 500px;
-      margin: 0 auto;         /* centers it */
-      padding: 2.5rem 0;      /* remove side padding */
-      } 
+
+      .main { margin-left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+      .content-section { width: 90%; max-width: 500px; margin: 0 auto; padding: 2.5rem 0; }
+
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
       .project-card { flex: 0 0 260px; }
       .award-item { flex-direction: column; gap: 0.15rem; }
       .site-footer { padding: 2rem 1.5rem 3rem; }
-      .modal-title {padding-right: 2rem; }
-      .modal-close {position: static; align-self: flex-end; margin-bottom: 0.5rem; }
-      .modal {display: flex; flex-direction: column; padding: 1.5rem; }
-      .award-item { flex-direction: column; gap: 0.15rem; }
+      .modal-title { padding-right: 2rem; }
+      .modal-close { position: static; align-self: flex-end; margin-bottom: 0.5rem; }
+      .modal { display: flex; flex-direction: column; padding: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
     <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
-
     <div class="sidebar-name">Kristal<br><span>Menguc</span></div>
     <div class="sidebar-title"><span style="color: var(--accent);">ML Researcher &amp;<br>Computational Neuroscientist</span></div>
     <div class="sidebar-bio">
@@ -761,25 +540,13 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a href="#about" id="nav-about" onclick="handleNavClick(event, 'about')">
-        <span class="nav-dot"></span>about
-      </a>
-
-      <a href="#work" id="nav-exp" onclick="handleNavClick(event, 'exp')">
-        <span class="nav-dot"></span>experience
-      </a>
-
-      <a href="#work" id="nav-edu" onclick="handleNavClick(event, 'edu')">
-        <span class="nav-dot"></span>education
-      </a>
-
-      <a href="#projects" id="nav-projects" onclick="handleNavClick(event, 'projects')">
-        <span class="nav-dot"></span>projects
-      </a>
+      <a href="#about" id="nav-about" onclick="handleNavClick(event, 'about')"><span class="nav-dot"></span>about</a>
+      <a href="#work" id="nav-exp" onclick="handleNavClick(event, 'exp')"><span class="nav-dot"></span>experience</a>
+      <a href="#work" id="nav-edu" onclick="handleNavClick(event, 'edu')"><span class="nav-dot"></span>education</a>
+      <a href="#projects" id="nav-projects" onclick="handleNavClick(event, 'projects')"><span class="nav-dot"></span>projects</a>
     </nav>
   </aside>
 
-  <!-- ── MAIN ── -->
   <main class="main">
 
     <!-- ABOUT -->
@@ -788,9 +555,11 @@
       <h2 class="section-title">Hi! I'm Kristal</h2>
       <div class="about-grid">
         <div class="about-bio">
-          I'm an ML researcher and engineer with experience across neuroscience, healthcare, and applied AI. My work includes self-supervised models for clinical biosignals, time-series forecasting, computer vision (ViTs), and LLM-based projects. My master's thesis focused on improving sleep stage classification for Parkinson's patients, and I've also contributed to mental health chatbots and replicated ML models from papers end-to-end.<br><br>
+          I'm an ML researcher working at the intersection of neuroscience and healthcare. I completed my Master's in Computer Science at York University, where I built transformer-based models for time-series classification and forecasting. Before that, I studied neuroscience at the University of Toronto and worked on clinical research at Toronto Western Hospital, using neuroimaging (CT/MRI), iEEG, and physiological data.<br><br>
 
-          I thrive in interdisciplinary teams and enjoy translating research into practical, real-world solutions — whether in biomedical AI, computational biology, or broader ML applications like forecasting, vision, or natural language.
+          My work focuses on translating research into practical systems, particularly for applications like brain stimulation (TMS, DBS) and clinical decision tools. More recently, I've been exploring LLMs and agentic AI for biomedical and healthcare use cases.<br><br>
+
+          Outside of work, I enjoy playing volleyball and painting.
         </div>
         <div class="skills-col">
           <div class="skills-group">
@@ -856,11 +625,14 @@
               <p class="timeline-role">ML Research Assistant</p>
               <p class="timeline-org">JZ Lab — York University</p>
               <ul class="timeline-bullets">
-                <li>Designed a self-supervised foundation model for time-series data applied to sleep-stage classification from EEG and DBS recordings</li>
-                <li>Built a masked autoencoder using HuggingFace transformers to capture global temporal dependencies</li>
-                <li>Implemented transfer learning from large-scale EEG to DBS recordings for pretraining on large datasets and fine-tuning on limited data</li>
-                <li>Built an end-to-end ML pipeline for biosignal denoising, feature extraction, and robust evaluation</li>
+                <li>Built a self-supervised foundation model for EEG/DBS time-series data for sleep stage classification</li>
+                <li>Applied transformer-based architectures and transfer learning across large-scale EEG → DBS datasets</li>
+                <li>Developed an end-to-end pipeline for biosignal processing, representation learning, and evaluation</li>
               </ul>
+              <button class="project-ref-link" onclick="openModal('sleep')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                View project: Self-Supervised Sleep Stage Classification
+              </button>
             </div>
           </div>
           <div class="timeline-item">
@@ -882,6 +654,7 @@
               <ul class="timeline-bullets">
                 <li>Built an end-to-end MATLAB pipeline for noise reduction, automated feature detection, and unsupervised clustering of clinical electrophysiological data</li>
                 <li>Collaborated on a CT–MRI image registration pipeline with 3D electrode visualization in Brainstorm</li>
+                <li>Assisted with iEEG data collection, including experimental setup and Neuralynx system integration</li>
               </ul>
             </div>
           </div>
@@ -896,6 +669,7 @@
               <p class="timeline-role">Thesis-Based M.Sc. Computer Science</p>
               <p class="timeline-org">York University</p>
               <p class="timeline-detail">
+                GPA: 3.9 / 4.0<br><br>
                 Thesis: <em>Towards Closed-Loop Sleep Monitoring in Parkinson's Disease: Self-Supervised Learning Strategies for Sleep Stage Classification</em><br><br>
                 Advisor: Dr. Joel Zylberberg<br>
                 Courses: Probabilistic Models &amp; ML · Neural Networks &amp; Deep Learning · ML Theory · Computer Architecture · Implantable Biomedical Microsystems
@@ -913,11 +687,10 @@
               <p class="timeline-org">University of Toronto</p>
               <p class="timeline-detail">
                 Neuroscience Specialist · Cognitive Science Major · Economics Minor<br>
-                Thesis: <em>Acute Aerobic Exercise Changes in Amygdala and Hippocampal Spike Field Activity, and Synchronization
-of Hippocampal and Prefrontal Cortex Cell Assembly Firing in Surgical Epilepsy Patients</em><br><br>
+                GPA: 3.85 / 4.0<br><br>
+                Thesis: <em>Acute Aerobic Exercise Changes in Amygdala and Hippocampal Spike Field Activity, and Synchronization of Hippocampal and Prefrontal Cortex Cell Assembly Firing in Surgical Epilepsy Patients</em><br><br>
                 Advisor: Dr. Taufik Valiante<br>
-                Courses: Clinical Neuroimaging, Neurodevelopmental Diversity and Diseases, Market Design, Multivariable
-Calculus, Linear Algebra
+                Courses: Clinical Neuroimaging, Neurodevelopmental Diversity and Diseases, Market Design, Multivariable Calculus, Linear Algebra
               </p>
               <div class="awards-list">
                 <div class="award-item">
@@ -959,11 +732,12 @@ Calculus, Linear Algebra
 
       <div class="carousel-wrap">
         <div class="carousel" id="carousel">
+
           <div class="project-card" data-tags="Neuroimaging,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
             <p class="project-num">001</p>
             <span class="project-badge">hackathon winner</span>
             <p class="project-name">TMS Stimulation Visualizer</p>
-            <p class="project-desc">Simulated TMS treatment effects on functional brain connectivity across depression subtypes, enabling exploration of personalized stimulation outcomes.</p>
+            <p class="project-desc">Simulated patient-specific TMS effects on brain connectivity to explore personalized treatment strategies for depression.</p>
             <div class="project-tags">
               <span class="project-tag">Neuroimaging</span>
               <span class="project-tag">Connectomes</span>
@@ -972,6 +746,7 @@ Calculus, Linear Algebra
             </div>
             <p class="project-footer">click to learn more →</p>
           </div>
+
           <div class="project-card" data-tags="mBERT,LLMs,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
             <p class="project-num">002</p>
             <span class="project-badge">mila finalist</span>
@@ -984,8 +759,23 @@ Calculus, Linear Algebra
             </div>
             <p class="project-footer">click to learn more →</p>
           </div>
-          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
+
+          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('sleep')">
             <p class="project-num">003</p>
+            <span class="project-badge">master's thesis</span>
+            <p class="project-name">Self-Supervised Sleep Stage Classification</p>
+            <p class="project-desc">Built a transfer learning pipeline for Parkinson's sleep staging using DBS signals, outperforming prior methods and enabling stimulation-aware sleep forecasting.</p>
+            <div class="project-tags">
+              <span class="project-tag">Transformers</span>
+              <span class="project-tag">Time-series</span>
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">Self-supervised</span>
+            </div>
+            <p class="project-footer">click to learn more →</p>
+          </div>
+
+          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
+            <p class="project-num">004</p>
             <p class="project-name">ML Reproducibility: SimMTM</p>
             <p class="project-desc">Reproduced SimMTM, a transformer-based model for channel-independent time-series forecasting, implementing masked reconstruction pretraining solely from the original paper.</p>
             <div class="project-tags">
@@ -996,10 +786,11 @@ Calculus, Linear Algebra
             </div>
             <p class="project-footer">click to learn more →</p>
           </div>
+
           <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
-            <p class="project-num">004</p>
+            <p class="project-num">005</p>
             <p class="project-name">Cloud Image Classification</p>
-            <p class="project-desc">Hybrid CNN–ViT model for ground-based cloud image classification.</p>
+            <p class="project-desc">Hybrid CNN–ViT model for ground-based cloud image classification, outperforming standalone CNN and ViT baselines.</p>
             <div class="project-tags">
               <span class="project-tag">ViT</span>
               <span class="project-tag">CNN</span>
@@ -1008,6 +799,7 @@ Calculus, Linear Algebra
             </div>
             <p class="project-footer">click to learn more →</p>
           </div>
+
         </div>
       </div>
 
@@ -1017,28 +809,22 @@ Calculus, Linear Algebra
         <button class="carousel-btn" onclick="scrollCarousel(-1)">←</button>
         <button class="carousel-btn" onclick="scrollCarousel(1)">→</button>
         <div class="carousel-dots" id="carousel-dots"></div>
-        <span style="font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-left:0.25rem;">scroll or use arrows</span>
+        <span style="font-family:var(--font-sans-2);font-size:12px;color:var(--muted);margin-left:0.25rem;">scroll or use arrows</span>
       </div>
     </section>
 
-    <!-- FOOTER / CONTACT -->
     <footer class="site-footer">
       <div>
         <p class="section-label">// let's connect</p>
         <h2 class="footer-heading">Get in touch</h2>
-        <p class="footer-sub">
-          I'm exploring ML engineering and research opportunities — happy to connect and chat!
-        </p>
-        <a href="mailto:kristaldoga@gmail.com" class="footer-cta">
-          Send me an email
-        </a>
+        <p class="footer-sub">I'm exploring ML engineering and research opportunities — happy to connect and chat!</p>
+        <a href="mailto:kristaldoga@gmail.com" class="footer-cta">Send me an email</a>
       </div>
       <p class="footer-copy">© 2026 Kristal Menguc · Built with HTML &amp; CSS</p>
     </footer>
 
   </main>
 
-  <!-- MODAL -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕ close</button>
@@ -1047,54 +833,32 @@ Calculus, Linear Algebra
   </div>
 
   <script>
-    // ── TAB TOGGLE ──
     function switchTab(tab, isFromSidebar = false) {
       document.getElementById('tab-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('tab-edu').classList.toggle('active', tab === 'edu');
       document.getElementById('panel-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('panel-edu').classList.toggle('active', tab === 'edu');
-
-      if (!isFromSidebar) {
-        setActive(null);
-  }
+      if (!isFromSidebar) setActive(null);
     }
 
-    // ── SIDEBAR NAV ACTIVE STATE ──
-    // Tracks which nav key is active ('about', 'exp', 'edu', 'projects')
-    let activeKey = null;
-    let manualOverride = false;
-    let scrollTimeout;
+    let activeKey = null, manualOverride = false, scrollTimeout;
 
-    const navIds = {
-      about: 'nav-about',
-      exp: 'nav-exp',
-      edu: 'nav-edu',
-      projects: 'nav-projects'
-    };
+    const navIds = { about: 'nav-about', exp: 'nav-exp', edu: 'nav-edu', projects: 'nav-projects' };
 
-    function setActive(key) {
-      activeKey = key;
-      updateNav();
-    }
+    function setActive(key) { activeKey = key; updateNav(); }
 
     function handleNavClick(e, key) {
       e.preventDefault();
-
       manualOverride = true;
       clearTimeout(scrollTimeout);
-
       setActive(key);
-
       if (key === 'exp' || key === 'edu') {
         switchTab(key, true);
         document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
       } else {
         document.getElementById(key).scrollIntoView({ behavior: 'smooth' });
       }
-
-      scrollTimeout = setTimeout(() => {
-        manualOverride = false;
-      }, 800); 
+      scrollTimeout = setTimeout(() => { manualOverride = false; }, 800);
     }
 
     function updateNav() {
@@ -1103,30 +867,19 @@ Calculus, Linear Algebra
       if (el) el.classList.add('active');
     }
 
-    // Scroll spy: clear active highlight when user scrolls away from the section
     window.addEventListener('scroll', () => {
-     if (manualOverride || !activeKey) return;
-
-      const section =
-        activeKey === 'about'
-          ? document.getElementById('about')
-          : activeKey === 'projects'
-          ? document.getElementById('projects')
-          : document.getElementById('work');
-
+      if (manualOverride || !activeKey) return;
+      const section = activeKey === 'about' ? document.getElementById('about') :
+                      activeKey === 'projects' ? document.getElementById('projects') :
+                      document.getElementById('work');
       if (!section) return;
-
       const rect = section.getBoundingClientRect();
-
-      const completelyOutOfView =
-        rect.bottom < 0 || rect.top > window.innerHeight;
-
-      if (completelyOutOfView) {
+      if (rect.bottom < 0 || rect.top > window.innerHeight) {
         activeKey = null;
         document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
       }
     });
-    // ── FILTERS ──
+
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1144,16 +897,13 @@ Calculus, Linear Algebra
       });
     });
 
-    // ── CAROUSEL ──
     function scrollCarousel(dir) {
-      const c = document.getElementById('carousel');
-      c.scrollBy({ left: dir * 325, behavior: 'smooth' });
+      document.getElementById('carousel').scrollBy({ left: dir * 325, behavior: 'smooth' });
     }
 
     function updateDots() {
       const cards = [...document.querySelectorAll('.project-card:not(.hidden)')];
-      const dotsEl = document.getElementById('carousel-dots');
-      dotsEl.innerHTML = cards.map((_, i) =>
+      document.getElementById('carousel-dots').innerHTML = cards.map((_, i) =>
         `<div class="carousel-dot${i === 0 ? ' active' : ''}" onclick="scrollToCard(${i})"></div>`
       ).join('');
     }
@@ -1171,96 +921,272 @@ Calculus, Linear Algebra
     updateDots();
 
     // ── PROJECT DATA ──
-    const projects = {
-      tms: {
-        badge: 'hackathon winner — evolved technology',
-        title: 'TMS Stimulation Visualizer',
-        date: 'March 2026',
-        tags: ['Neuroimaging', 'Connectomes', 'LLMs', '3D Visualization', 'Python'],
-        bullets: [
-          'Developed a patient-specific simulation framework modeling TMS effects on functional brain connectivity using neuroimaging-derived connectomes',
-          'Modeled longitudinal changes in brain networks by updating connectome edge weights using biologically-informed rules to predict circuit-level responses after 20 treatment sessions',
-          'Contributed to a team-built clinical planning tool integrating 3D brain visualization and LLM-based analysis',
-          'Benchmarked results against clinical literature — 47.8% of simulated patients showed improved connectivity, aligning with reported treatment response rates (~40%)',
-          'Implemented the connectome/white-box simulation components, with code available on GitHub'
-        ],
-        github: 'https://github.com/bertovmill/biohack26/tree/main',
-        video: null
-      },
-      chatbot: {
-        badge: 'finalist — mila hackathon',
-        title: 'Mental Health AI Chatbot Guardrails',
-        date: 'March 2026',
-        tags: ['mBERT', 'LLMs', 'Synthetic Data', 'AI Safety', 'Python', 'HuggingFace'],
-        bullets: [
-          'Stress-tested a mental health AI chatbot to identify safety vulnerabilities and design effective guardrails',
-          'Designed synthetic dialogue datasets using LLM-based multi-agent self-play with dynamically generated personas across mental health risk categories',
-          'Fine-tuned and evaluated mBERT-based classifiers for input guardrails',
-          'Added a secondary LLM judge for uncertain predictions to improve safety coverage'
-        ],
-        github: null,
-        video: null
-      },
-      simmtm: {
-        badge: null,
-        title: 'ML Reproducibility Challenge: SimMTM',
-        date: 'April 2025 — York University',
-        tags: ['Transformers', 'Time-series', 'PyTorch', 'Self-supervised', 'Python'],
-        bullets: [
-          'Implemented a channel-independent transformer encoder with masked reconstruction pretraining and downstream forecasting fine-tuning',
-          'Developed geometric masking, similarity matrix computation, and manifold + reconstruction loss based on the mathematical theories provided in the original paper',
-          'Reproduced and validated SimMTM for time-series forecasting, achieving improved in-domain performance (MSE 0.217 vs 0.288, MAE 0.362 vs 0.348) and strong cross-domain transfer from weather → ETTm1 (MSE 0.086 vs 0.304, MAE 0.225 vs 0.354) compared to the original paper.'
-        ],
-        github: 'https://github.com/claudiafarkas/simmtm_rep',
-        video: null
-      },
-      vit: {
-        badge: null,
-        title: 'Vision Transformer with CNN Feature Extractor',
-        date: 'December 2024 — York University',
-        tags: ['ViT', 'CNN', 'PyTorch', 'Image Classification', 'Python', 'Transformers'],
-        bullets: [
-          'Implemented a hybrid CNN–Vision Transformer architecture for ground-based cloud image classification',
-          'Achieved 86.2% test accuracy, outperforming standalone CNN and ViT baselines',
-          'Designed the CNN as a feature extractor feeding into the transformer encoder for improved spatial representation'
-        ],
-        github: null,
-        video: null
-      }
-    };
+const projects = {
+  chatbot: {
+    title: 'Mental Health AI Chatbot Guardrails',
+    date: 'March 2026',
+    content: `
+<h2>Mental Health AI Chatbot Guardrails</h2>
+<p><strong>March 2026</strong></p>
 
-    // ── MODAL ──
-    async function openModal(key) {
-      const p = projects[key];
-      if (!p) return;
-      const overlay = document.getElementById('modal-overlay');
-      const body = document.getElementById('modal-body');
-      const hasGithub = p.github && p.github !== 'YOUR_GITHUB_LINK_HERE';
+<p><strong>Problem:</strong> Mental health chatbots for youth need to reliably distinguish between low-risk and high-risk conversations so that urgent cases are escalated to human support. Over-escalation clogs limited human review capacity, while under-escalation risks missing critical safety cases. The goal was to build a robust input guardrail that balances both precision and recall under real-world conversational ambiguity.</p>
 
+<p><strong>Approach:</strong></p>
+<p>I designed and implemented an end-to-end training pipeline for a conversational risk classifier, focusing on data quality and realism over model complexity.</p>
+
+<p><strong>1. Failure analysis of baseline system</strong><br/>
+We first stress-tested an existing chatbot classifier to identify systematic failure modes (e.g., subtle self-harm language, indirect distress, sarcasm, coded speech).</p>
+
+<p><strong>2. Synthetic conversation generation (core contribution)</strong><br/>
+Since real labeled youth mental health data is unavailable for ethical and legal reasons, I built a multi-agent LLM simulation pipeline to generate realistic training conversations at scale.</p>
+
+<p>The system uses three coordinated components:</p>
+<ul>
+<li>User Actor LLM: simulates diverse youth personas with structured psychological profiles</li>
+<li>Chatbot LLM: follows a defined empathy + escalation policy</li>
+<li>Persona Generator LLM: produces diverse demographic and linguistic profiles</li>
+</ul>
+
+<p><strong>Key design features:</strong></p>
+<ul>
+<li>Turn-based pacing constraints to prevent unnatural “instant distress injection”</li>
+<li>Refusal behavior modeling (e.g., fear of parents, phone anxiety, distrust of help systems)</li>
+<li>Dynamic escalation state tracking</li>
+<li>LLM-based quality filtering before data is accepted</li>
+</ul>
+
+<p>This produced a diverse dataset spanning multiple demographic groups (including Indigenous youth, immigrant communities, LGBTQ+ youth, and neurodivergent users).</p>
+
+<p><strong>3. Model training and architecture</strong></p>
+<p>Fine-tuned an mBERT classifier on the synthetic dataset for primary risk detection.</p>
+
+<p>Built a stacked hybrid system:</p>
+<ul>
+<li>Fast-path: mBERT handles most predictions efficiently</li>
+<li>Secondary LLM layer: resolves borderline or nuanced cases</li>
+</ul>
+
+<p>This design optimized latency while preserving safety sensitivity.</p>
+
+<p><strong>Results:</strong></p>
+<ul>
+<li>F1 Score: 0.831</li>
+<li>Recall: 0.908</li>
+<li>Precision: 0.766</li>
+</ul>
+
+<p>The system was intentionally tuned for high recall, prioritizing detection of high-risk cases even at the cost of increased false positives.</p>
+
+<p><strong>My Contribution:</strong></p>
+<ul>
+<li>Multi-agent LLM simulation framework</li>
+<li>Persona generation system</li>
+<li>Dataset creation and labeling logic</li>
+<li>Data validation and filtering pipeline</li>
+</ul>
+
+<p><strong>Future Work:</strong></p>
+<ul>
+<li>Replace LLM fallback with specialized mBERT classifiers</li>
+<li>Expand persona realism using RAG over youth media</li>
+</ul>
+
+<p><strong>Tech Stack:</strong><br/>
+mBERT · LLMs · Synthetic Data · AI Safety · Python · HuggingFace · NLP</p>
+`
+  },
+
+  sleep: {
+    title: 'Self-Supervised Sleep Stage Classification',
+    date: 'December 2026 — York University',
+    content: `
+<h2>Self-Supervised Sleep Stage Classification</h2>
+<p><strong>Master’s Thesis Project</strong></p>
+<p><strong>December 2026 — York University</strong></p>
+
+<p><strong>Problem:</strong> Parkinson’s patients often exhibit disrupted sleep architecture, with reduced or missing sleep stages compared to healthy individuals. This degradation in sleep quality is associated with disease progression and increased risk of neurodegenerative comorbidities.</p>
+
+<p>Challenges:</p>
+<ul>
+<li>High inter-patient variability</li>
+<li>Scarcity of full sleep-stage distributions in clinical data</li>
+</ul>
+
+<p><strong>Approach:</strong></p>
+<p>I designed a transfer learning framework to enable sleep stage classification directly from DBS signals.</p>
+
+<p><strong>1. Cross-modal transfer learning</strong></p>
+<ul>
+<li>Pretrained on EEG data</li>
+<li>Fine-tuned on DBS recordings</li>
+</ul>
+
+<p><strong>2. Self-supervised pretraining</strong></p>
+<ul>
+<li>Contrastive objective → improved global representations</li>
+<li>Reconstruction objective → improved rare class performance</li>
+</ul>
+
+<p><strong>3. Feature extraction</strong></p>
+<ul>
+<li>CNN-based temporal features</li>
+<li>STFT-based spectral features</li>
+</ul>
+
+<p><strong>4. Cost-sensitive classification</strong></p>
+<p>Implemented penalty matrix + class weighting to reduce critical misclassifications.</p>
+
+<p><strong>5. Sleep stage forecasting</strong></p>
+<ul>
+<li>Predict upcoming sleep stages</li>
+<li>Enable closed-loop DBS control</li>
+</ul>
+
+<p><strong>Results:</strong></p>
+<ul>
+<li>+12% improvement over prior methods</li>
+<li>F1 Score: ~0.70 (unseen patients)</li>
+</ul>
+
+<p><strong>Future Work:</strong></p>
+<ul>
+<li>Combine contrastive + reconstruction objectives</li>
+<li>Explore bandpass features</li>
+<li>Integrate real-time DBS system</li>
+</ul>
+
+<p><strong>Tech Stack:</strong><br/>
+Python · PyTorch · Time-Series · Signal Processing · EEG/DBS · Self-Supervised Learning · Transfer Learning · Healthcare AI</p>
+`
+  },
+
+  simmtm: {
+    title: 'ML Reproducibility Challenge: SimMTM',
+    date: 'April 2025 — York University',
+    content: `
+<h2>ML Reproducibility Challenge: SimMTM</h2>
+<p><strong>April 2025 — York University</strong></p>
+
+<p><strong>Overview:</strong> Modern ML research often lacks sufficient implementation detail. This project evaluates reproducibility using only the original paper.</p>
+
+<p><strong>Approach:</strong></p>
+<p>I reimplemented SimMTM from scratch.</p>
+
+<p><strong>1. Paper-to-code translation</strong></p>
+<ul>
+<li>Geometric masking</li>
+<li>Similarity matrix computation</li>
+<li>Point-wise aggregation</li>
+<li>Manifold objective</li>
+<li>Reconstruction loss</li>
+</ul>
+
+<p><strong>2. Model architecture</strong></p>
+<p>Designed channel-independent transformer.</p>
+
+<p><strong>3. Forecasting</strong></p>
+<p>Led training, validation, benchmarking.</p>
+
+<p><strong>Results:</strong></p>
+<ul>
+<li>MSE: 0.217 vs 0.288</li>
+<li>MAE: 0.362 vs 0.348</li>
+<li>Cross-domain MSE: 0.086 vs 0.304</li>
+</ul>
+
+<p><strong>Tech Stack:</strong><br/>
+Transformers · Time-series · PyTorch · Self-supervised · Python</p>
+`
+  },
+
+  vit: {
+    title: 'Cloud Image Classification (CNN–ViT)',
+    date: 'December 2024 — York University',
+    content: `
+<h2>Cloud Image Classification with CNN–ViT</h2>
+<p><strong>December 2024 — York University</strong></p>
+
+<p><strong>Problem:</strong> Improve weather prediction using ground-level cloud imagery.</p>
+
+<p><strong>Approach:</strong></p>
+
+<p><strong>1. Hybrid architecture</strong></p>
+<ul>
+<li>Replaced ViT patch embeddings with CNN features</li>
+<li>Designed CNN feature extractor</li>
+</ul>
+
+<p><strong>2. Transformer integration</strong></p>
+<ul>
+<li>Converted CNN outputs into tokens</li>
+<li>Used attention for global structure</li>
+</ul>
+
+<p><strong>Results:</strong></p>
+<ul>
+<li>Accuracy: 86.2%</li>
+<li>Outperformed CNN and ViT baselines</li>
+</ul>
+
+<p><strong>Future Work:</strong></p>
+<ul>
+<li>RAG over meteorology literature</li>
+<li>Agentic forecasting system</li>
+<li>Real-time cloud pipeline</li>
+</ul>
+
+<p><strong>Tech Stack:</strong><br/>
+Python · PyTorch · HuggingFace · Computer Vision · ViT · CNN</p>
+`
+  }
+};
+
+    function buildModalHTML(p) {
       let html = '';
       if (p.badge) html += `<span class="modal-badge">${p.badge}</span><br><br>`;
       html += `<h2 class="modal-title">${p.title}</h2><p class="modal-meta">${p.date}</p>`;
-      html += `<div class="modal-divider"></div><p class="modal-section-title">// overview</p>`;
-      html += `<ul class="modal-bullets">` + p.bullets.map(b => `<li>${b}</li>`).join('') + `</ul>`;
-      html += `<div class="modal-divider"></div><p class="modal-section-title">// tech stack</p>`;
-      html += `<div class="modal-tags">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
-      html += `<div class="modal-links">`;
-      if (hasGithub) {
-        html += `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary">
-        View on GitHub
-        </a>`;
-      }
-      html += `</div>`;
-      if (p.video) {
-        html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p>`;
-        html += `<div class="modal-video-wrap">
-          <iframe class="modal-video" src="${p.video}" allowfullscreen></iframe>
-      </div>`;
+
+      if (p.problem) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// problem</p>`;
+        html += `<p class="modal-prose">${p.problem}</p>`;
       }
 
-      body.innerHTML = html;
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';}
+      if (p.approach && p.approach.length) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
+        html += `<ul class="modal-bullets">` + p.approach.map(b => `<li>${b}</li>`).join('') + `</ul>`;
+      }
+
+      if (p.results && p.results.length) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// results</p>`;
+        html += `<ul class="modal-bullets">` + p.results.map(b => `<li>${b}</li>`).join('') + `</ul>`;
+      }
+
+      if (p.contribution) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// my contribution</p>`;
+        html += `<p class="modal-prose">${p.contribution}</p>`;
+      }
+
+      html += `<div class="modal-divider"></div><p class="modal-section-title">// tech stack</p>`;
+      html += `<div class="modal-tags">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
+
+      const hasGithub = p.github && p.github !== 'YOUR_GITHUB_LINK_HERE';
+      if (hasGithub || p.thesis) {
+        html += `<div class="modal-links">`;
+        if (hasGithub) html += `<a href="${p.github}" target="_blank" class="modal-link modal-link-primary">View on GitHub</a>`;
+        if (p.thesis) html += `<a href="${p.thesis}" target="_blank" class="modal-link modal-link-primary">Read Thesis</a>`;
+        html += `</div>`;
+      }
+
+      return html;
+    }
+
+    function openModal(key) {
+      const p = projects[key];
+      if (!p) return;
+      document.getElementById('modal-body').innerHTML = buildModalHTML(p);
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
 
     function closeModal() {
       document.getElementById('modal-overlay').classList.remove('open');
@@ -1272,8 +1198,7 @@ Calculus, Linear Algebra
     }
 
     function openResume() {
-      const body = document.getElementById('modal-body');
-      body.innerHTML = `
+      document.getElementById('modal-body').innerHTML = `
         <h2 class="modal-title">Resume</h2>
         <p class="modal-meta">Kristal Menguc</p>
         <div class="modal-divider"></div>
