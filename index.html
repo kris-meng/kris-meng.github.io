@@ -62,7 +62,7 @@
     }
 
     .sidebar-photo {
-      width: 80px; height: 80px; /* Slightly smaller to fit side-by-side */
+      width: 100px; height: 100px; /* Slightly smaller to fit side-by-side */
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--border);
@@ -70,20 +70,13 @@
     }
 
     .sidebar-name {
-      font-size: 1.35rem; font-weight: 700;
+      font-size: 1.6rem; font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 0.15rem;
-      line-height: 1.1;
+      line-height: 1.2;
     }
 
     .sidebar-name span { color: var(--accent); }
-
-    .sidebar-title {
-      font-family: var(--font-sans-2);
-      font-size: 11px; color: var(--muted);
-      letter-spacing: 0.05em;
-      line-height: 1.5;
-    }
 
     .sidebar-bio {
       font-size: 14px; color: var(--muted);
@@ -518,7 +511,6 @@
 
       .sidebar-nav a { padding: 0.25rem 0.5rem; font-size: 13px; }
       .sidebar-bio   { display: none; }
-      .sidebar-title { display: none; }
       .sidebar-contact .sidebar-link span { display: none; }
       .btn { flex: unset; padding: 0.4rem 0.65rem; font-size: 13px; }
 
@@ -546,7 +538,6 @@
       <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
       <div class="sidebar-profile-text">
         <div class="sidebar-name">Kristal<br><span>Menguc</span></div>
-        <div class="sidebar-title"><span style="color: var(--accent);">ML Researcher &amp;<br>Computational Neuroscientist</span></div>
       </div>
     </div>
     <div class="sidebar-bio">
