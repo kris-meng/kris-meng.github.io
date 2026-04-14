@@ -425,6 +425,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 1.5rem;
+      margin-top: 1.25rem;
       margin-bottom: 1.25rem;
     }
     .modal-header-left { flex: 1; }
@@ -758,15 +759,16 @@
         <button class="filter-btn active" data-filter="all">all</button>
         <button class="filter-btn" data-filter="Transformers">transformers</button>
         <button class="filter-btn" data-filter="LLMs">LLMs</button>
-        <button class="filter-btn" data-filter="Neuroimaging">neuroimaging</button>
-        <button class="filter-btn" data-filter="PyTorch">pytorch</button>
+        <button class="filter-btn" data-filter="Self-supervised">LLMs</button>
+        <button class="filter-btn" data-filter="Computational Biology">neuroimaging</button>
         <button class="filter-btn" data-filter="Time-series">time-series</button>
+        <button class="filter-btn" data-filter="Computer Vision">pytorch</button>
       </div>
 
       <div class="carousel-wrap">
         <div class="carousel" id="carousel">
 
-          <div class="project-card" data-tags="Neuroimaging,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
+          <div class="project-card" data-tags="Computational Biology,Connectomes,LLMs,3D Visualization,Python" onclick="openModal('tms')">
             <p class="project-num">001</p>
             <span class="project-badge">hackathon winner</span>
             <p class="project-name">TMS Stimulation Visualizer</p>
@@ -780,14 +782,14 @@
             <p class="project-footer">click to learn more →</p>
           </div>
 
-          <div class="project-card" data-tags="mBERT,LLMs,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
+          <div class="project-card" data-tags="LLMs,NLP,Synthetic Data,AI Safety,Python,HuggingFace" onclick="openModal('chatbot')">
             <p class="project-num">002</p>
             <span class="project-badge">mila finalist</span>
             <p class="project-name">Mental Health AI Chatbot Guardrails</p>
             <p class="project-desc">Generated synthetic dialogues via LLM-based multi-agent self-play to create training data for mental health chatbot guardrails.</p>
             <div class="project-tags">
-              <span class="project-tag">mBERT</span>
               <span class="project-tag">LLMs</span>
+              <span class="project-tag">NLP</span>
               <span class="project-tag">Synthetic Data Generation</span>
             </div>
             <p class="project-footer">click to learn more →</p>
@@ -820,7 +822,7 @@
             <p class="project-footer">click to learn more →</p>
           </div>
 
-          <div class="project-card" data-tags="ViT,CNN,PyTorch,Image Classification,Python,Transformers" onclick="openModal('vit')">
+          <div class="project-card" data-tags="ViT,CNN,PyTorch,Computer Vision,Python,Transformers" onclick="openModal('vit')">
             <p class="project-num">005</p>
             <p class="project-name">Cloud Image Classification</p>
             <p class="project-desc">Hybrid CNN–ViT model for ground-based cloud image classification, outperforming standalone CNN and ViT baselines.</p>
@@ -994,13 +996,13 @@
         approachIntro: 'I designed and implemented an end-to-end training pipeline for a conversational risk classifier, focusing on data quality and realism over model complexity.',
         approach: [
           '<strong style="color:var(--text);">1. Failure analysis of baseline system:</strong> We first stress-tested an existing chatbot classifier to identify systematic failure modes (e.g., subtle self-harm language, indirect distress, sarcasm, coded speech).',
-          '<strong style="color:var(--text);">2. Synthetic conversation generation (core contribution):</strong> Since real labeled youth mental health data is unavailable for ethical and legal reasons, I built a multi-agent LLM simulation pipeline to generate realistic training conversations at scale.<br><br><span style="color:var(--text);font-weight:500;">The system uses three coordinated components:</span><br>&nbsp;&nbsp;• <strong>User Actor LLM:</strong> simulates diverse youth personas with structured psychological profiles<br>&nbsp;&nbsp;• <strong>Chatbot LLM:</strong> follows a defined empathy + escalation policy<br>&nbsp;&nbsp;• <strong>Persona Generator LLM:</strong> produces diverse demographic and linguistic profiles to increase realism and reduce repetition',
+          '<strong style="color:var(--text);">2. Synthetic conversation generation (core contribution):</strong> Since real labeled youth mental health data is unavailable for ethical and legal reasons, I built a multi-agent LLM simulation pipeline to generate realistic training conversations at scale.<br><br>The system uses three coordinated components:<br>&nbsp;&nbsp;• <strong style="color:var(--text);">User Actor LLM:</strong> simulates diverse youth personas with structured psychological profiles<br>&nbsp;&nbsp;• <strong style="color:var(--text);">Chatbot LLM:</strong> follows a defined empathy + escalation policy<br>&nbsp;&nbsp;• <strong style="color:var(--text);">Persona Generator LLM:</strong> produces diverse demographic and linguistic profiles to increase realism and reduce repetition',
           '<strong style="color:var(--text);">Key design features:</strong><br>&nbsp;&nbsp;• Turn-based pacing constraints to prevent unnatural "instant distress injection"<br>&nbsp;&nbsp;• Refusal behavior modeling (e.g., fear of parents, phone anxiety, distrust of help systems)<br>&nbsp;&nbsp;• Dynamic escalation state tracking to prevent repetitive crisis responses<br>&nbsp;&nbsp;• LLM-based quality filtering before data is accepted',
           'This produced a diverse dataset spanning multiple demographic groups (including Indigenous youth, immigrant communities, LGBTQ+ youth, and neurodivergent users).',
-          '<strong style="color:var(--text);">3. Model training and architecture:</strong> Fine-tuned an mBERT classifier on the synthetic dataset for primary risk detection.<br><br><span style="color:var(--text);font-weight:500;">Built a stacked hybrid system:</span><br>&nbsp;&nbsp;• <strong>Fast-path:</strong> mBERT handles most predictions efficiently<br>&nbsp;&nbsp;• <strong>Secondary LLM layer:</strong> resolves borderline or nuanced cases (e.g., implicit self-harm, coded language)<br><br>This design optimized latency while preserving safety sensitivity.'
+          '<strong style="color:var(--text);">3. Model training and architecture:</strong> Fine-tuned an mBERT classifier on the synthetic dataset for primary risk detection.<br><br>Built a stacked hybrid system:<br>&nbsp;&nbsp;• <strong>Fast-path:</strong> mBERT handles most predictions efficiently<br>&nbsp;&nbsp;• <strong>Secondary LLM layer:</strong> resolves borderline or nuanced cases (e.g., implicit self-harm, coded language)<br><br>This design optimized latency while preserving safety sensitivity.'
         ],
         results: [
-          '<strong>F1 Score:</strong> 0.831<br><strong>Recall:</strong> 0.908<br><strong>Precision:</strong> 0.766',
+          '<strong style="color:var(--text);">F1 Score:</strong> 0.831<br><strong>Recall:</strong> 0.908<br><strong>Precision:</strong> 0.766',
           'The system was intentionally tuned for high recall, prioritizing detection of high-risk cases even at the cost of increased false positives—appropriate for safety-critical deployment.'
         ],
         futureWork: [
@@ -1015,7 +1017,7 @@
         title: 'Self-Supervised Sleep Stage Classification',
         date: 'December 2026 — York University',
         tags: ['Python', 'PyTorch', 'Time-Series Modeling', 'Signal Processing', 'EEG/DBS Analysis', 'Self-Supervised Learning', 'Transfer Learning', 'Healthcare AI'],
-        problem: "Parkinson’s patients often exhibit disrupted sleep architecture, with reduced or missing sleep stages compared to healthy individuals. This degradation in sleep quality is associated with disease progression and increased risk of neurodegenerative comorbidities.<br><br><span style=\"color:var(--text);font-weight:500;\">However, building reliable sleep stage classifiers for Parkinson’s patients is challenging due to:</span><br>&nbsp;&nbsp;• high inter-patient variability<br>&nbsp;&nbsp;• scarcity of full sleep-stage distributions in clinical data",
+        problem: "Parkinson’s patients often exhibit disrupted sleep architecture, with reduced or missing sleep stages compared to healthy individuals. This degradation in sleep quality is associated with disease progression and increased risk of neurodegenerative comorbidities.<br><br>However, building reliable sleep stage classifiers for Parkinson’s patients is challenging due to:<br>&nbsp;&nbsp;• high inter-patient variability<br>&nbsp;&nbsp;• scarcity of full sleep-stage distributions in clinical data",
         approachIntro: 'I designed a transfer learning framework to enable sleep stage classification directly from DBS signals, with the goal of eventual closed-loop stimulation.',
         approach: [
           '<strong style="color:var(--text);">1. Cross-modal transfer learning (core idea):</strong> Pretrained the model on EEG data to learn full sleep-stage representations (W, N1, N2, N3, REM), then fine-tuned on DBS recordings from Parkinson’s patients.<br><br>This allows the model to retain rich sleep-stage structure while adapting to a different signal modality.',
@@ -1025,8 +1027,8 @@
           '<strong style="color:var(--text);">5. Extension: sleep stage forecasting:</strong> Extended the model to predict upcoming sleep stages, enabling:<br>&nbsp;&nbsp;• Potential closed-loop DBS control<br>&nbsp;&nbsp;• Smarter stimulation timing to maintain or transition sleep states'
         ],
         results: [
-          '+12% performance improvement over prior Parkinson’s sleep staging methods',
-          '<strong>F1 Score:</strong> ~0.70 on unseen patients (cross-validation)',
+          '<span style="color:var(--text);">+12% performance improvement </span> over prior Parkinson’s sleep staging methods',
+          '<strong>F1 Score:</strong> 0.70 on unseen patients (cross-validation)',
           '<strong>Key outcome:</strong> strong generalization despite high inter-patient variability and limited data.'
         ],
         futureWork: [
@@ -1071,7 +1073,7 @@
           'This approach improves representation quality compared to raw patching by injecting stronger inductive bias through convolution.'
         ],
         results: [
-          '<strong>Test Accuracy:</strong> 86.2%',
+          '<strong style="color:var(--text);">Test Accuracy:</strong> 86.2%',
           '<strong style="color:var(--text);">Outperformed both:</strong><br>&nbsp;&nbsp;• Standalone CNN baseline<br>&nbsp;&nbsp;• Standard ViT (patch-based) baseline',
           'This demonstrates the effectiveness of combining local feature extraction (CNN) with global context modeling (transformers) for this task.'
         ],
