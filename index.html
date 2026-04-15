@@ -594,6 +594,7 @@
               <span class="skill-tag">Java</span>
               <span class="skill-tag">MATLAB</span>
               <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Rust</span>
             </div>
           </div>
           <div class="skills-group">
@@ -950,7 +951,7 @@
 // ── PROJECT DATA ──
   const projects = {
       tms: {
-        badge: 'hackathon winner',
+        badge: 'evolved technology hackathon winner',
         title: 'TMS Stimulation Visualizer',
         date: 'March 2026',
         tags: ['Neuroimaging', 'Connectomes', 'Computational Neuroscience', 'LLMs', '3D Visualization', 'Python'],
@@ -984,9 +985,9 @@
         date: 'March 2026',
         tags: ['mBERT', 'LLMs', 'Synthetic Data', 'AI Safety', 'Python', 'HuggingFace', 'NLP'],
         problem: 'Mental health chatbots for youth need to reliably distinguish between low-risk and high-risk conversations so that urgent cases are escalated to human support. Over-escalation clogs limited human review capacity, while under-escalation risks missing critical safety cases. The goal was to build a robust input guardrail that balances both precision and recall under real-world conversational ambiguity.',
-        approachIntro: 'I designed and implemented an end-to-end training pipeline for a conversational risk classifier, focusing on data quality and realism over model complexity.',
+        approachIntro: 'Designed and implemented an end-to-end training pipeline for a conversational risk classifier, focusing on data quality and realism over model complexity.',
         approach: [
-          '<strong style="color:var(--text);">1. Failure analysis of baseline system:</strong> We first stress-tested an existing chatbot classifier to identify systematic failure modes (e.g., subtle self-harm language, indirect distress, sarcasm, coded speech).',
+          '<strong style="color:var(--text);">1. Failure analysis of baseline system:</strong> Stress-tested an existing chatbot classifier to identify systematic failure modes (e.g., subtle self-harm language, indirect distress, sarcasm, coded speech).',
           '<strong style="color:var(--text);">2. Synthetic conversation generation (core contribution):</strong> Since real labeled youth mental health data is unavailable for ethical and legal reasons, I built a multi-agent LLM simulation pipeline to generate realistic training conversations at scale.<br><br>The system uses three coordinated components:<br>&nbsp;&nbsp;• <strong style="color:var(--text);">User Actor LLM:</strong> simulates diverse youth personas with structured psychological profiles<br>&nbsp;&nbsp;• <strong style="color:var(--text);">Chatbot LLM:</strong> follows a defined empathy + escalation policy<br>&nbsp;&nbsp;• <strong style="color:var(--text);">Persona Generator LLM:</strong> produces diverse demographic and linguistic profiles to increase realism and reduce repetition',
           '<strong style="color:var(--text);">Key design features:</strong><br>&nbsp;&nbsp;• Turn-based pacing constraints to prevent unnatural "instant distress injection"<br>&nbsp;&nbsp;• Refusal behavior modeling (e.g., fear of parents, phone anxiety, distrust of help systems)<br>&nbsp;&nbsp;• Dynamic escalation state tracking to prevent repetitive crisis responses<br>&nbsp;&nbsp;• LLM-based quality filtering before data is accepted',
           'This produced a diverse dataset spanning multiple demographic groups (including Indigenous youth, immigrant communities, LGBTQ+ youth, and neurodivergent users).',
