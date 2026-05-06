@@ -625,8 +625,9 @@
             <div class="skills-list">
               <span class="skill-tag">Git</span>
               <span class="skill-tag">Linux</span>
-              <span class="skill-tag">Compute Canada</span>
+              <span class="skill-tag">High Performing Computing</span>
               <span class="skill-tag">OpenAI API</span>
+              <span class="skill-tag">Docker</span>
             </div>
           </div>
         </div>
@@ -751,6 +752,7 @@
         <button class="filter-btn active" data-filter="all">all</button>
         <button class="filter-btn" data-filter="Transformers">transformers</button>
         <button class="filter-btn" data-filter="LLMs">LLMs</button>
+        <button class="filter-btn" data-filter="RAGs">RAGs</button>
         <button class="filter-btn" data-filter="Self-supervised">self-supervised</button>
         <button class="filter-btn" data-filter="Computational Biology">computational biology</button>
         <button class="filter-btn" data-filter="Time-series">time-series</button>
@@ -787,8 +789,22 @@
             <p class="project-footer">click to learn more →</p>
           </div>
 
-          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('sleep')">
+          <div class="project-card" data-tags="LLMs,RAG,Python,Transformers,NLP" onclick="openModal('litrag')">
             <p class="project-num">003</p>
+            <span class="project-badge">in progress</span>
+            <p class="project-name">LitRAG — Literature Review Assistant</p>
+            <p class="project-desc">Research RAG system for academic literature review. Drop in PDFs, chat with your papers, and retrieve figures, tables, and equations with source-linked answers.</p>
+            <div class="project-tags">
+            <span class="project-tag">RAG</span>
+            <span class="project-tag">LLMs</span>
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Docker</span>
+          </div>
+          <p class="project-footer">click to learn more →</p>
+          </div>
+
+          <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('sleep')">
+            <p class="project-num">004</p>
             <span class="project-badge">master's thesis</span>
             <p class="project-name">Self-Supervised Sleep Stage Classification</p>
             <p class="project-desc">Built a transfer learning pipeline for Parkinson's sleep staging using DBS signals, outperforming prior methods and enabling stimulation-aware sleep forecasting.</p>
@@ -802,7 +818,7 @@
           </div>
 
           <div class="project-card" data-tags="Transformers,Time-series,PyTorch,Self-supervised,Python" onclick="openModal('simmtm')">
-            <p class="project-num">004</p>
+            <p class="project-num">005</p>
             <p class="project-name">ML Reproducibility: SimMTM</p>
             <p class="project-desc">Reproduced SimMTM, a transformer-based model for channel-independent time-series forecasting, implementing masked reconstruction pretraining solely from the original paper.</p>
             <div class="project-tags">
@@ -815,7 +831,7 @@
           </div>
 
           <div class="project-card" data-tags="ViT,CNN,PyTorch,Computer Vision,Python,Transformers" onclick="openModal('vit')">
-            <p class="project-num">005</p>
+            <p class="project-num">006</p>
             <p class="project-name">Cloud Image Classification</p>
             <p class="project-desc">Hybrid CNN–ViT model for ground-based cloud image classification, outperforming standalone CNN and ViT baselines.</p>
             <div class="project-tags">
@@ -1002,6 +1018,33 @@
           'Expand persona realism using a RAG system over youth media narratives (e.g., teen dramas) to model more natural conversational tone'
         ],
         github: 'https://github.com/kris-meng/Mental-Health-Chatbot-Guardrail-Training'
+      },
+
+      litrag: {
+        badge: 'in progress',
+        title: 'LitRAG — Literature Review Assistant',
+        date: '2026 — Personal Project',
+        tags: ['Python', 'RAG', 'LLMs', 'Docling', 'Qdrant', 'Docker'],
+        problem: 'Academic literature review is time-consuming and fragmented — researchers must manually cross-reference dozens of papers to extract findings, compare methodologies, and track specific figures or equations. Existing tools lack deep document understanding and source traceability.',
+        approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable answers.',
+        approach: [
+          '<strong style="color:var(--text);">Document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL vision model), and LaTeX formulas (via pix2tex OCR)',
+          '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines semantic search (Nomic embeddings + Qdrant) with keyword retrieval and query expansion for robust coverage across paper libraries',
+          '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects queries about specific figures, tables, or equations and fetches them directly, bypassing vector search',
+          '<strong style="color:var(--text);">Answer grounding:</strong> Every answer is scored for groundedness and relevance — low-scoring responses trigger automatic query expansion and retry before falling back',
+          '<strong style="color:var(--text);">Source traceability:</strong> Each answer links back to the exact chunk, page, section, and paper it came from, with a UI modal showing the retrieved text or figure'
+        ],
+        results: [
+          'Supports multi-paper querying with paper-level focus toggling',
+          'Handles figures, tables, equations, and text chunks as first-class retrieval targets',
+          'Web UI with drag-and-drop PDF ingestion and source hyperlinks in answers'
+        ],
+        futureWork: [
+          'PDF viewer with bbox highlighting for exact source location within the document',
+          'Cross-encoder reranking for improved retrieval quality',
+          'Qdrant server mode for concurrent access and native full-text search'
+        ],
+        github: 'https://github.com/kris-meng/litrag'
       },
 
       sleep: {
