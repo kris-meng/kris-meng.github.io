@@ -16,7 +16,7 @@ export const litragDiagram = {
   },
 
   svg: `
-    <svg width="100%" viewBox="0 0 680 740" style="display:block;">
+    <svg width="100%" viewBox="0 0 680 930" style="display:block;">
       <defs>
         <marker id="darrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
