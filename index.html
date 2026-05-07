@@ -1020,32 +1020,36 @@
         github: 'https://github.com/kris-meng/Mental-Health-Chatbot-Guardrail-Training'
       },
 
-      litrag: {
-        badge: 'in progress',
-        title: 'LitRAG — Literature Review Assistant',
-        date: '2026 — Personal Project',
-        tags: ['Python', 'RAG', 'LLMs', 'Docling', 'Qdrant', 'Docker'],
-        problem: 'Academic literature review is time-consuming and fragmented — researchers must manually cross-reference dozens of papers to extract findings, compare methodologies, and track specific figures or equations. Existing tools lack deep document understanding and source traceability.',
-        approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable answers.',
-        approach: [
-          '<strong style="color:var(--text);">Document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL vision model), and LaTeX formulas (via pix2tex OCR)',
-          '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines semantic search (Nomic embeddings + Qdrant) with keyword retrieval and query expansion for robust coverage across paper libraries',
-          '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects queries about specific figures, tables, or equations and fetches them directly, bypassing vector search',
-          '<strong style="color:var(--text);">Answer grounding:</strong> Every answer is scored for groundedness and relevance — low-scoring responses trigger automatic query expansion and retry before falling back',
-          '<strong style="color:var(--text);">Source traceability:</strong> Each answer links back to the exact chunk, page, section, and paper it came from, with a UI modal showing the retrieved text or figure'
-        ],
-        results: [
-          'Supports multi-paper querying with paper-level focus toggling',
-          'Handles figures, tables, equations, and text chunks as first-class retrieval targets',
-          'Web UI with drag-and-drop PDF ingestion and source hyperlinks in answers'
-        ],
-        futureWork: [
-          'PDF viewer with bbox highlighting for exact source location within the document',
-          'Cross-encoder reranking for improved retrieval quality',
-          'Qdrant server mode for concurrent access and native full-text search'
-        ],
-        github: 'https://github.com/kris-meng/lit_review_rag'
-      },
+litrag: {
+  badge: null,
+  title: 'LitRAG — Literature Review Assistant',
+  date: '2026 — Personal Project',
+  tags: ['Python', 'RAG', 'LLMs', 'Docling', 'Qdrant', 'Docker'],
+  problem: 'Academic literature review is slow and fragmented. Researchers manually cross-reference dozens of papers to extract findings, compare methodologies, and track down specific figures or equations — with no easy way to trace where an answer actually came from.',
+  approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable, grounded answers.',
+  approach: [
+    '<strong style="color:var(--text);">Structured document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL), and LaTeX formulas (via pix2tex OCR) — treating text, figures, tables, and equations as distinct retrieval targets rather than flattening everything into raw text.',
+    { gif: 'assets/litrag/ingest.gif', caption: 'Dropping a PDF and watching it ingest' },
+    '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines dense semantic search (Nomic embeddings + Qdrant) with keyword retrieval and automatic query expansion, giving robust coverage even when phrasing doesn\'t closely match the source material.',
+    '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects when a query references a specific figure, table, or equation and fetches it directly, bypassing vector search entirely for faster, more precise results.',
+    { gif: 'assets/litrag/figure-lookup.gif', caption: 'Asking about Figure 1 from a specific paper' },
+    '<strong style="color:var(--text);">Answer grounding:</strong> Every response is scored for groundedness and relevance. Low-scoring answers automatically trigger query expansion and a retry before the system falls back to an explicit "insufficient information" message.',
+    '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. The system also infers scope automatically — switching from local to global retrieval when the query implies it.',
+    { gif: 'assets/litrag/scope-switch.gif', caption: 'Local to global search scope switching' },
+    '<strong style="color:var(--text);">Source traceability:</strong> Every answer links back to the exact chunk, section, page, and paper it came from. Clicking a source opens a panel showing the retrieved passage or figure with its bounding box highlighted in the original PDF.'
+  ],
+  results: [
+    'Multi-paper querying with per-paper focus toggling from the sidebar',
+    'Figures, tables, equations, and text chunks handled as first-class retrieval targets',
+    'Drag-and-drop PDF ingestion with real-time indexing feedback',
+    'Source citations in answers are clickable and link directly to the relevant page in the original document'
+  ],
+  futureWork: [
+    'Cross-encoder reranking for improved retrieval quality',
+    'Qdrant server mode for concurrent access and native full-text search'
+  ],
+  github: 'https://github.com/kris-meng/lit_review_rag'
+},
 
       sleep: {
         badge: "master's thesis project",
@@ -1156,15 +1160,34 @@
       }
  
       // 5. Approach
-      if (p.approachIntro || (p.approach && p.approach.length)) {
-        html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
-        if (p.approachIntro) {
-          html += `<p class="modal-prose">${p.approachIntro}</p>`;
-        }
-        if (p.approach && p.approach.length) {
-          html += `<ul class="modal-bullets">` + p.approach.map(b => `<li>${b}</li>`).join('') + `</ul>`;
-        }
+if (p.approachIntro || (p.approach && p.approach.length)) {
+  html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
+  if (p.approachIntro) {
+    html += `<p class="modal-prose">${p.approachIntro}</p>`;
+  }
+  if (p.approach && p.approach.length) {
+    // Open a bullet list, but close it around GIFs
+    let inList = false;
+    for (const item of p.approach) {
+      if (typeof item === 'string') {
+        if (!inList) { html += `<ul class="modal-bullets">`; inList = true; }
+        html += `<li>${item}</li>`;
+      } else if (item.gif) {
+        if (inList) { html += `</ul>`; inList = false; }
+        html += `
+          <figure style="margin: 1rem 0;">
+            <img
+              src="${item.gif}"
+              alt="${item.caption || ''}"
+              style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"
+            />
+            ${item.caption ? `<figcaption style="font-family:var(--font-sans-2); font-size:12px; color:var(--muted); margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
+          </figure>`;
       }
+    }
+    if (inList) html += `</ul>`;
+  }
+}
  
       // 6. Results
       if (p.results && p.results.length) {
