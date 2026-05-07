@@ -1,182 +1,182 @@
 export const sleepDiagram = {
   tooltips: {
-    signal_pre: { title: 'Raw Neural Signal', body: 'High-frequency EEG/DBS time-series data. Segmented into temporal windows.' },
-    cnn_stack: { title: 'Hierarchical Feature Extraction', body: 'A tiered 1D-CNN architecture (CNN → Feature → Extraction) that progressively compresses raw signals into high-level temporal features.' },
-    circles: { title: 'Latent Representations', body: 'The compressed feature vectors before masking is applied.' },
-    masking: { title: 'Random Masking (MAE)', body: '75-80% of tokens are masked (slashed boxes). Only unmasked tokens (empty boxes) are processed by the encoder.' },
-    pe: { title: 'Positional Embedding (PE)', body: 'Adds temporal context so the Transformer understands the sequence order of the signals.' },
-    encoder: { title: 'Transformer Encoder', body: 'Learns global dependencies. During finetuning, it uses pretrained weights to classify sleep stages.' },
-    decoder: { title: 'Transformer Decoder', body: 'Used only in pretraining to reconstruct the original signal from the latent space.' },
-    reconstruction_loss: { title: 'Reconstruction Loss', body: 'Calculated by comparing the reconstructed masked tokens to the original "circles" features.' },
-    classifier_stack: { title: 'Classification Head', body: 'Converts encoder outputs into sleep stage probabilities (Wake, N1, N2, N3, REM).' },
-    ce_loss: { title: 'Cross Entropy Loss', body: 'The supervised loss used to train the model for sleep stage accuracy.' },
+    signal_pre: { title: 'Raw Neural Signal', body: 'High-frequency EEG or DBS time-series data segmented into windows.' },
+    cnn_stack: { title: 'CNN Feature Stack', body: 'Hierarchical layers (CNN → Feature → Extraction) that compress the signal into discrete temporal features.' },
+    masking: { title: 'Temporal Masking', body: 'Tokens are randomly masked (75%). The model must learn to reconstruct the masked parts from the unmasked context.' },
+    pe: { title: 'Positional Embedding', body: 'Injects sequence order into the tokens so the Transformer understands temporal flow.' },
+    encoder: { title: 'Transformer Encoder', body: 'The "brain" of the model. Learns deep representations of sleep patterns via self-attention.' },
+    decoder: { title: 'Transformer Decoder', body: 'Used only in pretraining. Takes unmasked features + mask placeholders to rebuild the original signal.' },
+    mae_loss: { title: 'Reconstruction Loss', body: 'Calculated by comparing the reconstructed output against the original "Extraction" features.' },
+    classifier: { title: 'Classification Head', body: 'Linear layers that map learned features to specific sleep stages (Wake, N1, N2, N3, REM).' },
   },
 
   svg: `
-    <svg width="100%" viewBox="0 0 800 900" style="display:block; background:#000;">
+    <svg width="100%" viewBox="0 0 800 950" style="display:block; background:#18181b; font-family: sans-serif;">
       <defs>
-        <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M0,0 L10,5 L0,10 Z" fill="#666" />
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#71717a" />
         </marker>
-        <!-- Pattern for Masked Token -->
-        <pattern id="maskedPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="4" x2="4" y2="0" stroke="#555" stroke-width="1" />
+        <pattern id="maskPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="4" x2="4" y2="0" stroke="#52525b" stroke-width="1" />
         </pattern>
       </defs>
 
       <!-- ════════ LEGEND ════════ -->
-      <g transform="translate(20, 40)">
-        <text x="0" y="0" style="font-family:sans-serif; font-size:16px; font-weight:bold; fill:#fff;">Legend</text>
-        <rect x="0" y="15" width="20" height="20" fill="url(#maskedPattern)" stroke="#fff" stroke-width="1"/>
-        <text x="30" y="30" style="font-family:sans-serif; font-size:12px; fill:#aaa;">Masked token</text>
+      <g transform="translate(30, 60)">
+        <text x="0" y="0" style="font-size:18px; font-weight:800; fill:#fff;">Legend</text>
+        <line x1="0" y1="10" x2="100" y2="10" stroke="#3f3f46" stroke-width="1"/>
         
-        <rect x="0" y="45" width="20" height="20" fill="none" stroke="#fff" stroke-width="1"/>
-        <text x="30" y="60" style="font-family:sans-serif; font-size:12px; fill:#aaa;">Unmasked token</text>
+        <rect x="0" y="30" width="22" height="22" fill="#18181b" stroke="#fff" stroke-width="1.5" />
+        <rect x="0" y="30" width="22" height="22" fill="url(#maskPattern)" />
+        <text x="35" y="46" style="font-size:13px; fill:#a1a1aa;">Masked token</text>
+
+        <rect x="0" y="65" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.5" />
+        <text x="35" y="81" style="font-size:13px; fill:#a1a1aa;">Unmasked token</text>
+
+        <rect x="0" y="100" width="22" height="22" fill="#93c5fd" fill-opacity="0.3" stroke="#93c5fd" stroke-width="1.5" />
+        <text x="35" y="116" style="font-size:13px; fill:#a1a1aa;">Decoder token</text>
         
-        <rect x="0" y="75" width="20" height="20" fill="#add8e6" fill-opacity="0.5" stroke="#add8e6" stroke-width="1"/>
-        <text x="30" y="90" style="font-family:sans-serif; font-size:12px; fill:#aaa;">Decoder token</text>
+        <circle cx="11" cy="150" r="11" fill="none" stroke="#fff" stroke-width="1.5"/>
+        <text x="5" y="154" style="font-size:10px; fill:#fff; font-weight:bold;">PE</text>
       </g>
 
       <!-- ════════ PRETRAINING (LEFT) ════════ -->
-      <g transform="translate(200, 20)">
-        <text x="0" y="10" text-anchor="middle" style="font-family:sans-serif; font-size:14px; font-weight:bold; fill:#aaa; letter-spacing:1px;">RAW NEURAL SIGNAL</text>
-        <path d="M-80,50 L-60,30 L-40,60 L-20,10 L0,70 L20,35 L40,50 L60,20 L80,55" fill="none" stroke="#fff" stroke-width="2" opacity="0.8" />
+      <g transform="translate(250, 40)">
+        <text x="0" y="0" text-anchor="middle" style="font-size:14px; font-weight:bold; fill:#a1a1aa; letter-spacing:1px;">RAW NEURAL SIGNAL</text>
+        <path d="M-90,50 L-70,30 L-50,60 L-30,10 L-10,75 L10,35 L30,60 L50,25 L70,55 L90,40" fill="none" stroke="#fff" stroke-width="2" />
         
-        <!-- CNN Stack -->
-        <g class="dnode" data-key="cnn_stack">
-           <polygon points="-110,120 110,120 90,80 -90,80" fill="#111" stroke="#fff" stroke-width="1.5" />
-           <text x="0" y="105" text-anchor="middle" style="font-family:sans-serif; font-size:12px; font-weight:bold; fill:#fff;">CNN</text>
-           
-           <polygon points="-90,165 90,165 75,130 -75,130" fill="#111" stroke="#fff" stroke-width="1.5" />
-           <text x="0" y="152" text-anchor="middle" style="font-family:sans-serif; font-size:12px; fill:#fff;">Feature</text>
-           
-           <polygon points="-75,210 75,210 60,175 -60,175" fill="#111" stroke="#fff" stroke-width="1.5" />
-           <text x="0" y="198" text-anchor="middle" style="font-family:sans-serif; font-size:12px; fill:#fff;">Extraction</text>
+        <!-- CNN STACK -->
+        <g class="dnode" data-key="cnn_stack" style="cursor:pointer">
+          <polygon points="-120,110 120,110 100,75 -100,75" fill="#27272a" stroke="#fff" stroke-width="1.5" />
+          <text x="0" y="98" text-anchor="middle" style="font-size:12px; font-weight:bold; fill:#fff;">CNN</text>
+          
+          <polygon points="-100,150 100,150 85,115 -85,115" fill="#27272a" stroke="#fff" stroke-width="1.5" />
+          <text x="0" y="138" text-anchor="middle" style="font-size:11px; fill:#fff;">Feature</text>
+          
+          <polygon points="-85,190 85,190 70,155 -70,155" fill="#27272a" stroke="#fff" stroke-width="1.5" />
+          <text x="0" y="178" text-anchor="middle" style="font-size:11px; fill:#fff;">Extraction</text>
         </g>
 
-        <!-- Circles -->
-        <g class="dnode" data-key="circles" transform="translate(-60, 230)">
-          <circle cx="0" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="30" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="60" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="90" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="120" cy="0" r="8" fill="none" stroke="#fff" />
+        <!-- Feature Circles (Target for reconstruction) -->
+        <g transform="translate(-60, 220)">
+           <circle cx="0" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="30" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="60" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="90" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="120" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
         </g>
 
-        <!-- RAN Masking Box -->
-        <rect x="-65" y="255" width="130" height="25" fill="none" stroke="#aaa" />
-        <text x="0" y="272" text-anchor="middle" style="font-family:sans-serif; font-size:11px; fill:#aaa;">RAN (Random Masking)</text>
-
-        <!-- Tokens (Masked/Unmasked) -->
-        <g class="dnode" data-key="masking" transform="translate(-60, 290)">
-          <rect x="-10" y="0" width="20" height="20" fill="url(#maskedPattern)" stroke="#fff" />
-          <rect x="20" y="0" width="20" height="20" fill="none" stroke="#fff" />
-          <rect x="50" y="0" width="20" height="20" fill="none" stroke="#fff" />
-          <rect x="80" y="0" width="20" height="20" fill="url(#maskedPattern)" stroke="#fff" />
-          <rect x="110" y="0" width="20" height="20" fill="url(#maskedPattern)" stroke="#fff" />
+        <!-- Tokens & PE -->
+        <g transform="translate(-60, 280)">
+          <!-- Tokens -->
+          <rect x="-11" y="0" width="22" height="22" fill="url(#maskPattern)" stroke="#fff" />
+          <rect x="19" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          <rect x="49" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          <rect x="79" y="0" width="22" height="22" fill="url(#maskPattern)" stroke="#fff" />
+          <rect x="109" y="0" width="22" height="22" fill="url(#maskPattern)" stroke="#fff" />
+          
+          <!-- PE connection logic from sketch -->
+          <g transform="translate(-80, 10)">
+            <circle cx="0" cy="0" r="14" fill="none" stroke="#fff" stroke-width="1.5" />
+            <text x="0" y="4" text-anchor="middle" style="font-size:10px; fill:#fff; font-weight:bold;">PE</text>
+            <path d="M14,0 L140,0" fill="none" stroke="#52525b" />
+            <path d="M30,0 L30,40" fill="none" stroke="#52525b" marker-end="url(#arrow)" />
+            <path d="M60,0 L60,40" fill="none" stroke="#52525b" marker-end="url(#arrow)" />
+          </g>
         </g>
 
-        <!-- PE -->
-        <circle cx="-120" cy="300" r="15" fill="none" stroke="#fff" class="dnode" data-key="pe" />
-        <text x="-120" y="304" text-anchor="middle" style="font-family:sans-serif; font-size:10px; fill:#fff;">PE</text>
-        <path d="M-105,300 L-70,300 L-70,330" fill="none" stroke="#666" marker-end="url(#arrowhead)" />
-
-        <!-- Transformer Encoder -->
+        <!-- Encoder -->
         <g class="dnode" data-key="encoder" transform="translate(-100, 380)">
-          <rect x="0" y="0" width="200" height="80" fill="#111" stroke="#fff" stroke-width="2" />
-          <line x1="0" y1="26" x2="200" y2="26" stroke="#444" />
-          <line x1="0" y1="52" x2="200" y2="52" stroke="#444" />
-          <text x="100" y="45" text-anchor="middle" style="font-family:sans-serif; font-size:13px; font-weight:bold; fill:#fff;">TRANSFORMER ENCODER</text>
+          <rect x="0" y="0" width="200" height="90" fill="#27272a" stroke="#fff" stroke-width="2" />
+          <line x1="0" y1="30" x2="200" y2="30" stroke="#52525b" />
+          <line x1="0" y1="60" x2="200" y2="60" stroke="#52525b" />
+          <text x="100" y="52" text-anchor="middle" style="font-size:13px; font-weight:bold; fill:#fff;">TRANSFORMER ENCODER</text>
         </g>
 
-        <!-- Transformer Decoder -->
-        <g class="dnode" data-key="decoder" transform="translate(-100, 560)">
-          <rect x="0" y="0" width="200" height="60" fill="#111" stroke="#add8e6" stroke-width="2" />
-          <line x1="0" y1="30" x2="200" y2="30" stroke="#334" />
-          <text x="100" y="35" text-anchor="middle" style="font-family:sans-serif; font-size:13px; font-weight:bold; fill:#add8e6;">TRANSFORMER DECODER</text>
-        </g>
-
-        <!-- Decoder Tokens (Blue) -->
-        <g transform="translate(-60, 640)">
-          <rect x="-10" y="0" width="20" height="20" fill="#add8e6" fill-opacity="0.4" stroke="#add8e6" />
-          <rect x="20" y="0" width="20" height="20" fill="#add8e6" fill-opacity="0.4" stroke="#add8e6" />
-          <rect x="50" y="0" width="20" height="20" fill="#add8e6" fill-opacity="0.4" stroke="#add8e6" />
-          <rect x="80" y="0" width="20" height="20" fill="#add8e6" fill-opacity="0.4" stroke="#add8e6" />
-          <rect x="110" y="0" width="20" height="20" fill="#add8e6" fill-opacity="0.4" stroke="#add8e6" />
+        <!-- Decoder Section -->
+        <g transform="translate(-100, 560)">
+          <g class="dnode" data-key="decoder">
+            <rect x="0" y="0" width="200" height="60" fill="#27272a" stroke="#93c5fd" stroke-width="2" />
+            <line x1="0" y1="30" x2="200" y2="30" stroke="#3b82f6" opacity="0.3"/>
+            <text x="100" y="37" text-anchor="middle" style="font-size:12px; font-weight:bold; fill:#93c5fd;">TRANSFORMER DECODER</text>
+          </g>
+          
+          <!-- Decoder Output Tokens -->
+          <g transform="translate(40, 85)">
+            <rect x="0" y="0" width="22" height="22" fill="#93c5fd" fill-opacity="0.3" stroke="#93c5fd" />
+            <rect x="30" y="0" width="22" height="22" fill="#93c5fd" fill-opacity="0.3" stroke="#93c5fd" />
+            <rect x="60" y="0" width="22" height="22" fill="#93c5fd" fill-opacity="0.3" stroke="#93c5fd" />
+            <rect x="90" y="0" width="22" height="22" fill="#93c5fd" fill-opacity="0.3" stroke="#93c5fd" />
+          </g>
         </g>
 
         <!-- Reconstruction Loss -->
-        <g class="dnode" data-key="reconstruction_loss">
-          <ellipse cx="0" cy="730" rx="100" ry="25" fill="none" stroke="#fff" />
-          <text x="0" y="735" text-anchor="middle" style="font-family:sans-serif; font-size:13px; fill:#fff;">Reconstruction Loss</text>
-          <!-- Arrow from circle row to loss -->
-          <path d="M70,230 L150,230 L150,730 L100,730" fill="none" stroke="#666" stroke-dasharray="4 2" marker-end="url(#arrowhead)" />
+        <g class="dnode" data-key="mae_loss" transform="translate(0, 750)">
+          <ellipse cx="0" cy="0" rx="100" ry="25" fill="none" stroke="#fff" stroke-width="1.5" />
+          <text x="0" y="5" text-anchor="middle" style="font-size:12px; fill:#fff;">Reconstruction Loss</text>
+          <!-- Path from feature extraction to loss -->
+          <path d="M70,180 C180,180 180,750 100,750" fill="none" stroke="#52525b" stroke-dasharray="5,3" marker-end="url(#arrow)" />
         </g>
       </g>
 
       <!-- ════════ FINETUNING (RIGHT) ════════ -->
-      <g transform="translate(580, 20)">
-        <text x="0" y="10" text-anchor="middle" style="font-family:sans-serif; font-size:14px; font-weight:bold; fill:#aaa; letter-spacing:1px;">RAW NEURAL SIGNAL</text>
-        <path d="M-80,50 L-60,30 L-40,60 L-20,10 L0,70 L20,35 L40,50 L60,20 L80,55" fill="none" stroke="#fff" stroke-width="2" opacity="0.8" />
+      <g transform="translate(600, 40)">
+        <text x="0" y="0" text-anchor="middle" style="font-size:14px; font-weight:bold; fill:#a1a1aa; letter-spacing:1px;">RAW NEURAL SIGNAL</text>
+        <path d="M-90,50 L-70,30 L-50,60 L-30,10 L-10,75 L10,35 L30,60 L50,25 L70,55 L90,40" fill="none" stroke="#fff" stroke-width="2" />
         
-        <!-- CNN Stack -->
         <g transform="translate(0,0)">
-           <polygon points="-110,120 110,120 90,80 -90,80" fill="#111" stroke="#fff" stroke-width="1.5" />
-           <polygon points="-90,165 90,165 75,130 -75,130" fill="#111" stroke="#fff" stroke-width="1.5" />
-           <polygon points="-75,210 75,210 60,175 -60,175" fill="#111" stroke="#fff" stroke-width="1.5" />
+          <polygon points="-120,110 120,110 100,75 -100,75" fill="#27272a" stroke="#fff" stroke-width="1.5" />
+          <polygon points="-100,150 100,150 85,115 -85,115" fill="#27272a" stroke="#fff" stroke-width="1.5" />
+          <polygon points="-85,190 85,190 70,155 -70,155" fill="#27272a" stroke="#fff" stroke-width="1.5" />
         </g>
 
-        <!-- Circles -->
-        <g transform="translate(-60, 230)">
-          <circle cx="0" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="30" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="60" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="90" cy="0" r="8" fill="none" stroke="#fff" />
-          <circle cx="120" cy="0" r="8" fill="none" stroke="#fff" />
+        <g transform="translate(-60, 220)">
+           <circle cx="0" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="30" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="60" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="90" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
+           <circle cx="120" cy="0" r="9" fill="none" stroke="#fff" stroke-width="1.5" />
         </g>
 
-        <!-- All Unmasked Tokens -->
-        <g transform="translate(-60, 290)">
-          <rect x="-10" y="0" width="20" height="20" fill="none" stroke="#fff" />
-          <rect x="20" y="0" width="20" height="20" fill="none" stroke="#fff" />
-          <rect x="50" y="0" width="20" height="20" fill="none" stroke="#fff" />
-          <rect x="80" y="0" width="20" height="20" fill="none" stroke="#fff" />
-          <rect x="110" y="0" width="20" height="20" fill="none" stroke="#fff" />
+        <!-- Unmasked Tokens in Finetuning -->
+        <g transform="translate(-60, 280)">
+          <rect x="-11" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          <rect x="19" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          <rect x="49" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          <rect x="79" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          <rect x="109" y="0" width="22" height="22" fill="none" stroke="#fff" />
+          
+          <circle cx="150" cy="11" r="14" fill="none" stroke="#fff" stroke-width="1.5" />
+          <text x="150" y="15" text-anchor="middle" style="font-size:10px; fill:#fff; font-weight:bold;">PE</text>
         </g>
 
-        <!-- PE -->
-        <circle cx="80" cy="300" r="15" fill="none" stroke="#fff" />
-        <text x="80" y="304" text-anchor="middle" style="font-family:sans-serif; font-size:10px; fill:#fff;">PE</text>
-
-        <!-- Transformer Encoder -->
         <g transform="translate(-100, 380)">
-          <rect x="0" y="0" width="200" height="80" fill="#111" stroke="#fff" stroke-width="2" />
-          <line x1="0" y1="26" x2="200" y2="26" stroke="#444" />
-          <line x1="0" y1="52" x2="200" y2="52" stroke="#444" />
-          <text x="100" y="45" text-anchor="middle" style="font-family:sans-serif; font-size:13px; font-weight:bold; fill:#fff;">TRANSFORMER ENCODER</text>
+          <rect x="0" y="0" width="200" height="90" fill="#27272a" stroke="#fff" stroke-width="2" />
+          <line x1="0" y1="30" x2="200" y2="30" stroke="#52525b" />
+          <line x1="0" y1="60" x2="200" y2="60" stroke="#52525b" />
+          <text x="100" y="52" text-anchor="middle" style="font-size:13px; font-weight:bold; fill:#fff;">TRANSFORMER ENCODER</text>
         </g>
 
         <!-- Classifier Head -->
-        <g class="dnode" data-key="classifier_stack" transform="translate(-100, 500)">
-          <rect x="10" y="0" width="180" height="30" rx="4" fill="#111" stroke="#fff" />
-          <text x="100" y="20" text-anchor="middle" style="font-family:sans-serif; font-size:12px; fill:#fff;">Linear Projection</text>
-          
-          <path d="M100,30 L100,50" fill="none" stroke="#666" marker-end="url(#arrowhead)" />
-          
-          <rect x="10" y="50" width="180" height="30" rx="4" fill="#111" stroke="#fff" />
-          <text x="100" y="70" text-anchor="middle" style="font-family:sans-serif; font-size:12px; fill:#fff;">Linear Classifier</text>
+        <g transform="translate(-90, 520)">
+           <rect x="0" y="0" width="180" height="35" rx="4" fill="#27272a" stroke="#fff" />
+           <text x="90" y="22" text-anchor="middle" style="font-size:11px; fill:#fff;">Linear Projection</text>
+           
+           <path d="M90,35 L90,60" fill="none" stroke="#52525b" marker-end="url(#arrow)" />
+           
+           <rect x="0" y="60" width="180" height="35" rx="4" fill="#27272a" stroke="#fff" />
+           <text x="90" y="82" text-anchor="middle" style="font-size:11px; fill:#fff;">Linear Classifier</text>
         </g>
 
-        <!-- CE Loss -->
-        <g class="dnode" data-key="ce_loss">
-          <ellipse cx="0" cy="650" rx="100" ry="25" fill="none" stroke="#fff" />
-          <text x="0" y="655" text-anchor="middle" style="font-family:sans-serif; font-size:13px; fill:#fff;">Cross Entropy Loss</text>
+        <g class="dnode" data-key="ce_loss" transform="translate(0, 750)">
+          <ellipse cx="0" cy="0" rx="100" ry="25" fill="none" stroke="#fff" stroke-width="1.5" />
+          <text x="0" y="5" text-anchor="middle" style="font-size:12px; fill:#fff;">Cross Entropy Loss</text>
         </g>
       </g>
 
-      <!-- ════════ WEIGHT TRANSFER ════════ -->
-      <path d="M300,420 L480,420" fill="none" stroke="#aaa" stroke-width="1.5" marker-end="url(#arrowhead)" />
-      <text x="390" y="405" text-anchor="middle" style="font-family:sans-serif; font-size:12px; font-weight:bold; fill:#aaa;">weight transfer</text>
+      <!-- weight transfer arrow -->
+      <path d="M350,425 L490,425" fill="none" stroke="#71717a" stroke-width="2" marker-end="url(#arrow)" />
+      <text x="420" y="415" text-anchor="middle" style="font-size:12px; fill:#a1a1aa; font-weight:bold;">weight transfer</text>
 
     </svg>
   `
