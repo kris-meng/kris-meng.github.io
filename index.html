@@ -475,6 +475,53 @@
     .modal-link-ghost:hover { border-color: var(--muted); }
 
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+          .diagram-tooltip {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  max-width: 240px;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.diagram-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.diagram-tooltip-title {
+  font-family: var(--font-sans-2);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.diagram-tooltip-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.diagram-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.diagram-hint {
+  font-family: var(--font-sans-2);
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
 
     @media (min-width: 1600px) {
       :root { --sidebar-w: 340px; }
@@ -874,7 +921,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { litragDiagram } from '.litrag.svg.js';
+    import { buildDiagramHTML, initDiagram } from '.diagram-engine.js';
     function switchTab(tab, isFromSidebar = false) {
       document.getElementById('tab-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('tab-edu').classList.toggle('active', tab === 'edu');
@@ -1026,6 +1075,7 @@ litrag: {
   tags: ['Python', 'RAG', 'LLMs', 'Docling', 'Qdrant', 'Docker'],
   problem: 'Academic literature review is slow and fragmented. Researchers manually cross-reference dozens of papers to extract findings, compare methodologies, and track down specific figures or equations — with no easy way to trace where an answer actually came from.',
   approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable, grounded answers.',
+  diagram: 'litrag',
   approach: [
     '<strong style="color:var(--text);">Structured document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL), and LaTeX formulas (via pix2tex OCR) — treating text, figures, tables, and equations as distinct retrieval targets rather than flattening everything into raw text.',
     { gif: 'ingest.gif', caption: 'You can upload new PDFs' },
@@ -1162,14 +1212,29 @@ litrag: {
         html += `<p class="modal-prose">${p.problem}</p>`;
       }
  
-      // 5. Approach
-if (p.approachIntro || (p.approach && p.approach.length)) {
+// 5. Approach
+if (p.diagram || p.approachIntro || (p.approach && p.approach.length)) {
   html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
-  if (p.approachIntro) {
-    html += `<p class="modal-prose">${p.approachIntro}</p>`;
-  }
-  if (p.approach && p.approach.length) {
-    // Open a bullet list, but close it around GIFs
+  if (p.approachIntro) html += `<p class="modal-prose">${p.approachIntro}</p>`;
+
+  if (p.diagram) {
+    // Interactive diagram first
+    const mod = window._diagrams?.[p.diagram];
+    if (mod) html += buildDiagramHTML(p.diagram, mod.svg);
+
+    // GIFs below the diagram
+    if (p.gifs && p.gifs.length) {
+      html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p>`;
+      for (const item of p.gifs) {
+        html += `
+          <figure style="margin: 1rem 0;">
+            <img src="${item.gif}" alt="${item.caption || ''}"
+              style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"/>
+            ${item.caption ? `<figcaption style="font-family:var(--font-sans-2);font-size:12px;color:var(--muted);margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
+          </figure>`;
+      }
+    }
+  } else if (p.approach && p.approach.length) {
     let inList = false;
     for (const item of p.approach) {
       if (typeof item === 'string') {
@@ -1179,12 +1244,9 @@ if (p.approachIntro || (p.approach && p.approach.length)) {
         if (inList) { html += `</ul>`; inList = false; }
         html += `
           <figure style="margin: 1rem 0;">
-            <img
-              src="${item.gif}"
-              alt="${item.caption || ''}"
-              style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"
-            />
-            ${item.caption ? `<figcaption style="font-family:var(--font-sans-2); font-size:12px; color:var(--muted); margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
+            <img src="${item.gif}" alt="${item.caption || ''}"
+              style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"/>
+            ${item.caption ? `<figcaption style="font-family:var(--font-sans-2);font-size:12px;color:var(--muted);margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
           </figure>`;
       }
     }
@@ -1213,13 +1275,27 @@ if (p.approachIntro || (p.approach && p.approach.length)) {
       return html;
     }
  
-    function openModal(key) {
-      const p = projects[key];
-      if (!p) return;
-      document.getElementById('modal-body').innerHTML = buildModalHTML(p);
-      document.getElementById('modal-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
+async function openModal(key) {
+  const p = projects[key];
+  if (!p) return;
+
+  // Pre-load diagram module if needed
+  if (p.diagram) {
+    const mod = await import(`./diagrams/${p.diagram}.svg.js`);
+    // Store on window so buildModalHTML can access it synchronously
+    window._diagrams = window._diagrams || {};
+    window._diagrams[p.diagram] = mod[p.diagram + 'Diagram'];
+  }
+
+  document.getElementById('modal-body').innerHTML = buildModalHTML(p);
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Boot tooltip interactivity after DOM is ready
+  if (p.diagram && window._diagrams?.[p.diagram]) {
+    initDiagram(p.diagram, window._diagrams[p.diagram].tooltips);
+  }
+}
  
     function closeModal() {
       document.getElementById('modal-overlay').classList.remove('open');
