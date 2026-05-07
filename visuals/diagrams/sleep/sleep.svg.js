@@ -1,95 +1,228 @@
 export const sleepDiagram = {
   tooltips: {
-    signal: { title: 'Raw Neural Signal', body: 'High-frequency EEG or DBS time-series data. The input is normalized and segmented into temporal windows.' },
-    cnn: { title: 'CNN Feature Extraction', body: 'A 1D-Convolutional backbone that extracts local patterns and reduces the high-resolution signal into a sequence of feature tokens.' },
-    masking: { title: 'Random Temporal Masking', body: '75% of tokens are randomly removed. The model only "sees" the remaining 25% (unmasked tokens) during encoding, forcing it to learn a global understanding of sleep patterns.' },
-    pe: { title: 'Positional Embedding', body: 'Adds temporal context to the tokens so the Transformer knows the order of the signal segments.' },
-    encoder: { title: 'Transformer Encoder', body: 'Processes the sparse set of unmasked tokens. Since it only handles a fraction of the data, it is highly efficient.' },
-    decoder: { title: 'Transformer Decoder', body: 'Used only during pretraining. It takes the encoded tokens + dummy "mask tokens" to reconstruct the missing parts of the signal.' },
-    mae_loss: { title: 'Reconstruction Loss (MSE)', body: 'The self-supervised objective. The model is penalized based on how accurately it reconstructs the original raw signal from the masked version.' },
-    classifier: { title: 'Linear Classifier (Finetuning)', body: 'The pretraining decoder is discarded. A simple linear head is added to the encoder to map learned features to sleep stages (W, N1, N2, N3, REM).' },
-    final_stage: { title: 'Sleep Stage Prediction', body: 'The final output: a 5-class classification for real-time sleep monitoring in Parkinson\'s patients.' },
+    signal_pre: { title: 'Raw Neural Signal', body: 'High-frequency EEG or DBS time-series data. Normalized and segmented into fixed-length temporal windows before processing.' },
+    signal_fine: { title: 'Raw Neural Signal', body: 'During finetuning, the full signal is passed without masking. CNN weights are randomly re-initialized for the target domain.' },
+    cnn_pre: { title: 'CNN Feature Extraction', body: 'A 1D-CNN backbone with a wide receptive field at the base that narrows upward, extracting hierarchical temporal features into a compact token sequence.' },
+    cnn_fine: { title: 'CNN Feature Extraction', body: 'Same CNN architecture as pretraining but with randomly initialized weights. Learns domain-specific features from the DBS target dataset.' },
+    masking: { title: 'Random Temporal Masking', body: '75% of tokens are randomly masked. Only the remaining 25% (pink = unmasked) are passed to the encoder, forcing it to learn a global understanding of sleep patterns.' },
+    pe_pre: { title: 'Positional Embedding (PE)', body: 'Adds temporal position information to each token so the Transformer knows the order of signal segments.' },
+    pe_fine: { title: 'Positional Embedding (PE)', body: 'All tokens (no masking) are embedded with positional information and passed directly into the pretrained encoder.' },
+    encoder_pre: { title: 'Transformer Encoder (Pretraining)', body: 'Processes only the unmasked tokens efficiently. Learns rich sleep-stage representations from large EEG datasets via self-supervised objectives.' },
+    encoder_fine: { title: 'Transformer Encoder (Finetuning)', body: 'Weights inherited from the pretrained model. Fine-tuned on DBS recordings from Parkinson\'s patients for sleep stage classification.' },
+    decoder: { title: 'Transformer Decoder', body: 'Used only during pretraining. Receives encoded tokens + placeholder mask tokens to reconstruct the missing signal segments.' },
+    mae_loss: { title: 'Reconstruction Loss (MSE)', body: 'Self-supervised objective. The model is penalized for how poorly it reconstructs the masked portions of the original signal.' },
+    proj: { title: 'Linear Projection', body: 'Projects the encoder\'s CLS token output into a lower-dimensional space before classification.' },
+    classifier: { title: 'Linear Classifier', body: 'A simple linear head mapping projected features to 5 sleep stages: Wake, N1, N2, N3, REM.' },
+    ce_loss: { title: 'Cross-Entropy Loss', body: 'Supervised classification loss used during finetuning. Combined with cost-sensitive class weighting to handle rare sleep stages in Parkinson\'s patients.' },
   },
 
   svg: `
-    <svg width="100%" viewBox="0 0 680 720" style="display:block;">
+    <svg width="100%" viewBox="0 0 780 820" style="display:block;">
       <defs>
-        <marker id="darrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <marker id="sarrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </marker>
       </defs>
 
-      <!-- ── INPUT STAGE ── -->
-      <g class="dnode" data-key="signal" style="cursor:pointer">
-        <path d="M280 60 L290 40 L300 70 L310 30 L320 80 L330 50 L340 65 L350 35 L360 75 L370 45 L380 60 L390 50 L400 60" fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.6"/>
-        <text x="340" y="85" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;fill:var(--muted);font-weight:700">Raw Neural Signal</text>
+      <!-- ══════════════════════════════════════
+           COLUMN HEADERS
+      ══════════════════════════════════════ -->
+      <text x="195" y="28" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#a1a1aa;letter-spacing:0.1em">PRETRAINING</text>
+      <line x1="30" y1="36" x2="360" y2="36" stroke="#303030" stroke-width="0.8"/>
+
+      <text x="575" y="28" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#c084fc;letter-spacing:0.1em">FINETUNING</text>
+      <line x1="400" y1="36" x2="750" y2="36" stroke="#c084fc" stroke-width="0.8" opacity="0.4"/>
+
+      <!-- vertical divider -->
+      <line x1="385" y1="36" x2="385" y2="780" stroke="#303030" stroke-width="0.8" stroke-dasharray="5 4"/>
+
+      <!-- ══════════════════════════════════════
+           LEFT: PRETRAINING PATH
+      ══════════════════════════════════════ -->
+
+      <!-- Raw signal waveform -->
+      <g class="dnode" data-key="signal_pre" style="cursor:pointer">
+        <path d="M100 90 L112 70 L124 100 L136 55 L148 105 L160 75 L172 88 L184 62 L196 95 L208 72 L220 85 L232 75 L244 88 L256 65 L268 90 L280 80 L292 90" 
+              fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.7"/>
+        <text x="195" y="115" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;font-weight:700;fill:#a1a1aa">Raw Neural Signal</text>
       </g>
 
-      <line x1="340" y1="95" x2="340" y2="120" stroke="#5f5e5a" stroke-width="1" marker-end="url(#darrow)"/>
+      <line x1="195" y1="122" x2="195" y2="142" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
 
-      <!-- CNN Feature Extraction (Trapezoid) -->
-      <g class="dnode" data-key="cnn" style="cursor:pointer">
-        <polygon points="200,200 480,200 410,120 270,120" fill="#082a24" stroke="#1d9e75" stroke-width="1.5" opacity="0.8"/>
-        <text x="340" y="165" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:13px;font-weight:700;fill:#9fe1cb">CNN Feature Extraction</text>
+      <!-- CNN trapezoid (wide base, narrow top) — pointing UP -->
+      <g class="dnode" data-key="cnn_pre" style="cursor:pointer">
+        <polygon points="80,240 310,240 260,142 130,142" fill="#082a24" stroke="#1d9e75" stroke-width="1.5"/>
+        <!-- internal division lines suggesting layers -->
+        <line x1="112" y1="193" x2="278" y2="193" stroke="#1d9e75" stroke-width="0.5" opacity="0.4"/>
+        <line x1="125" y1="217" x2="265" y2="217" stroke="#1d9e75" stroke-width="0.5" opacity="0.4"/>
+        <text x="195" y="200" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:13px;font-weight:700;fill:#9fe1cb">CNN Feature Extraction</text>
       </g>
 
-      <line x1="340" y1="200" x2="340" y2="230" stroke="#5f5e5a" stroke-width="1" marker-end="url(#darrow)"/>
+      <!-- tokens row after CNN -->
+      <line x1="195" y1="240" x2="195" y2="268" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
 
-      <!-- ── ENCODER STAGE ── -->
+      <!-- Token row: mix of unmasked (pink) and masked (grey) -->
       <g class="dnode" data-key="masking" style="cursor:pointer">
-        <!-- Tokens -->
-        <rect x="250" y="230" width="30" height="30" rx="4" fill="#e38c83" stroke="#e38c83" stroke-width="1"/> <!-- Unmasked -->
-        <rect x="290" y="230" width="30" height="30" rx="4" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1"/> <!-- Masked -->
-        <rect x="330" y="230" width="30" height="30" rx="4" fill="#e38c83" stroke="#e38c83" stroke-width="1"/> <!-- Unmasked -->
-        <rect x="370" y="230" width="30" height="30" rx="4" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1"/> <!-- Masked -->
-        <rect x="410" y="230" width="30" height="30" rx="4" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1"/> <!-- Masked -->
-        <text x="340" y="275" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;fill:var(--muted);font-weight:700">Random Temporal Masking</text>
+        <rect x="90"  y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+        <rect x="132" y="268" width="34" height="34" rx="5" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1.2"/>
+        <rect x="174" y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+        <rect x="216" y="268" width="34" height="34" rx="5" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1.2"/>
+        <rect x="258" y="268" width="34" height="34" rx="5" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1.2"/>
+        <text x="195" y="318" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;font-weight:700;fill:var(--muted)">Random Temporal Masking</text>
       </g>
 
-      <line x1="265" y1="275" x2="265" y2="310" stroke="#e38c83" stroke-width="1" marker-end="url(#darrow)"/>
-      <line x1="345" y1="275" x2="345" y2="310" stroke="#e38c83" stroke-width="1" marker-end="url(#darrow)"/>
+      <!-- Legend -->
+      <rect x="90" y="328" width="10" height="10" rx="2" fill="#e38c83"/>
+      <text x="104" y="337" style="font-family:var(--font-sans-2);font-size:10px;fill:var(--muted)">Unmasked</text>
+      <rect x="170" y="328" width="10" height="10" rx="2" fill="#3a3a3a" stroke="#5f5e5a" stroke-width="1"/>
+      <text x="184" y="337" style="font-family:var(--font-sans-2);font-size:10px;fill:var(--muted)">Masked</text>
+
+      <!-- PE circle -->
+      <g class="dnode" data-key="pe_pre" style="cursor:pointer">
+        <circle cx="195" cy="358" r="16" fill="#2a1208" stroke="#ba7517" stroke-width="1.5"/>
+        <text x="195" y="358" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:11px;font-weight:700;fill:#fac775">PE</text>
+      </g>
+
+      <!-- only unmasked arrows go up to encoder -->
+      <line x1="107" y1="302" x2="107" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
+      <line x1="191" y1="302" x2="191" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
 
       <!-- Transformer Encoder -->
-      <g class="dnode" data-key="encoder" style="cursor:pointer">
-        <rect x="230" y="310" width="220" height="60" rx="8" fill="#221a36" stroke="#c084fc" stroke-width="1.5"/>
-        <text x="340" y="345" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:14px;font-weight:700;fill:#cecbf6">Transformer Encoder</text>
+      <g class="dnode" data-key="encoder_pre" style="cursor:pointer">
+        <rect x="80" y="374" width="230" height="58" rx="8" fill="#221a36" stroke="#c084fc" stroke-width="1.5"/>
+        <line x1="80" y1="393" x2="310" y2="393" stroke="#c084fc" stroke-width="0.4" opacity="0.3"/>
+        <line x1="80" y1="412" x2="310" y2="412" stroke="#c084fc" stroke-width="0.4" opacity="0.3"/>
+        <text x="195" y="403" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:13px;font-weight:700;fill:#cecbf6">Transformer Encoder</text>
       </g>
 
-      <!-- ── BRANCHING PATHS ── -->
-      <!-- Pretraining Path (Left) -->
-      <path d="M260 370 L260 410 L150 410 L150 440" fill="none" stroke="#5f5e5a" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#darrow)"/>
-      <text x="130" y="400" style="font-family:var(--font-sans-2);font-size:10px;fill:var(--muted);opacity:0.6">PRETRAINING</text>
-      
+      <!-- masked tokens also go to decoder (grey arrow) -->
+      <path d="M233 285 C340 285, 340 460, 310 460" fill="none" stroke="#5f5e5a" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#sarrow)"/>
+      <text x="355" y="370" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:9px;fill:var(--muted);opacity:0.7">mask tokens</text>
+
+      <line x1="195" y1="432" x2="195" y2="455" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <!-- Transformer Decoder -->
       <g class="dnode" data-key="decoder" style="cursor:pointer">
-        <rect x="60" y="440" width="180" height="50" rx="6" fill="#1a2236" stroke="#85b7eb" stroke-width="1"/>
-        <text x="150" y="470" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#b5d4f4">Transformer Decoder</text>
+        <rect x="80" y="455" width="230" height="50" rx="8" fill="#1a2236" stroke="#85b7eb" stroke-width="1.5"/>
+        <line x1="80" y1="472" x2="310" y2="472" stroke="#85b7eb" stroke-width="0.4" opacity="0.3"/>
+        <text x="195" y="480" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:13px;font-weight:700;fill:#b5d4f4">Transformer Decoder</text>
       </g>
 
-      <line x1="150" y1="490" x2="150" y2="530" stroke="#5f5e5a" stroke-width="1" marker-end="url(#darrow)"/>
+      <!-- decoder output tokens (blue) -->
+      <line x1="195" y1="505" x2="195" y2="525" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
+      <rect x="112" y="525" width="28" height="28" rx="4" fill="#4a90d9" stroke="#4a90d9" stroke-width="1"/>
+      <rect x="148" y="525" width="28" height="28" rx="4" fill="#4a90d9" stroke="#4a90d9" stroke-width="1"/>
+      <rect x="184" y="525" width="28" height="28" rx="4" fill="#4a90d9" stroke="#4a90d9" stroke-width="1"/>
+      <rect x="220" y="525" width="28" height="28" rx="4" fill="#4a90d9" stroke="#4a90d9" stroke-width="1"/>
+      <rect x="256" y="525" width="28" height="28" rx="4" fill="#4a90d9" stroke="#4a90d9" stroke-width="1"/>
 
+      <!-- decoder output legend -->
+      <rect x="90" y="558" width="10" height="10" rx="2" fill="#4a90d9"/>
+      <text x="104" y="567" style="font-family:var(--font-sans-2);font-size:10px;fill:var(--muted)">Decoder output</text>
+
+      <line x1="195" y1="553" x2="195" y2="575" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <!-- Reconstruction Loss -->
       <g class="dnode" data-key="mae_loss" style="cursor:pointer">
-        <rect x="70" y="530" width="160" height="36" rx="18" fill="#2a1208" stroke="#993c1d" stroke-width="1"/>
-        <text x="150" y="548" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:11px;font-weight:700;fill:#f5c4b3">Reconstruction Loss</text>
+        <ellipse cx="195" cy="600" rx="100" ry="24" fill="#2a1208" stroke="#993c1d" stroke-width="1.5"/>
+        <text x="195" y="600" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#f5c4b3">Reconstruction Loss</text>
       </g>
 
-      <!-- Finetuning Path (Right) -->
-      <path d="M420 370 L420 410 L530 410 L530 440" fill="none" stroke="#c084fc" stroke-width="1.5" marker-end="url(#darrow)"/>
-      <text x="540" y="400" style="font-family:var(--font-sans-2);font-size:10px;fill:#c084fc;font-weight:700">FINETUNING</text>
-      
+      <!-- ══════════════════════════════════════
+           RIGHT: FINETUNING PATH
+      ══════════════════════════════════════ -->
+
+      <!-- Raw signal waveform -->
+      <g class="dnode" data-key="signal_fine" style="cursor:pointer">
+        <path d="M470 90 L482 68 L494 98 L506 55 L518 102 L530 72 L542 88 L554 62 L566 95 L578 72 L590 85 L602 75 L614 88 L626 65 L638 90 L650 78 L662 90"
+              fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.7"/>
+        <text x="568" y="115" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;font-weight:700;fill:#a1a1aa">Raw Neural Signal</text>
+      </g>
+
+      <line x1="568" y1="122" x2="568" y2="142" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <!-- CNN trapezoid (finetuning) -->
+      <g class="dnode" data-key="cnn_fine" style="cursor:pointer">
+        <polygon points="450,240 686,240 636,142 500,142" fill="#082a24" stroke="#1d9e75" stroke-width="1.5"/>
+        <line x1="480" y1="193" x2="656" y2="193" stroke="#1d9e75" stroke-width="0.5" opacity="0.4"/>
+        <line x1="490" y1="217" x2="646" y2="217" stroke="#1d9e75" stroke-width="0.5" opacity="0.4"/>
+        <text x="568" y="200" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:13px;font-weight:700;fill:#9fe1cb">CNN Feature Extraction</text>
+      </g>
+
+      <!-- all tokens (no masking, all pink) -->
+      <line x1="568" y1="240" x2="568" y2="268" stroke="#5f5e5a" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <rect x="455" y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+      <rect x="497" y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+      <rect x="539" y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+      <rect x="581" y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+      <rect x="623" y="268" width="34" height="34" rx="5" fill="#e38c83" stroke="#e38c83" stroke-width="1.2"/>
+      <text x="568" y="318" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;fill:var(--muted)">All tokens (no masking)</text>
+
+      <!-- PE circle -->
+      <g class="dnode" data-key="pe_fine" style="cursor:pointer">
+        <circle cx="568" cy="352" r="16" fill="#2a1208" stroke="#ba7517" stroke-width="1.5"/>
+        <text x="568" y="352" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:11px;font-weight:700;fill:#fac775">PE</text>
+      </g>
+
+      <!-- all token arrows up to encoder -->
+      <line x1="472" y1="302" x2="472" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
+      <line x1="514" y1="302" x2="514" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
+      <line x1="556" y1="302" x2="556" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
+      <line x1="598" y1="302" x2="598" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
+      <line x1="640" y1="302" x2="640" y2="374" stroke="#e38c83" stroke-width="1" marker-end="url(#sarrow)"/>
+
+      <!-- Transformer Encoder (finetuning) -->
+      <g class="dnode" data-key="encoder_fine" style="cursor:pointer">
+        <rect x="453" y="374" width="230" height="58" rx="8" fill="#221a36" stroke="#c084fc" stroke-width="1.5"/>
+        <line x1="453" y1="393" x2="683" y2="393" stroke="#c084fc" stroke-width="0.4" opacity="0.3"/>
+        <line x1="453" y1="412" x2="683" y2="412" stroke="#c084fc" stroke-width="0.4" opacity="0.3"/>
+        <text x="568" y="396" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#cecbf6">Transformer Encoder</text>
+        <text x="568" y="416" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:10px;fill:#afa9ec;opacity:0.8">(pretrained weights)</text>
+      </g>
+
+      <line x1="568" y1="432" x2="568" y2="455" stroke="#c084fc" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <!-- Linear Projection -->
+      <g class="dnode" data-key="proj" style="cursor:pointer">
+        <rect x="478" y="455" width="180" height="42" rx="6" fill="#362208" stroke="#ba7517" stroke-width="1.5"/>
+        <text x="568" y="476" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#fac775">Linear Projection</text>
+      </g>
+
+      <line x1="568" y1="497" x2="568" y2="520" stroke="#ba7517" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <!-- Linear Classifier -->
       <g class="dnode" data-key="classifier" style="cursor:pointer">
-        <rect x="440" y="440" width="180" height="50" rx="6" fill="#362208" stroke="#ba7517" stroke-width="1.5"/>
-        <text x="530" y="470" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#fac775">Linear Classifier</text>
+        <rect x="478" y="520" width="180" height="42" rx="6" fill="#362208" stroke="#ba7517" stroke-width="1.5"/>
+        <text x="568" y="541" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#fac775">Linear Classifier</text>
       </g>
 
-      <line x1="530" y1="490" x2="530" y2="530" stroke="#ba7517" stroke-width="1" marker-end="url(#darrow)"/>
+      <line x1="568" y1="562" x2="568" y2="582" stroke="#ba7517" stroke-width="1.2" marker-end="url(#sarrow)"/>
 
+      <!-- Cross-entropy loss -->
+      <g class="dnode" data-key="ce_loss" style="cursor:pointer">
+        <ellipse cx="568" cy="606" rx="100" ry="24" fill="#2a1208" stroke="#993c1d" stroke-width="1.5"/>
+        <text x="568" y="606" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#f5c4b3">Cross-Entropy Loss</text>
+      </g>
+
+      <line x1="568" y1="630" x2="568" y2="650" stroke="#1d9e75" stroke-width="1.2" marker-end="url(#sarrow)"/>
+
+      <!-- Final output -->
       <g class="dnode" data-key="final_stage" style="cursor:pointer">
-        <rect x="450" y="530" width="160" height="40" rx="6" fill="#082a24" stroke="#1d9e75" stroke-width="1.5"/>
-        <text x="530" y="555" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:12px;font-weight:700;fill:#9fe1cb">Sleep Stage Classification</text>
+        <rect x="453" y="650" width="230" height="46" rx="8" fill="#082a24" stroke="#1d9e75" stroke-width="1.5"/>
+        <text x="568" y="673" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-sans-2);font-size:13px;font-weight:700;fill:#9fe1cb">Sleep Stage Prediction</text>
       </g>
 
-      <line x1="40" y1="620" x2="640" y2="620" stroke="#303030" stroke-width="0.8" stroke-dasharray="4 4"/>
-      <text x="340" y="650" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;fill:var(--muted);opacity:0.5">Dual-Stage Transfer Learning Framework</text>
+      <!-- Stage labels W N1 N2 N3 REM -->
+      <text x="568" y="712" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:10px;fill:var(--muted);opacity:0.6">W · N1 · N2 · N3 · REM</text>
+
+      <!-- pretrain → finetune transfer arrow -->
+      <path d="M310 403 C350 403, 420 403, 453 403" fill="none" stroke="#c084fc" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#sarrow)"/>
+      <text x="382" y="395" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:9px;fill:#c084fc;opacity:0.8">weights</text>
+      <text x="382" y="407" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:9px;fill:#c084fc;opacity:0.8">transfer</text>
+
+      <!-- bottom label -->
+      <text x="390" y="775" text-anchor="middle" style="font-family:var(--font-sans-2);font-size:11px;fill:var(--muted);opacity:0.4">Dual-Stage Transfer Learning Framework</text>
     </svg>
   `
 };
