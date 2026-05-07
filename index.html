@@ -1029,13 +1029,13 @@ litrag: {
   approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable, grounded answers.',
   approach: [
     '<strong style="color:var(--text);">Structured document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL), and LaTeX formulas (via pix2tex OCR) — treating text, figures, tables, and equations as distinct retrieval targets rather than flattening everything into raw text.',
-    { gif: 'assets/litrag/ingest.gif', caption: 'Dropping a PDF and watching it ingest' },
+    { gif: 'ingest.gif', caption: 'Dropping a PDF and watching it ingest' },
     '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines dense semantic search (Nomic embeddings + Qdrant) with keyword retrieval and automatic query expansion, giving robust coverage even when phrasing doesn\'t closely match the source material.',
     '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects when a query references a specific figure, table, or equation and fetches it directly, bypassing vector search entirely for faster, more precise results.',
-    { gif: 'assets/litrag/figure-lookup.gif', caption: 'Asking about Figure 1 from a specific paper' },
+    { gif: 'figure-lookup.gif', caption: 'Asking about Figure 1 from a specific paper' },
     '<strong style="color:var(--text);">Answer grounding:</strong> Every response is scored for groundedness and relevance. Low-scoring answers automatically trigger query expansion and a retry before the system falls back to an explicit "insufficient information" message.',
     '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. The system also infers scope automatically — switching from local to global retrieval when the query implies it.',
-    { gif: 'assets/litrag/scope-switch.gif', caption: 'Local to global search scope switching' },
+    { gif: 'scope-switch.gif', caption: 'Local to global search scope switching' },
     '<strong style="color:var(--text);">Source traceability:</strong> Every answer links back to the exact chunk, section, page, and paper it came from. Clicking a source opens a panel showing the retrieved passage or figure with its bounding box highlighted in the original PDF.'
   ],
   results: [
