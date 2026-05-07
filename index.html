@@ -1033,9 +1033,11 @@ litrag: {
     '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects when a query references a specific figure, table, or equation and fetches it directly, bypassing vector search entirely for faster, more precise results.',
     { gif: 'figure_lookup.gif', caption: 'Can inquire information about specific figures/tables/equations from selected papers' },
     '<strong style="color:var(--text);">Answer grounding:</strong> Every response is scored for groundedness and relevance. Low-scoring answers automatically trigger query expansion and a retry before the system falls back to an explicit "insufficient information" message.',
-    '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. The system also infers scope automatically — switching from local to global retrieval when the query implies it.',
+    '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. Below you can see an example of global search.',
     { gif: 'global.gif', caption: 'Global search goes through al the pdfs' },
-    { gif: 'local.gif', caption: 'You can click on the pdfs to do a local search on them' },
+    '<strong style="color:var(--text);">When you want answers from a specific pdf, or a set of pdfs, just click on them. If you want to unselect a pdf during a chat session, you just need to click on them again and the information would be retrieved from the remaining papers (or globally if there are no remaining papers).',
+    { gif: 'local.gif', caption: 'Above is a multi-paper local search example' },
+    '<strong style="color:var(--text);">If you want to gather more information about a certain concept that you are not sure the selected papers contain, you can just ask the chat to check other documents as well. It will automatically switch to global mode without getting rid of your paper selections (so you can continue with your local search without forgetting any papers in the selection after)',
     { gif: 'scope_switch.gif', caption: 'Model can detect local to global search scope switch form the user query' },
     '<strong style="color:var(--text);">Source traceability:</strong> Every answer links back to the exact chunk, section, page, and paper it came from. Clicking a source opens a panel showing the retrieved passage or figure with its bounding box highlighted in the original PDF.'
   ],
