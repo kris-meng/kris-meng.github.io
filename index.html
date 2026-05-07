@@ -927,7 +927,9 @@
 
   <script type="module">
     // 1. Module Imports (Grouped safely at the very top)
-    import { litragDiagram, buildDiagramHTML, initDiagram } from './visuals/diagrams/lit_rag/litrag.svg.js';
+    import { litragDiagram } from './visuals/diagrams/lit_rag/litrag.svg.js';
+    import { sleepDiagram } from './visuals/diagrams/sleep/sleep.svg.js';
+    import { buildDiagramHTML, initDiagram } from './visuals/diagrams/diagram-engine.js';
 
     // 2. Safely bind navigation & actions globally so inline HTML `onclick` works!
     window.switchTab = switchTab;
@@ -1127,6 +1129,7 @@
         tags: ['Python', 'PyTorch', 'Time-Series Modeling', 'Signal Processing', 'EEG/DBS Analysis', 'Self-Supervised Learning', 'Transfer Learning', 'Healthcare AI'],
         problem: "Parkinson’s patients often exhibit disrupted sleep architecture, with reduced or missing sleep stages compared to healthy individuals. This degradation in sleep quality is associated with disease progression and increased risk of neurodegenerative comorbidities.<br><br>However, building reliable sleep stage classifiers for Parkinson’s patients is challenging due to:<br>&nbsp;&nbsp;• high inter-patient variability<br>&nbsp;&nbsp;• scarcity of full sleep-stage distributions in clinical data",
         approachIntro: 'I designed a transfer learning framework to enable sleep stage classification directly from DBS signals, with the goal of eventual closed-loop stimulation.',
+        diagram: 'sleep', 
         approach: [
           '<strong style="color:var(--text);">1. Cross-modal transfer learning (core idea):</strong> Pretrained the model on EEG data to learn full sleep-stage representations (W, N1, N2, N3, REM), then fine-tuned on DBS recordings from Parkinson’s patients.<br><br>This allows the model to retain rich sleep-stage structure while adapting to a different signal modality.',
           '<strong style="color:var(--text);">2. Self-supervised pretraining:</strong> Used a masked autoencoder framework with two learning strategies:<br>&nbsp;&nbsp;• <strong>Contrastive objective:</strong> improved global representation quality<br>&nbsp;&nbsp;• <strong>Reconstruction objective:</strong> improved performance on rare sleep stages',
@@ -1298,6 +1301,13 @@
         if (placeholder) {
           placeholder.innerHTML = buildDiagramHTML('litrag', litragDiagram.svg);
           initDiagram('litrag', litragDiagram.tooltips);
+        }
+      }
+      if (p.diagram === 'sleep') {
+        const placeholder = document.getElementById('diagram-placeholder');
+        if (placeholder) {
+          placeholder.innerHTML = buildDiagramHTML('sleep', sleepDiagram.svg);
+          initDiagram('sleep', sleepDiagram.tooltips);
         }
       }
     }
