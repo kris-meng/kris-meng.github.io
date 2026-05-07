@@ -7,7 +7,7 @@ export const litragDiagram = {
     formulas: { title: 'Formulas', body: 'LaTeX extracted via pix2tex OCR, summarized into plain-English by Qwen2.5.' },
     qdrant: { title: 'Nomic + Qdrant', body: 'Vectors stored in Qdrant with all structural metadata for filtered retrieval.' },
     query: { title: 'User query', body: 'Natural language question. Can be targeted at specific papers or the whole library.' },
-    router: { title: 'Query router', body: 'Detects intent (comparison, trend, etc.) and determines local vs global search scope.' },
+    router: { title: 'Query router', body: 'Detects intent (comparison, trend, etc.) and determines local vs global search scope. Considers recent conversation history while contextualizing.' },
     directlookup: { title: 'Direct lookup', body: 'Bypasses vector search to fetch specific Figures/Tables by ID if mentioned.' },
     hybrid: { title: 'Hybrid retrieval', body: 'Combines dense semantic search with keyword BM25 scoring for accuracy.' },
     enriched: { title: 'Enriched context', body: 'Retrieved text chunks are cross-referenced with their associated figures and tables.' },
