@@ -62,7 +62,7 @@
     }
 
     .sidebar-photo {
-      width: 100px; height: 100px; /* Slightly smaller to fit side-by-side */
+      width: 100px; height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--border);
@@ -475,53 +475,54 @@
     .modal-link-ghost:hover { border-color: var(--muted); }
 
     .modal-video { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-          .diagram-tooltip {
-  position: absolute;
-  background: var(--surface);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  max-width: 240px;
-  pointer-events: none;
-  z-index: 999;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.15s, transform 0.15s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
+    
+    .diagram-tooltip {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      max-width: 240px;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
 
-.diagram-tooltip.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .diagram-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.diagram-tooltip-title {
-  font-family: var(--font-sans-2);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--accent);
-  margin-bottom: 0.3rem;
-}
+    .diagram-tooltip-title {
+      font-family: var(--font-sans-2);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
 
-.diagram-tooltip-body {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-}
+    .diagram-tooltip-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
-.diagram-wrap {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
+    .diagram-wrap {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
 
-.diagram-hint {
-  font-family: var(--font-sans-2);
-  font-size: 11px;
-  color: var(--muted);
-  opacity: 0.6;
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.05em;
-}
+    .diagram-hint {
+      font-family: var(--font-sans-2);
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.6;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
 
     @media (min-width: 1600px) {
       :root { --sidebar-w: 340px; }
@@ -922,8 +923,21 @@
   </div>
 
   <script type="module">
-    import { litragDiagram } from '.litrag.svg.js';
-    import { buildDiagramHTML, initDiagram } from '.diagram-engine.js';
+    // 1. Module Imports (Grouped safely at the very top)
+    import { litragDiagram, buildDiagramHTML, initDiagram } from './litrag.svg.js';
+
+    // 2. Safely bind navigation & actions globally so inline HTML `onclick` works!
+    window.switchTab = switchTab;
+    window.setActive = setActive;
+    window.handleNavClick = handleNavClick;
+    window.scrollCarousel = scrollCarousel;
+    window.scrollToCard = scrollToCard;
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.closeModalOnBg = closeModalOnBg;
+    window.openResume = openResume;
+
+    // 3. Tab Switching Logic
     function switchTab(tab, isFromSidebar = false) {
       document.getElementById('tab-exp').classList.toggle('active', tab === 'exp');
       document.getElementById('tab-edu').classList.toggle('active', tab === 'edu');
@@ -933,7 +947,6 @@
     }
 
     let activeKey = null, manualOverride = false, scrollTimeout;
-
     const navIds = { about: 'nav-about', exp: 'nav-exp', edu: 'nav-edu', projects: 'nav-projects' };
 
     function setActive(key) { activeKey = key; updateNav(); }
@@ -971,6 +984,7 @@
       }
     });
 
+    // 4. Project Filters & Carousel Logic
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1011,9 +1025,8 @@
 
     updateDots();
 
-    // ── PROJECT DATA ──
-// ── PROJECT DATA ──
-  const projects = {
+    // 5. Project Database
+    const projects = {
       tms: {
         badge: 'evolved technology hackathon winner',
         title: 'TMS Stimulation Visualizer',
@@ -1068,41 +1081,41 @@
         github: 'https://github.com/kris-meng/Mental-Health-Chatbot-Guardrail-Training'
       },
 
-litrag: {
-  badge: null,
-  title: 'LitRAG — Literature Review Assistant',
-  date: '2026 — Personal Project',
-  tags: ['Python', 'RAG', 'LLMs', 'Docling', 'Qdrant', 'Docker'],
-  problem: 'Academic literature review is slow and fragmented. Researchers manually cross-reference dozens of papers to extract findings, compare methodologies, and track down specific figures or equations — with no easy way to trace where an answer actually came from.',
-  approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable, grounded answers.',
-  diagram: 'litrag',
-  approach: [
-    '<strong style="color:var(--text);">Structured document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL), and LaTeX formulas (via pix2tex OCR) — treating text, figures, tables, and equations as distinct retrieval targets rather than flattening everything into raw text.',
-    { gif: 'ingest.gif', caption: 'You can upload new PDFs' },
-    '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines dense semantic search (Nomic embeddings + Qdrant) with keyword retrieval and automatic query expansion, giving robust coverage even when phrasing doesn\'t closely match the source material.',
-    '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects when a query references a specific figure, table, or equation and fetches it directly, bypassing vector search entirely for faster, more precise results.',
-    { gif: 'figure_lookup.gif', caption: 'Can inquire information about specific figures/tables/equations from selected papers' },
-    '<strong style="color:var(--text);">Answer grounding:</strong> Every response is scored for groundedness and relevance. Low-scoring answers automatically trigger query expansion and a retry before the system falls back to an explicit "insufficient information" message.',
-    '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. Below you can see an example of global search.',
-    { gif: 'global.gif', caption: 'Global search goes through al the pdfs' },
-    'When you want answers from a specific pdf, or a set of pdfs, just click on them. If you want to unselect a pdf during a chat session, you just need to click on them again and the information would be retrieved from the remaining papers (or globally if there are no remaining papers).',
-    { gif: 'local.gif', caption: 'Above is a multi-paper local search example' },
-    'If you want to gather more information about a certain concept that you are not sure the selected papers contain, you can just ask the chat to check other documents as well. It will automatically switch to global mode without getting rid of your paper selections (so you can continue with your local search without forgetting any papers in the selection after)',
-    { gif: 'scope_switch.gif', caption: 'Model can detect local to global search scope switch form the user query' },
-    '<strong style="color:var(--text);">Source traceability:</strong> Every answer links back to the exact chunk, section, page, and paper it came from. Clicking a source opens a panel showing the retrieved passage or figure with its bounding box highlighted in the original PDF.'
-  ],
-  results: [
-    'Multi-paper querying with per-paper focus toggling from the sidebar',
-    'Figures, tables, equations, and text chunks handled as first-class retrieval targets',
-    'Drag-and-drop PDF ingestion with real-time indexing feedback',
-    'Source citations in answers are clickable and link directly to the relevant page in the original document'
-  ],
-  futureWork: [
-    'Cross-encoder reranking for improved retrieval quality',
-    'Qdrant server mode for concurrent access and native full-text search'
-  ],
-  github: 'https://github.com/kris-meng/lit_review_rag'
-},
+      litrag: {
+        badge: null,
+        title: 'LitRAG — Literature Review Assistant',
+        date: '2026 — Personal Project',
+        tags: ['Python', 'RAG', 'LLMs', 'Docling', 'Qdrant', 'Docker'],
+        problem: 'Academic literature review is slow and fragmented. Researchers manually cross-reference dozens of papers to extract findings, compare methodologies, and track down specific figures or equations — with no easy way to trace where an answer actually came from.',
+        approachIntro: 'Built a research-grade RAG system that ingests PDFs at the structural level — sections, figures, tables, and formulas — and supports natural language querying with fully traceable, grounded answers.',
+        diagram: 'litrag',
+        approach: [
+          '<strong style="color:var(--text);">Structured document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL), and LaTeX formulas (via pix2tex OCR) — treating text, figures, tables, and equations as distinct retrieval targets rather than flattening everything into raw text.',
+          { gif: 'ingest.gif', caption: 'You can upload new PDFs' },
+          '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines dense semantic search (Nomic embeddings + Qdrant) with keyword retrieval and automatic query expansion, giving robust coverage even when phrasing doesn\'t closely match the source material.',
+          '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects when a query references a specific figure, table, or equation and fetches it directly, bypassing vector search entirely for faster, more precise results.',
+          { gif: 'figure_lookup.gif', caption: 'Can inquire information about specific figures/tables/equations from selected papers' },
+          '<strong style="color:var(--text);">Answer grounding:</strong> Every response is scored for groundedness and relevance. Low-scoring answers automatically trigger query expansion and a retry before the system falls back to an explicit "insufficient information" message.',
+          '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. Below you can see an example of global search.',
+          { gif: 'global.gif', caption: 'Global search goes through all the pdfs' },
+          'When you want answers from a specific pdf, or a set of pdfs, just click on them. If you want to unselect a pdf during a chat session, you just need to click on them again and the information would be retrieved from the remaining papers (or globally if there are no remaining papers).',
+          { gif: 'local.gif', caption: 'Above is a multi-paper local search example' },
+          'If you want to gather more information about a certain concept that you are not sure the selected papers contain, you can just ask the chat to check other documents as well. It will automatically switch to global mode without getting rid of your paper selections (so you can continue with your local search without forgetting any papers in the selection after)',
+          { gif: 'scope_switch.gif', caption: 'Model can detect local to global search scope switch from the user query' },
+          '<strong style="color:var(--text);">Source traceability:</strong> Every answer links back to the exact chunk, section, page, and paper it came from. Clicking a source opens a panel showing the retrieved passage or figure with its bounding box highlighted in the original PDF.'
+        ],
+        results: [
+          'Multi-paper querying with per-paper focus toggling from the sidebar',
+          'Figures, tables, equations, and text chunks handled as first-class retrieval targets',
+          'Drag-and-drop PDF ingestion with real-time indexing feedback',
+          'Source citations in answers are clickable and link directly to the relevant page in the original document'
+        ],
+        futureWork: [
+          'Cross-encoder reranking for improved retrieval quality',
+          'Qdrant server mode for concurrent access and native full-text search'
+        ],
+        github: 'https://github.com/kris-meng/lit_review_rag'
+      },
 
       sleep: {
         badge: "master's thesis project",
@@ -1176,7 +1189,8 @@ litrag: {
       }
     };
  
-  function buildModalHTML(p) {
+    // 6. Modal Renderer
+    function buildModalHTML(p) {
       let html = '';
       
       // 1. Badge
@@ -1200,59 +1214,50 @@ litrag: {
       }
       html += `</div>`; // Close grid
  
-      // 3. Tech Stack (Tags) moved right below the header
+      // 3. Tech Stack (Tags)
       if (p.tags && p.tags.length) {
         html += `<div class="modal-tags" style="margin-bottom: 1.5rem;">` + p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + `</div>`;
         html += `<div class="modal-divider"></div>`;
       }
 
-      // 4. Problem
+      // 4. Problem Statement
       if (p.problem) {
         html += `<p class="modal-section-title">// problem</p>`;
         html += `<p class="modal-prose">${p.problem}</p>`;
       }
  
-// 5. Approach
-if (p.diagram || p.approachIntro || (p.approach && p.approach.length)) {
-  html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
-  if (p.approachIntro) html += `<p class="modal-prose">${p.approachIntro}</p>`;
+      // 5. System Approach & Diagrams
+      if (p.diagram || p.approachIntro || (p.approach && p.approach.length)) {
+        html += `<div class="modal-divider"></div><p class="modal-section-title">// approach</p>`;
+        if (p.approachIntro) html += `<p class="modal-prose">${p.approachIntro}</p>`;
 
-  if (p.diagram) {
-    // Interactive diagram first
-    const mod = window._diagrams?.[p.diagram];
-    if (mod) html += buildDiagramHTML(p.diagram, mod.svg);
+        // Placeholder for Interactive Diagram
+        if (p.diagram) {
+          html += `<div class="modal-divider"></div>
+                   <p class="modal-section-title">// system architecture</p>
+                   <div id="diagram-placeholder" style="margin-bottom: 1.5rem;"></div>`;
+        }
 
-    // GIFs below the diagram
-    if (p.gifs && p.gifs.length) {
-      html += `<div class="modal-divider"></div><p class="modal-section-title">// demo</p>`;
-      for (const item of p.gifs) {
-        html += `
-          <figure style="margin: 1rem 0;">
-            <img src="${item.gif}" alt="${item.caption || ''}"
-              style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"/>
-            ${item.caption ? `<figcaption style="font-family:var(--font-sans-2);font-size:12px;color:var(--muted);margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
-          </figure>`;
+        // Render detailed step-by-step approach steps
+        if (p.approach && p.approach.length) {
+          let inList = false;
+          for (const item of p.approach) {
+            if (typeof item === 'string') {
+              if (!inList) { html += `<ul class="modal-bullets">`; inList = true; }
+              html += `<li>${item}</li>`;
+            } else if (item.gif) {
+              if (inList) { html += `</ul>`; inList = false; }
+              html += `
+                <figure style="margin: 1.5rem 0;">
+                  <img src="${item.gif}" alt="${item.caption || ''}"
+                    style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"/>
+                  ${item.caption ? `<figcaption style="font-family:var(--font-sans-2);font-size:12px;color:var(--muted);margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
+                </figure>`;
+            }
+          }
+          if (inList) html += `</ul>`;
+        }
       }
-    }
-  } else if (p.approach && p.approach.length) {
-    let inList = false;
-    for (const item of p.approach) {
-      if (typeof item === 'string') {
-        if (!inList) { html += `<ul class="modal-bullets">`; inList = true; }
-        html += `<li>${item}</li>`;
-      } else if (item.gif) {
-        if (inList) { html += `</ul>`; inList = false; }
-        html += `
-          <figure style="margin: 1rem 0;">
-            <img src="${item.gif}" alt="${item.caption || ''}"
-              style="width:100%; border-radius:6px; border:1px solid var(--border); display:block;"/>
-            ${item.caption ? `<figcaption style="font-family:var(--font-sans-2);font-size:12px;color:var(--muted);margin-top:0.4rem;">${item.caption}</figcaption>` : ''}
-          </figure>`;
-      }
-    }
-    if (inList) html += `</ul>`;
-  }
-}
  
       // 6. Results
       if (p.results && p.results.length) {
@@ -1260,13 +1265,13 @@ if (p.diagram || p.approachIntro || (p.approach && p.approach.length)) {
         html += `<ul class="modal-bullets">` + p.results.map(b => `<li>${b}</li>`).join('') + `</ul>`;
       }
  
-      // 7. Contribution
+      // 7. Personal Contribution
       if (p.contribution) {
         html += `<div class="modal-divider"></div><p class="modal-section-title">// my contribution</p>`;
         html += `<p class="modal-prose">${p.contribution}</p>`;
       }
 
-      // 8. Future Work
+      // 8. Future Milestones
       if (p.futureWork && p.futureWork.length) {
         html += `<div class="modal-divider"></div><p class="modal-section-title">// future work</p>`;
         html += `<ul class="modal-bullets">` + p.futureWork.map(b => `<li>${b}</li>`).join('') + `</ul>`;
@@ -1275,27 +1280,24 @@ if (p.diagram || p.approachIntro || (p.approach && p.approach.length)) {
       return html;
     }
  
-async function openModal(key) {
-  const p = projects[key];
-  if (!p) return;
+    // 7. Modal Control
+    async function openModal(key) {
+      const p = projects[key];
+      if (!p) return;
 
-  // Pre-load diagram module if needed
-  if (p.diagram) {
-    const mod = await import(`./diagrams/${p.diagram}.svg.js`);
-    // Store on window so buildModalHTML can access it synchronously
-    window._diagrams = window._diagrams || {};
-    window._diagrams[p.diagram] = mod[p.diagram + 'Diagram'];
-  }
+      document.getElementById('modal-body').innerHTML = buildModalHTML(p);
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
 
-  document.getElementById('modal-body').innerHTML = buildModalHTML(p);
-  document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  // Boot tooltip interactivity after DOM is ready
-  if (p.diagram && window._diagrams?.[p.diagram]) {
-    initDiagram(p.diagram, window._diagrams[p.diagram].tooltips);
-  }
-}
+      // Boot interactive diagram if designated project contains system architecture
+      if (p.diagram === 'litrag') {
+        const placeholder = document.getElementById('diagram-placeholder');
+        if (placeholder) {
+          placeholder.innerHTML = buildDiagramHTML('litrag', litragDiagram.svg);
+          initDiagram('litrag', litragDiagram.tooltips);
+        }
+      }
+    }
  
     function closeModal() {
       document.getElementById('modal-overlay').classList.remove('open');
