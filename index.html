@@ -586,7 +586,7 @@
 
   <aside class="sidebar">
     <div class="sidebar-profile">
-      <img src="IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
+      <img src="visuals/images/IMG_0818.PNG" alt="Kristal Menguc" class="sidebar-photo" />
       <div class="sidebar-profile-text">
         <div class="sidebar-name">Kristal<br><span>Menguc</span></div>
       </div>
@@ -927,7 +927,7 @@
 
   <script type="module">
     // 1. Module Imports (Grouped safely at the very top)
-    import { litragDiagram, buildDiagramHTML, initDiagram } from './litrag.svg.js';
+    import { litragDiagram, buildDiagramHTML, initDiagram } from './visuals/diagrams/lit_rag/litrag.svg.js';
 
     // 2. Safely bind navigation & actions globally so inline HTML `onclick` works!
     window.switchTab = switchTab;
@@ -1094,17 +1094,17 @@
         diagram: 'litrag',
         approach: [
           '<strong style="color:var(--text);">Structured document parsing:</strong> Uses Docling to extract section-aware chunks, figure descriptions (via Qwen2.5-VL), and LaTeX formulas (via pix2tex OCR) — treating text, figures, tables, and equations as distinct retrieval targets rather than flattening everything into raw text.',
-          { gif: 'ingest.gif', caption: 'You can upload new PDFs' },
+          { gif: 'visuals/gifs/lit_rag/ingest.gif', caption: 'You can upload new PDFs' },
           '<strong style="color:var(--text);">Hybrid retrieval:</strong> Combines dense semantic search (Nomic embeddings + Qdrant) with keyword retrieval and automatic query expansion, giving robust coverage even when phrasing doesn\'t closely match the source material.',
           '<strong style="color:var(--text);">Direct asset lookup:</strong> Detects when a query references a specific figure, table, or equation and fetches it directly, bypassing vector search entirely for faster, more precise results.',
-          { gif: 'figure_lookup.gif', caption: 'Can inquire information about specific figures/tables/equations from selected papers' },
+          { gif: 'visuals/gifs/lit_rag/figure_lookup.gif', caption: 'Can inquire information about specific figures/tables/equations from selected papers' },
           '<strong style="color:var(--text);">Answer grounding:</strong> Every response is scored for groundedness and relevance. Low-scoring answers automatically trigger query expansion and a retry before the system falls back to an explicit "insufficient information" message.',
           '<strong style="color:var(--text);">Adaptive search scope:</strong> Users can pin specific papers for focused queries, or search across the full library when the relevant source isn\'t known. Below you can see an example of global search.',
-          { gif: 'global.gif', caption: 'Global search goes through all the pdfs' },
+          { gif: 'visuals/gifs/lit_rag/global.gif', caption: 'Global search goes through all the pdfs' },
           'When you want answers from a specific pdf, or a set of pdfs, just click on them. If you want to unselect a pdf during a chat session, you just need to click on them again and the information would be retrieved from the remaining papers (or globally if there are no remaining papers).',
-          { gif: 'local.gif', caption: 'Above is a multi-paper local search example' },
+          { gif: 'visuals/gifs/lit_rag/local.gif', caption: 'Above is a multi-paper local search example' },
           'If you want to gather more information about a certain concept that you are not sure the selected papers contain, you can just ask the chat to check other documents as well. It will automatically switch to global mode without getting rid of your paper selections (so you can continue with your local search without forgetting any papers in the selection after)',
-          { gif: 'scope_switch.gif', caption: 'Model can detect local to global search scope switch from the user query' },
+          { gif: 'visuals/gifs/lit_rag/scope_switch.gif', caption: 'Model can detect local to global search scope switch from the user query' },
           '<strong style="color:var(--text);">Source traceability:</strong> Every answer links back to the exact chunk, section, page, and paper it came from. Clicking a source opens a panel showing the retrieved passage or figure with its bounding box highlighted in the original PDF.'
         ],
         results: [
@@ -1316,7 +1316,7 @@
         <h2 class="modal-title">Resume</h2>
         <p class="modal-meta">Kristal Menguc</p>
         <div class="modal-divider"></div>
-        <iframe src="git_resume.pdf" style="width:100%;height:500px;border:none;border-radius:4px;background:var(--bg);"></iframe>
+        <iframe src="documents/git_resume.pdf" style="width:100%;height:500px;border:none;border-radius:4px;background:var(--bg);"></iframe>
         <div class="modal-divider"></div>
         <div class="modal-links">
           <a href="git_resume.pdf" download class="modal-link modal-link-primary">Download PDF</a>
